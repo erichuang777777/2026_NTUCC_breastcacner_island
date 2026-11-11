@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "status": "seeded from what taiwan-study loads on 2026-11-11; Codex owns updates",
+  "fields": {
+    "source": "blender = exported GLB from a .blend; procedural = generated in web JS (not usable by film until migrated)",
+    "lod0": "film / close-up version",
+    "lod1": "web version"
+  },
+  "assets": [
+    {
+      "id": "BLD-NTUCC-001",
+      "title": "臺大癌醫",
+      "source": "blender",
+      "version": "v07",
+      "lod1": "webgl-prototype/assets/ntucc-blender-v07.glb",
+      "lod0": null
+    },
+    {
+      "id": "BLD-HOPE-LIGHTHOUSE-001",
+      "title": "希望燈塔",
+      "source": "blender",
+      "version": "v01",
+      "lod1": "webgl-prototype/assets/poster-lighthouse-tower-v01.glb",
+      "lod0": null
+    },
+    {
+      "id": "CHR-ROLE-MATRIX-001",
+      "title": "六款角色（visitor、scarf、doctor、nurse、scrub、surgeon）",
+      "source": "blender",
+      "version": "v05",
+      "lod1": "webgl-prototype/assets/characters/v05/{id}.glb",
+      "lod0": null,
+      "rig": "shared skeleton; actions idle, walk, wave, read"
+    },
+    {
+      "id": "ENV-TAIWAN-ARCHIPELAGO-001",
+      "title": "十島地形與海岸",
+      "source": "procedural",
+      "version": null,
+      "lod1": "webgl-prototype/taiwan-layout.js, taiwan-coastline.js",
+      "lod0": null
+    },
+    {
+      "id": "BLD-DEPARTMENT-001",
+      "title": "十科主題建築與道具",
+      "source": "procedural",
+      "version": null,
+      "lod1": "webgl-prototype/hope-landscapes.js",
+      "lod0": null
+    },
+    {
+      "id": "ENV-PROP-KIT-001",
+      "title": "環境裝飾（樹、花圃、雲、海洋動物、熱氣球）",
+      "source": "procedural",
+      "version": null,
+      "lod1": "webgl-prototype/hope-environment.js, hope-landmark-gardens.js",
+      "lod0": null
+    },
+    {
+      "id": "ENV-WISH-SKY-001",
+      "title": "星空、許願星與流星",
+      "source": "procedural",
+      "version": null,
+      "lod1": "webgl-prototype/hope-wishes.js",
+      "lod0": null
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "status": "day and night copied from taiwan-study.js (2026-11-11); dusk not defined yet; tone mapping to be switched to AgX in phase 2",
+  "colorManagement": {
+    "target": { "toneMapping": "AgX", "exposure": 1.0 },
+    "webCurrent": { "toneMapping": "ACESFilmic", "exposure": 1.0, "three": "0.160.0" }
+  },
+  "presets": {
+    "day": {
+      "background": "#c8dfdc",
+      "fog": { "color": "#c8dfdc", "near": 110, "far": 250 },
+      "hemisphere": { "sky": "#ecf6ff", "ground": "#a5aa88", "intensity": 1.65 },
+      "sun": { "color": "#fff0d5", "intensity": 2.6, "position": [-24, 38, 27], "castShadow": true },
+      "fill": { "color": "#d8ebff", "intensity": 0.85, "position": [7, 5, -7] },
+      "emissive": { "lampIntensity": 1, "hospitalWindows": 0, "lighthouseLantern": 0 }
+    },
+    "dusk": null,
+    "night": {
+      "background": "#243f52",
+      "fog": { "color": "#243f52", "near": 110, "far": 250 },
+      "hemisphere": { "sky": "#ecf6ff", "ground": "#a5aa88", "intensity": 0.58 },
+      "sun": { "color": "#fff0d5", "intensity": 0.2, "position": [-24, 38, 27], "castShadow": true },
+      "fill": { "color": "#d8ebff", "intensity": 0.4, "position": [7, 5, -7] },
+      "emissive": { "lampIntensity": 3, "hospitalWindows": "per-material strength", "lighthouseLantern": 8 }
+    }
+  }
+}

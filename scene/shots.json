@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "status": "draft: web acceptance and reference-render shots (the film uses H3 and has no cameras); absolute values pending capture from the web scene",
+  "conventions": {
+    "coordinateSystem": "three.js / glTF, +Y up, scene units",
+    "blenderConversion": "blender (x, y, z) = web (x, -z, y)",
+    "fov": "vertical field of view in degrees",
+    "aspect": "width / height"
+  },
+  "shots": [
+    {
+      "id": "S01-day-overview",
+      "title": "白天全景",
+      "acceptance": true,
+      "timeOfDay": "day",
+      "aspect": 1.7778,
+      "fov": 38,
+      "camera": { "position": null, "target": null },
+      "webSource": "taiwan-study.js setView('campus'): target (0.2, 1.6, -2), offset (19, 19, 27)",
+      "mustShow": ["taiwan-silhouette", "ntucc", "hope-lighthouse"],
+      "characters": []
+    },
+    {
+      "id": "S02-hospital-entrance",
+      "title": "醫院入口",
+      "acceptance": true,
+      "timeOfDay": "day",
+      "aspect": 1.7778,
+      "fov": 38,
+      "camera": { "position": null, "target": null },
+      "webSource": "taiwan-study.js setView('hospital'): target hospitalPoint at 0.45 * hospitalHeight + 0.7, offset (10, 8, 13)",
+      "mustShow": ["ntucc", "ntucc-entrance-canopy"],
+      "characters": []
+    },
+    {
+      "id": "S03-night-wish",
+      "title": "夜間許願",
+      "acceptance": true,
+      "timeOfDay": "night",
+      "aspect": 1.7778,
+      "fov": 38,
+      "camera": { "position": null, "target": null },
+      "webSource": "taiwan-study.js setView('tower'): target (towerX, 4.0, towerZ), offset (5, 4, 11)",
+      "mustShow": ["hope-lighthouse", "wish-sky"],
+      "characters": []
+    },
+    {
+      "id": "S04-meteor-to-lighthouse",
+      "title": "流星抵達燈塔",
+      "acceptance": true,
+      "timeOfDay": "night",
+      "aspect": 1.7778,
+      "fov": 38,
+      "camera": { "position": null, "target": null },
+      "webSource": "none yet",
+      "mustShow": ["taiwan-silhouette", "hope-lighthouse", "meteor"],
+      "characters": []
+    }
+  ]
+}

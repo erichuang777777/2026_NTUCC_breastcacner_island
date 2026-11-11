@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "status": "draft: web-side mappings pending; film folder is read-only for this project",
+  "filmRoot": "/Users/eric777/Desktop/breastcancer_island_of_hope_movie/videos/hope-island-film",
+  "filmToWeb": {
+    "characters": [
+      {
+        "filmId": "ho",
+        "title": "女主角",
+        "identityReference": "assets/interactive-web-reference-pack/characters/hero/ho_front.png",
+        "stageReferences": [
+          "assets/interactive-web-reference-pack/characters/hero/stage_chemo.png",
+          "assets/interactive-web-reference-pack/characters/hero/stage_recovery.png",
+          "assets/interactive-web-reference-pack/characters/hero/stage_six_year.png",
+          "assets/interactive-web-reference-pack/characters/hero/stage_wedding.png"
+        ],
+        "webAsset": null,
+        "turnaround": "assets/interactive-web-reference-pack/characters/hero/turnaround_clothed.png",
+        "expressionSheet": "assets/interactive-web-reference-pack/characters/hero/expression_sheet.png"
+      },
+      {
+        "filmId": "aze",
+        "title": "阿澤",
+        "identityReference": "assets/interactive-web-reference-pack/characters/supporting/aze_front.png",
+        "webAsset": null
+      },
+      {
+        "filmId": "dr_lin",
+        "title": "林醫師",
+        "identityReference": "assets/interactive-web-reference-pack/characters/supporting/dr_lin_front.png",
+        "webAsset": null
+      },
+      {
+        "filmId": "dr_wang",
+        "title": "王醫師",
+        "identityReference": "assets/interactive-web-reference-pack/characters/supporting/dr_wang_front.png",
+        "webAsset": null
+      },
+      {
+        "filmId": "nurse_chen",
+        "title": "陳護理師",
+        "identityReference": "assets/interactive-web-reference-pack/characters/supporting/nurse_chen_front.png",
+        "webAsset": null
+      },
+      {
+        "filmId": "young_patient",
+        "title": "年輕病友",
+        "identityReference": "assets/characters/supporting/young_patient_front_gpt_v1.png",
+        "webAsset": null
+      }
+    ],
+    "islandLighthouse": {
+      "adoptedStoryboards": "assets/interactive-web-reference-pack/island-lighthouse/storyboard_*.png",
+      "conceptOptions": {
+        "status": "not chosen by the user; do not treat any option as final",
+        "A": "assets/interactive-web-reference-pack/island-lighthouse/concept_A_real_installation.png",
+        "B": "assets/interactive-web-reference-pack/island-lighthouse/concept_B_promise_lights.png",
+        "C": "assets/interactive-web-reference-pack/island-lighthouse/concept_C_reflection_poetry.png"
+      }
+    }
+  },
+  "webToFilm": {
+    "renders": []
+  }
+}
