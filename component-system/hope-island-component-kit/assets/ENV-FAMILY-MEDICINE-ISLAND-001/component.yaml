@@ -1,0 +1,71 @@
+component:
+  id: "ENV-FAMILY-MEDICINE-ISLAND-001"
+  name_zh: "家庭醫學科島"
+  category: "environment"
+  purpose: "依電影級全島概念圖拆解全人照護中心、島體、預防保健衛教與香草園，再組裝至同一個連續世界。"
+
+version: "0.4.0"
+status: "detached-cinematic-landscape-v01"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/08-family-medicine-island-v01-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/family-medicine-terrain-input-v01.png"
+    export: "export/family-medicine-terrain-hunyuan-textured-v01.glb"
+    web_export: "export/family-medicine-terrain-web-lod-v01.glb"
+    status: "integrated-v1"
+  - id: "holistic-care-center-v01"
+    source: "reference/modeling/family-medicine-center-input-v01.png"
+    export: "export/family-medicine-center-hunyuan-textured-v01.glb"
+    web_export: "export/family-medicine-center-web-lod-v01.glb"
+    status: "integrated-v1"
+  - id: "holistic-care-center-blender-v02"
+    source: "source/build_family_medicine_center_v02.py"
+    export: "export/family-medicine-center-blender-v02.glb"
+    preview: "export/family-medicine-center-blender-v02-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/family-medicine-center-blender-v02.glb"
+    status: "integrated-candidate"
+    metrics:
+      meshes: 172
+      triangles: 67350
+      file_size_mb: 3.9
+  - id: "holistic-care-center-blender-v03"
+    source: "source/build_family_medicine_center_v03.py"
+    export: "export/family-medicine-center-blender-v03.glb"
+    preview: "export/family-medicine-center-blender-v03-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/family-medicine-center-blender-v03.glb"
+    status: "integrated-candidate"
+    metrics: {meshes: 171, triangles: 67344, web_scale: 0.25}
+    includes: ["low-flowing-green-roof", "compact-glass-dome", "curve-aligned-glazing", "care-hands-leaf-emblem", "shared-decision-table", "exam-bed", "vitals-monitor", "paired-accessible-ramps"]
+  - id: "preventive-health-pavilion-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/08-family-medicine-island-v01-cinematic.png"
+    status: "integrated-procedural-layer-v1"
+  - id: "family-medicine-landscape-detached-v01"
+    source: "source/extract_family_medicine_landscape.py"
+    export: "export/family-medicine-landscape-detached-v01.glb"
+    web_export: "../../../../../webgl-prototype/assets/family-medicine-landscape-detached-v01.glb"
+    preview: "export/family-medicine-detached-assembly-v01-preview.png"
+    status: "integrated"
+    metrics: {meshes: 229, triangles: 126040, file_size_mb: 2.4}
+    includes: ["detached-island-terrain", "preventive-health-pavilion", "herb-garden", "fruit-trees", "paired-accessible-ramps", "dock", "embedded-shore-rocks", "timber-perimeter-fence"]
+  - id: "herb-garden-and-props-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/source/build_macro_blender.py"
+    status: "integrated-procedural-layer-v1"
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.family_medicine"
+  web_version: "2.10.18"
+
+review:
+  integrated_preview: "../ENV-TAIWAN-ARCHIPELAGO-001/export/macro-preview-v12.png"
+  notes:
+    - "地形、中心、衛教亭、香草園、果樹與設施必須維持獨立網格。"
+    - "入口、雙側坡道、中央廣場、碼頭與聯島橋必須保持可通行。"
+    - "診間以圓桌共同決策與基礎生命徵象設備呈現。"
+    - "v03 壓低多層綠屋頂並縮小中央玻璃採光頂；窗格改為沿橢圓立面排列，保留共同決策圓桌、診療床與生命徵象設備。"

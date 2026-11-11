@@ -1,0 +1,60 @@
+component:
+  id: "ENV-IMAGING-ISLAND-001"
+  name_zh: "影像檢查島"
+  category: "environment"
+  version: "0.5.0"
+  status: "detached-cinematic-landscape-v02"
+  purpose: "以電影參考圖拆解島體、影像檢查館與庭園附屬元件，再整合至連續全島場景。"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/02-imaging-island-v02-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/imaging-island-terrain-input-v01.png"
+    status: "modeled-and-integrated"
+    includes: ["rock-cliff", "plateau", "paths", "plaza", "stairs", "dock", "bridge-stubs", "fences"]
+  - id: "imaging-pavilion-v01"
+    source: "reference/modeling/imaging-pavilion-input-v01.png"
+    status: "modeled-and-integrated"
+    includes: ["stone-facade", "curved-roof", "window-bays", "entrance", "interior-imaging-room"]
+  - id: "imaging-pavilion-v02"
+    source: "source/build_imaging_pavilion_v02.py"
+    export: "export/imaging-pavilion-blender-v02.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 161, triangles: 27974, web_scale: 0.25}
+    includes: ["central-barrel-roof", "layered-wing-roofs", "roof-ribs", "stone-courses", "glass-bays", "arched-entry", "mri-relief", "signal-wave-emblem", "warm-interior-lighting"]
+  - id: "imaging-pavilion-v03"
+    source: "source/build_imaging_pavilion_v03.py"
+    export: "export/imaging-pavilion-blender-v03.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 251, triangles: 46836, web_scale: 0.25}
+    includes: ["rounded-low-wings", "blue-grey-single-tier-roofs", "curved-glass-bays", "scanner-gantry-emblem", "signal-wave-relief", "diagnostic-bed", "diagnostic-monitor"]
+  - id: "garden-props-v01"
+    source: "source/extract_imaging_landscape.py"
+    export: "export/imaging-island-landscape-v01.glb"
+    status: "detached-modeled-and-integrated"
+    metrics: {meshes: 377, triangles: 137244, web_scale: 1.0}
+    includes: ["trees", "dense-flower-beds", "shrubs", "benches", "lanterns", "exhibition-shelter", "layered-shore-rocks", "timber-garden-fence"]
+  - id: "diagnostic-arrival-v01"
+    source: "source/extract_imaging_landscape.py"
+    export: "export/imaging-island-landscape-v01.glb"
+    status: "modeled-and-integrated"
+    includes: ["scanner-arrival-rings", "diagnostic-route-inlays", "illuminated-route-markers"]
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.imaging"
+  macro_preview: "../ENV-TAIWAN-ARCHIPELAGO-001/export/macro-preview-v12.png"
+  web_version: "2.10.9"
+  collider_source: "webgl-prototype/app.js archipelagoWorldColliders / archipelagoDecorationColliders"
+
+review:
+  notes:
+    - "禁止將完整電影圖一次轉成黏合模型。"
+    - "各元件須保留高模與網頁 LOD，並以相同座標原點重新組裝。"
+    - "完成判準為全島鏡頭構圖、材質與光線對照電影參考圖，而非單一模型存在。"
+    - "v03 依電影參考圖重整低矮圓角雙翼與藍灰屋頂，加入影像掃描環、訊號波紋、診斷床與螢幕；保留既有獨立地形與庭園元件。"

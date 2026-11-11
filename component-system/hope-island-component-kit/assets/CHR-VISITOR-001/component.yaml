@@ -1,0 +1,137 @@
+component:
+  id: "CHR-VISITOR-001"
+  name_zh: "島民訪客角色"
+  category: "character"
+  version: "0.3.0-web.2"
+  status: "website-integration-candidate"
+  purpose: "代表匿名參與者，在島上移動與觸發照護據點互動"
+  source_visual: "../../../../visual-references/V11_角色方向與動作規格確認板_v2.png"
+
+geometry:
+  normalized_height: 1.0
+  footprint: "約 0.32 x 0.24 個角色高度"
+  origin: "雙腳之間地面中心"
+  forward_axis_blender: "+Y"
+  up_axis_blender: "+Z"
+  triangle_budget: 6000
+  lod_levels: ["LOD0: 6000", "LOD1: 2500", "LOD2: 800"]
+
+visual:
+  style: "依 Qwen 四視圖建立的溫暖生活模擬遊戲風，柔和霧面、成熟大頭短身比例"
+  palette_hex: ["#E8E1D7", "#9AA58F", "#B98F91", "#55656B"]
+  max_material_slots: 3
+  texture_policy: "先以純色材質建模；不使用布料紋理"
+
+interaction:
+  collider: "capsule; radius 0.12, height 0.78 (normalized units)"
+  interactive: false
+  interaction_id: null
+  animations: ["idle", "walk", "interact", "wave"]
+
+files:
+  concept_turnaround: "reference/turnaround-v01.png"
+  qwen_turnaround_test: "reference/qwen/turnaround-qwen-test-v01.png"
+  hunyuan_modeling_input: "reference/modeling/character-hunyuan-input-v02.png"
+  source_blend: "source/model.blend"
+  source_generator: "source/build_blender.py"
+  hunyuan_shape_generator: "source/generate_hunyuan_shape.py"
+  hunyuan_texture_generator: "source/generate_hunyuan_texture.py"
+  hunyuan_runtime: "source/Dockerfile.hunyuan-gb10"
+  hunyuan_lod_generator: "source/build_hunyuan_lods.py"
+  meshopt_lod_generator: "source/build_meshopt_lods.sh"
+  delivery_glb: "export/chr-visitor-001.glb"
+  preview: "export/preview-v02.png"
+  hunyuan_shape_candidate: "export/chr-visitor-hunyuan-shape-v02.glb"
+  hunyuan_shape_preview: "export/chr-visitor-hunyuan-shape-v02-preview.png"
+  hunyuan_textured_candidate: "export/chr-visitor-hunyuan-textured-v02.glb"
+  hunyuan_textured_preview: "export/chr-visitor-hunyuan-textured-v02-preview.png"
+  hunyuan_lod0_preview_rejected: "export/chr-visitor-hunyuan-textured-lod0-v02-preview.png"
+  meshopt_lod0_candidate: "export/chr-visitor-hunyuan-meshopt-lod0-v03.glb"
+  meshopt_lod1_candidate: "export/chr-visitor-hunyuan-meshopt-lod1-v03.glb"
+  meshopt_lod2_candidate: "export/chr-visitor-hunyuan-meshopt-lod2-v03.glb"
+  meshopt_lod0_preview: "export/chr-visitor-hunyuan-meshopt-lod0-v03-preview.png"
+  meshopt_lod2_preview: "export/chr-visitor-hunyuan-meshopt-lod2-v03-preview.png"
+  rigged_lod0_candidate: "export/chr-visitor-hunyuan-rigged-lod0-v03.glb"
+  rigged_lod0_web_candidate: "export/chr-visitor-hunyuan-rigged-lod0-meshopt-v03.glb"
+  rigged_lod0_web_no_quantization: "export/chr-visitor-hunyuan-rigged-lod0-meshopt-noq-v03.glb"
+  rigged_walk_frame_01: "export/chr-visitor-hunyuan-rigged-walk-f01-v03.png"
+  rigged_walk_frame_13: "export/chr-visitor-hunyuan-rigged-walk-f13-v03.png"
+
+metrics:
+  triangles: 5256
+  material_slots: 15
+  mesh_nodes: 49
+  textures: 0
+  glb_bytes: 457264
+
+hunyuan_shape_candidate_metrics:
+  triangles: 405564
+  vertices: 202782
+  material_slots: 0
+  mesh_nodes: 1
+  glb_bytes: 7300940
+  website_deployed: false
+
+hunyuan_textured_candidate_metrics:
+  triangles: 405564
+  material_slots: 1
+  texture_images: 1
+  glb_bytes: 15316416
+  website_deployed: false
+
+lod_attempt_v02:
+  status: "rejected"
+  generated_triangles: [80000, 34999, 20100]
+  reason: "Blender Collapse 降面破壞 Hunyuan 貼圖 UV，預覽出現大量黑色三角面；禁止部署。"
+
+meshopt_lods_v03:
+  status: "visual-preview-passed"
+  method: "gltfpack 1.3 attribute-aware simplification (-sv)"
+  triangles: [162224, 81112, 47982]
+  glb_bytes: [8125408, 6208280, 5067168]
+  uv_integrity: "passed on LOD0 and LOD2 rendered previews"
+  black_triangle_artifacts: false
+  website_deployed: false
+
+rig_candidate_v03:
+  status: "skin-and-animation-verified"
+  bones: 18
+  skin_count: 1
+  animations: ["idle: frames 1-60", "walk: frames 1-24"]
+  weighting: "deterministic spatial body-region weights; Bone Heat attempt rejected"
+  walk_deformation_preview: "passed at frames 1 and 13"
+  uncompressed_glb_bytes: 31098400
+  meshopt_quantized_glb_bytes: 7766548
+  meshopt_quantized_status: "rejected; Three.js skin bounds exploded to feetY -4664.939"
+  meshopt_no_quantization_glb_bytes: 12855160
+  website_deployed: true
+  website_version: "2.3.10"
+  website_asset: "webgl-prototype/assets/chr-visitor-001-v03-meshopt-noq.glb"
+  browser_audit:
+    asset_version: "v03"
+    animations: ["idle", "walk"]
+    idle_walk_idle_transition: "passed"
+    height: 1.38
+    feet_y: 0.8
+    world_y: 0.8
+    single_world: true
+    navigation_links_passed: "18/18"
+  website_v2_3_10_changes:
+    walk_animation_requires_actual_displacement: true
+    blocked_input_walk_in_place_removed: true
+    map_destination_moves_character: true
+    safe_arrival_uses_walkable_and_collider_checks: true
+    separate_detail_scene_used: false
+    runtime_reaudit: "passed in Ego Lite on v2.3.10"
+    safe_arrivals_passed: "12/12"
+    actual_destination_switches_passed: "12/12"
+    lighthouse_wasd_displacement_and_walk_passed: "4/4"
+    feet_y_after_destination_switch: 0.8
+    single_world_after_destination_switch: true
+
+review:
+  content_owner: "活動企劃／網站團隊"
+  visual_reviewer: null
+  medical_reviewer: "不適用；若角色承載衛教訊息需另審"
+  approved_at: null
+  notes: ["v0.2 程序化模型預覽仍過於積木化，未部署至網站。", "v0.3 候選形體由透明背景單人 A-pose 美術輸入經 Hunyuan3D-2 產生，頭巾、開襟衫、手掌與人體比例已明顯接近參考圖。", "v0.3 貼圖候選已具備玫瑰色頭巾與外套、奶油色上衣、藍色長褲、大眼五官及白鞋；手部邊緣與胸前緞帶仍有貼圖瑕疵。", "一般 Collapse 降面會破壞此模型 UV，LOD v02 已拒絕使用。", "Meshoptimizer v03 以 UV／法線等頂點屬性參與簡化；LOD0 與 LOD2 預覽均無黑面。", "Bone Heat 自動權重失敗版本已拒絕；改用所有頂點皆有歸屬的空間區域權重後，GLB 已驗證 1 組 skin、18 根骨骼及 idle／walk 兩段動畫。", "7.77 MB 量化 Meshopt 版在 Three.js 發生 skin 爆模，已拒絕；12.86 MB 無量化 Meshopt 版通過瀏覽器高度、腳底、動畫與單一世界稽核。", "v2.3.10 將走路動畫改為依實際位移觸發，並讓地圖目的地直接移動島民到同一世界中的安全入口；瀏覽器重新載入稽核待下一輪執行。"]

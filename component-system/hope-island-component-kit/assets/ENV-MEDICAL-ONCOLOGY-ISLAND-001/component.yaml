@@ -1,0 +1,78 @@
+component:
+  id: "ENV-MEDICAL-ONCOLOGY-ISLAND-001"
+  name_zh: "腫瘤內科島"
+  category: "environment"
+  version: "0.4.0"
+  status: "detached-cinematic-three-layer-v03"
+  purpose: "依電影參考圖拆解島體、輸液治療館與庭園附屬元件，再整合至連續全島場景。"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/03-medical-oncology-island-v02-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/medical-oncology-terrain-input-v01.png"
+    status: "modeled-and-integrated"
+  - id: "terrain-circulation-detached-v01"
+    source: "source/extract_medical_oncology_terrain.py"
+    export: "export/medical-oncology-terrain-detached-v01.glb"
+    status: "detached-modeled-and-integrated"
+    metrics: {meshes: 38, triangles: 92316, web_scale: 1.0}
+    includes: ["rock-cliff", "grass-plateau", "circulation-base", "dock", "embedded-shore-rocks"]
+  - id: "infusion-clinic-v01"
+    source: "reference/modeling/medical-oncology-clinic-input-v01.png"
+    status: "modeled-and-integrated"
+  - id: "infusion-clinic-v02"
+    source: "source/build_infusion_clinic_v02.py"
+    export: "export/medical-oncology-clinic-blender-v02.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 147, triangles: 27228, web_scale: 0.25}
+    includes: ["elliptical-clinic", "stepped-copper-roofs", "central-barrel-roof", "curved-glass-bays", "infusion-recliners", "iv-stands", "arched-entry", "infusion-bag-emblem", "warm-interior-lighting"]
+  - id: "infusion-clinic-v03"
+    source: "source/build_infusion_clinic_v03.py"
+    export: "export/medical-oncology-clinic-blender-v03.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 131, triangles: 16880, web_scale: 0.25}
+    includes: ["elliptical-clinic", "curve-aligned-glass-bays", "single-tier-copper-roof", "low-central-crown", "infusion-recliners", "iv-stands", "infusion-bag-emblem"]
+  - id: "infusion-clinic-v04"
+    source: "source/build_infusion_clinic_v04.py"
+    export: "export/medical-oncology-clinic-blender-v04.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 199, triangles: 35140, web_scale: 0.285}
+    includes: ["wider-central-facade", "layered-stone-cornices", "standing-seam-barrel-roof", "deep-curved-window-surrounds", "entry-planters", "infusion-recliners", "iv-stands", "infusion-bag-emblem"]
+  - id: "garden-props-v01"
+    source: "source/build_medical_oncology_landscape_v01.py"
+    export: "export/medical-oncology-landscape-blender-v01.glb"
+    status: "modeled-and-integrated-v01"
+    includes: ["rocky-shore", "grass-top", "promenade", "healing-pavilion", "cherry-trees", "evergreen-trees", "flower-beds", "garden-lamps", "benches"]
+  - id: "garden-props-v02"
+    source: "source/build_medical_oncology_landscape_v01.py"
+    export: "export/medical-oncology-landscape-blender-v02.glb"
+    status: "modeled-and-integrated-v02"
+    includes: ["promenade", "healing-pavilion", "cherry-trees", "evergreen-trees", "flower-beds", "garden-lamps", "benches"]
+    excludes: ["terrain-shell", "grass-shell", "shore-rock-shell"]
+  - id: "garden-props-v03"
+    source: "source/build_medical_oncology_landscape_v01.py"
+    export: "export/medical-oncology-landscape-blender-v03.glb"
+    status: "modeled-and-integrated-v03"
+    metrics: {meshes: 782, triangles: 43912, web_scale: 0.25}
+    includes: ["healing-pavilion", "cherry-trees", "evergreen-trees", "dense-ring-flower-beds", "perimeter-timber-fence", "warm-garden-lamps", "benches", "dock-boat"]
+    excludes: ["terrain-shell", "grass-shell", "shore-rock-shell"]
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.medical_oncology"
+  web_version: "2.10.12"
+  collider_source: "webgl-prototype/app.js archipelagoWorldColliders / archipelagoDecorationColliders"
+
+review:
+  notes:
+    - "島體、輸液治療館與庭園物件必須保持獨立網格。"
+    - "禁止建立點入小島後的第二場景。"
+    - "v03 修正外側窗格固定直線造成的懸空，改為沿橢圓立面排列；簡化多層屋頂並降低中央弧頂，保留輸液治療專屬物件。"
+    - "v04 依電影海報重建較寬的中央識別牆、石材簷口、弧頂金屬肋條、深窗框與入口花台，並提高單一世界中的建築占比。"
+    - "景觀 v01 將岩岸、草地、步道、療癒亭、櫻花、常綠樹、花圃、燈具與座椅拆成獨立模型，再與 v04 建築組回同一個連續世界。"
+    - "景觀 v02 移除與宏觀島體重疊的地形殼，只保留可貼合舊島面的景觀元件，修正實機畫面中的雙層浮空島。"

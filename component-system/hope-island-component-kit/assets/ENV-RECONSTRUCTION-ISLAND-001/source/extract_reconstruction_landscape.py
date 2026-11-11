@@ -1,0 +1,142 @@
+"""Detach and refine the reconstruction-island landscape from the macro GLB."""
+
+from pathlib import Path
+import math
+
+import bpy
+from mathutils import Matrix
+
+
+HERE = Path(__file__).resolve().parent
+PROJECT = HERE.parents[4]
+SOURCE = PROJECT / "webgl-prototype/assets/env-taiwan-archipelago-001-macro.glb"
+OUTPUT = HERE.parent / "export/reconstruction-landscape-detached-v01.glb"
+WEB_OUTPUT = PROJECT / "webgl-prototype/assets/reconstruction-landscape-detached-v01.glb"
+ORIGIN = (11.0, 1.0, 0.0)
+
+
+def clear_scene():
+    bpy.ops.object.select_all(action="SELECT")
+    bpy.ops.object.delete(use_global=False)
+
+
+def is_landscape_mesh(obj):
+    name = obj.name.lower()
+    return obj.type == "MESH" and (
+        "reconstruction-terrain-hi" in name or "reconstruction-prop-hi" in name
+    )
+
+
+def material(name, color, roughness=0.82):
+    mat = bpy.data.materials.get(name) or bpy.data.materials.new(name)
+    mat.diffuse_color = (*color, 1.0)
+    mat.use_nodes = True
+    shader = mat.node_tree.nodes.get("Principled BSDF")
+    if shader:
+        shader.inputs["Base Color"].default_value = (*color, 1.0)
+        shader.inputs["Roughness"].default_value = roughness
+    return mat
+
+
+def finish(obj, name, mat, root, bevel=0.0):
+    obj.name = name
+    obj.data.materials.append(mat)
+    obj.parent = root
+    if bevel:
+        modifier = obj.modifiers.new("reconstruction-soft-edge", "BEVEL")
+        modifier.width = bevel
+        modifier.segments = 2
+    return obj
+
+
+clear_scene()
+bpy.ops.import_scene.gltf(filepath=str(SOURCE))
+meshes = [obj for obj in bpy.context.scene.objects if is_landscape_mesh(obj)]
+if not meshes:
+    raise RuntimeError("No reconstruction landscape meshes found in macro world")
+
+world_matrices = {obj: obj.matrix_world.copy() for obj in meshes}
+translation = Matrix.Translation((-ORIGIN[0], -ORIGIN[1], -ORIGIN[2]))
+
+bpy.ops.object.select_all(action="DESELECT")
+for obj in bpy.context.scene.objects:
+    if obj not in meshes:
+        obj.select_set(True)
+bpy.ops.object.delete(use_global=False)
+
+root = bpy.data.objects.new("ENV-RECONSTRUCTION-LANDSCAPE-001-DETACHED", None)
+bpy.context.collection.objects.link(root)
+for obj in meshes:
+    obj.parent = None
+    obj.matrix_world = translation @ world_matrices[obj]
+    obj.parent = root
+
+rock_dark = material("reconstruction-v01-rock-dark", (0.27, 0.23, 0.22), 0.95)
+rock_warm = material("reconstruction-v01-rock-warm", (0.49, 0.38, 0.33), 0.90)
+fence_wood = material("reconstruction-v01-fence-wood", (0.39, 0.22, 0.13), 0.82)
+
+# Low embedded rock facets reinforce the cleaned Hunyuan cliff without
+# reintroducing the floating thin fragments removed from the source terrain.
+for index in range(40):
+    angle = index / 40 * math.tau + 0.13
+    if any(abs((angle - opening + math.pi) % math.tau - math.pi) < 0.17 for opening in (-math.pi / 2, 0.0, math.pi)):
+        continue
+    radius = 2.78 + 0.11 * math.sin(index * 1.67)
+    scale = 0.112 + (index % 4) * 0.017
+    bpy.ops.mesh.primitive_ico_sphere_add(
+        subdivisions=1,
+        radius=1.0,
+        location=(math.cos(angle) * radius, math.sin(angle) * radius, -0.23 + (index % 3) * 0.024),
+    )
+    rock = bpy.context.object
+    rock.scale = (scale * 1.35, scale, scale * 0.78)
+    rock.rotation_euler[2] = angle * 0.72
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    finish(rock, f"reconstruction-v01-shore-rock-{index:02d}", rock_dark if index % 2 else rock_warm, root)
+
+# Perimeter timber rails follow the poster while leaving all travel approaches
+# open.  They remain decorative and are not added to avatar colliders.
+segments = 42
+for index in range(segments):
+    angle = index / segments * math.tau
+    next_angle = (index + 1) / segments * math.tau
+    if any(abs((angle - opening + math.pi) % math.tau - math.pi) < 0.22 for opening in (-math.pi / 2, 0.0, math.pi)):
+        continue
+    radius = 2.57
+    x, y = math.cos(angle) * radius, math.sin(angle) * radius
+    nx, ny = math.cos(next_angle) * radius, math.sin(next_angle) * radius
+    bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=0.034, depth=0.46, location=(x, y, 1.25))
+    finish(bpy.context.object, f"reconstruction-v01-fence-post-{index:02d}", fence_wood, root)
+    length = math.hypot(nx - x, ny - y)
+    heading = math.atan2(ny - y, nx - x)
+    for rail_index, height in enumerate((1.18, 1.37)):
+        bpy.ops.mesh.primitive_cube_add(location=((x + nx) / 2, (y + ny) / 2, height))
+        rail = bpy.context.object
+        rail.scale = (length / 2, 0.024, 0.024)
+        rail.rotation_euler[2] = heading
+        bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+        finish(rail, f"reconstruction-v01-fence-rail-{index:02d}-{rail_index}", fence_wood, root, bevel=0.010)
+
+bpy.ops.object.select_all(action="DESELECT")
+root.select_set(True)
+for obj in root.children_recursive:
+    obj.select_set(True)
+bpy.context.view_layer.objects.active = root
+
+for target in (OUTPUT, WEB_OUTPUT):
+    target.parent.mkdir(parents=True, exist_ok=True)
+    bpy.ops.export_scene.gltf(
+        filepath=str(target),
+        export_format="GLB",
+        use_selection=True,
+        export_apply=True,
+        export_draco_mesh_compression_enable=True,
+        export_draco_mesh_compression_level=6,
+        export_image_format="WEBP",
+    )
+
+export_meshes = [obj for obj in root.children_recursive if obj.type == "MESH"]
+for obj in export_meshes:
+    obj.data.calc_loop_triangles()
+triangles = sum(len(obj.data.loop_triangles) for obj in export_meshes)
+print(f"Exported {len(export_meshes)} meshes / {triangles} triangles to {OUTPUT} and {WEB_OUTPUT}")

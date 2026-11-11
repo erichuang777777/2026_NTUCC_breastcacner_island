@@ -1,0 +1,42 @@
+component:
+  id: "TYPE-DESCRIPTIVE-NNN"
+  name_zh: "待填元件名稱"
+  category: "character | building | environment | prop | ui"
+  version: "0.1.0"
+  status: "brief | concept | blockout | modeling | review | approved | deprecated"
+  purpose: "元件在體驗中的用途"
+  source_visual: "reference/"
+
+geometry:
+  normalized_height: null
+  footprint: null
+  origin: "地面中心或物件底面中心"
+  forward_axis_blender: "+Y"
+  up_axis_blender: "+Z"
+  triangle_budget: null
+  lod_levels: ["LOD0", "LOD1", "LOD2"]
+
+visual:
+  style: "original cozy life-simulation, low-poly, matte"
+  palette_hex: ["#E8E1D7", "#C8B9A8", "#9AA58F", "#8296A1", "#B98F91", "#55656B"]
+  max_material_slots: 3
+  texture_policy: "優先無貼圖或共用低解析度圖集；避免細碎紋理"
+
+interaction:
+  collider: null
+  interactive: false
+  interaction_id: null
+  animations: []
+
+files:
+  concept_turnaround: "reference/turnaround-v01.png"
+  source_blend: "source/model.blend"
+  delivery_glb: "export/asset-id.glb"
+  preview: "export/preview.png"
+
+review:
+  content_owner: null
+  visual_reviewer: null
+  medical_reviewer: null
+  approved_at: null
+  notes: []

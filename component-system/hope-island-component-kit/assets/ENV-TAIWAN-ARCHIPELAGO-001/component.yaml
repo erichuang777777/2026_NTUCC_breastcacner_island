@@ -1,0 +1,50 @@
+component:
+  id: "ENV-TAIWAN-ARCHIPELAGO-001"
+  name_zh: "臺灣輪廓照護群島"
+  category: "environment"
+  version: "0.4.0-candidate.1"
+  status: "spacious-layout-v13-integrated"
+  purpose: "以十座照護主題島與中央公共核心共同形成橫向臺灣輪廓"
+  source_visual: "../../../../visual-references/hope-island-taiwan-silhouette-day-night-wishes.png"
+
+layout:
+  orientation: "橫向臺灣輪廓；北側朝畫面左上、南側朝畫面右下"
+  care_islands: 10
+  central_nodes: 2
+  pathology_asset: "ENV-PATHOLOGY-ISLAND-001"
+  connections: "short bridges, paths, near-shore stepping platforms"
+  coordinates_web:
+    pathology: [-5, -9]
+    imaging: [5, -9]
+    medical_oncology: [-11, -1]
+    surgical_oncology: [0, -1]
+    reconstruction: [11, -1]
+    radiation_oncology: [-11, 8]
+    cardiology: [0, 8]
+    family_medicine: [11, 8]
+    rehabilitation: [-5, 17]
+    fertility: [5, 17]
+    ntucc: [-15, -10]
+    lighthouse: [14, 17]
+
+performance:
+  overview_lod: "與單島相同 GLB 內的 LOD2；禁止另一套總覽替身"
+  overview_triangle_budget: 120000
+  overview_draw_call_budget: 70
+  web_asset: "export/env-taiwan-archipelago-001-macro-v13-web.glb"
+  compression: "Meshopt + WebP"
+  web_asset_size_mb: 94.68
+
+review:
+  visual_reviewer: null
+  approved_at: null
+  notes: ["WebGL 已切換為十座照護島、中央公共核心、橋接、穩定目的地 ID、聚焦導覽及跨島步行技術驗證。", "目前島形、海岸、建築、路徑密度與中央癌醫地標不符合核准美術，禁止視為正式模型或美術完成版。"]
+
+implementation:
+  source: "../../../../webgl-prototype/app.js"
+  destination_ids: ["island.pathology", "island.imaging", "island.medical_oncology", "island.surgical_oncology", "island.reconstruction", "island.radiation_oncology", "island.cardiology", "island.family_medicine", "island.rehabilitation", "island.fertility", "place.hope_lighthouse", "place.ntucc_center"]
+  verified_at: "2026-11-05"
+  web_version: "2.5.0"
+  verified_viewports: ["1440x900", "390x844"]
+  asset_invariant: "全島與單島使用同一 GLB、相同島形、建築、材質及配置；只允許相機與 LOD 不同。"
+  visual_gate: "固定相機網頁截圖逐島對照 16:9 電影基準圖；任一主要造型不同即退回重建。"

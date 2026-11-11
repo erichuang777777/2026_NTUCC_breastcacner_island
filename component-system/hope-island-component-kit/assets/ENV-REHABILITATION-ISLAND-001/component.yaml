@@ -1,0 +1,70 @@
+component:
+  id: "ENV-REHABILITATION-ISLAND-001"
+  name_zh: "復健科島"
+  category: "environment"
+  purpose: "依電影級全島概念圖拆解復健中心、島體、水療池、步態訓練與戶外運動設施，再組裝至同一個連續世界。"
+
+version: "0.4.0"
+status: "detached-cinematic-landscape-v01"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/09-rehabilitation-island-v01-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/rehabilitation-terrain-input-v01.png"
+    export: "export/rehabilitation-terrain-hunyuan-textured-v01.glb"
+    web_export: "export/rehabilitation-terrain-web-lod-v01.glb"
+    status: "integrated-v1"
+  - id: "rehabilitation-center-v01"
+    source: "reference/modeling/rehabilitation-center-input-v01.png"
+    export: "export/rehabilitation-center-hunyuan-textured-v01.glb"
+    web_export: "export/rehabilitation-center-web-lod-v01.glb"
+    status: "integrated-v1"
+  - id: "rehabilitation-center-blender-v02"
+    export: "export/rehabilitation-center-blender-v02.glb"
+    preview: "export/rehabilitation-center-blender-v02-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/rehabilitation-center-blender-v02.glb"
+    status: "integrated-candidate"
+    metrics:
+      meshes: 187
+      triangles: 54986
+      file_size_mb: 2.9
+  - id: "rehabilitation-center-blender-v03"
+    source: "source/build_rehabilitation_center_v03.py"
+    export: "export/rehabilitation-center-blender-v03.glb"
+    preview: "export/rehabilitation-center-blender-v03-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/rehabilitation-center-blender-v03.glb"
+    status: "integrated-candidate"
+    design: "poster-barrel-glass-rehab-v03"
+    metrics:
+      meshes: 212
+      triangles: 77908
+      file_size_mb: 3.0
+  - id: "gait-training-and-exercise-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/09-rehabilitation-island-v01-cinematic.png"
+    status: "integrated-procedural-layer-v1"
+  - id: "rehabilitation-landscape-detached-v01"
+    source: "source/extract_rehabilitation_landscape.py"
+    export: "export/rehabilitation-landscape-detached-v01.glb"
+    web_export: "../../../../../webgl-prototype/assets/rehabilitation-landscape-detached-v01.glb"
+    preview: "export/rehabilitation-detached-assembly-v01-preview.png"
+    status: "integrated"
+    metrics: {meshes: 217, triangles: 126120, file_size_mb: 2.4}
+    includes: ["detached-island-terrain", "hydrotherapy-pool", "gait-training-corridor", "outdoor-exercise-platform", "tactile-path", "dock", "embedded-shore-rocks", "bridge-aligned-fence-openings"]
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.rehabilitation"
+  web_version: "2.10.19"
+
+review:
+  integrated_preview: "../ENV-TAIWAN-ARCHIPELAGO-001/export/macro-preview-v12.png"
+  notes:
+    - "中心、地形、水療池、步態廊道與運動平台必須維持獨立網格。"
+    - "入口坡道、觸覺步道、碼頭與聯島橋必須保持角色可通行。"
+    - "v03 以中央拱頂、弧形玻璃步態訓練館與連續銅綠立縫屋頂取代 v02 泡狀屋頂和直排窗。"
+    - "web_version: 2.9.0"

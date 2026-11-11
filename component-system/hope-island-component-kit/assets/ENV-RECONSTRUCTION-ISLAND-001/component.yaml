@@ -1,0 +1,57 @@
+component:
+  id: "ENV-RECONSTRUCTION-ISLAND-001"
+  name_zh: "乳房重建／整形外科島"
+  category: "environment"
+  version: "0.4.0"
+  status: "detached-cinematic-landscape-v01"
+  purpose: "依電影參考圖拆解島體、重建中心與庭園元件，再組裝至連續全島場景。"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/05-reconstruction-island-v02-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/reconstruction-terrain-input-v01.png"
+    export: "export/reconstruction-terrain-hunyuan-textured-clean-v02.glb"
+    web_export: "export/reconstruction-terrain-hunyuan-textured-lod0-v02.glb"
+    status: "integrated-v1"
+  - id: "reconstruction-center-v01"
+    source: "reference/modeling/reconstruction-center-input-v01.png"
+    export: "export/reconstruction-center-hunyuan-textured-v01.glb"
+    web_export: "export/reconstruction-center-hunyuan-textured-lod0-v01.glb"
+    status: "integrated-v1"
+  - id: "reconstruction-center-v02"
+    source: "source/build_reconstruction_center_v02.py"
+    export: "export/reconstruction-center-blender-v02.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 145, triangles: 77040, web_scale: 0.25}
+    includes: ["elliptical-reconstruction-center", "six-independent-petal-roofs", "central-bud", "glass-consultation-bays", "prosthesis-display", "accessible-ramp", "awareness-ribbon-emblem", "warm-interior-lighting"]
+  - id: "reconstruction-center-v03"
+    source: "source/build_reconstruction_center_v03.py"
+    export: "export/reconstruction-center-blender-v03.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 142, triangles: 68724, web_scale: 0.25}
+    includes: ["elliptical-reconstruction-center", "five-spread-petal-roofs", "low-central-bud", "curve-aligned-glass-bays", "prosthesis-display", "accessible-ramp", "awareness-ribbon-emblem"]
+  - id: "garden-props-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/source/build_macro_blender.py"
+    status: "integrated-v1"
+  - id: "detached-landscape-v01"
+    source: "source/extract_reconstruction_landscape.py"
+    export: "export/reconstruction-landscape-detached-v01.glb"
+    status: "detached-modeled-and-integrated"
+    metrics: {meshes: 262, triangles: 495759, web_scale: 1.0}
+    includes: ["cleaned-rock-cliff", "circulation-base", "dock", "reconstruction-education-pavilion", "cherry-trees", "flower-beds", "garden-lamps", "timber-fence", "embedded-shore-rocks"]
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.reconstruction"
+  web_version: "2.10.15"
+
+review:
+  notes:
+    - "島體、花瓣屋頂重建中心、無障礙坡道與庭園物件必須維持獨立網格。"
+    - "入口、中央廣場、碼頭與兩側聯島橋必須維持可通行。"
+    - "v03 將懸空直線窗格改為沿橢圓立面排列，降低中央花苞並將五片屋頂花瓣向左右展開，移除 v02 疊盤式輪廓。"

@@ -1,0 +1,70 @@
+component:
+  id: "ENV-CARDIOLOGY-ISLAND-001"
+  name_zh: "心臟科島"
+  category: "environment"
+  purpose: "依電影級全島概念圖拆解心臟評估中心、島體、衛教設施與景觀，再組裝至同一個連續世界。"
+
+version: "0.4.0"
+status: "detached-cinematic-landscape-v01"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/07-cardiology-island-v01-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/cardiology-terrain-input-v01.png"
+    export: "export/cardiology-terrain-hunyuan-textured-v01.glb"
+    web_export: "export/cardiology-terrain-hunyuan-textured-lod0-v01.glb"
+    status: "integrated-v1"
+  - id: "cardiology-assessment-center-v01"
+    source: "reference/modeling/cardiology-center-input-v01.png"
+    export: "export/cardiology-center-hunyuan-textured-v01.glb"
+    web_export: "export/cardiology-center-hunyuan-textured-lod0-v01.glb"
+    status: "integrated-v1"
+  - id: "cardiology-assessment-center-blender-v02"
+    source: "source/build_cardiology_center_v02.py"
+    export: "export/cardiology-center-blender-v02.glb"
+    preview: "export/cardiology-center-blender-v02-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/cardiology-center-blender-v02.glb"
+    status: "integrated-candidate"
+    metrics:
+      meshes: 153
+      triangles: 47088
+      file_size_mb: 2.5
+  - id: "cardiology-assessment-center-blender-v03"
+    source: "source/build_cardiology_center_v03.py"
+    export: "export/cardiology-center-blender-v03.glb"
+    preview: "export/cardiology-center-blender-v03-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/cardiology-center-blender-v03.glb"
+    status: "integrated-candidate"
+    metrics: {meshes: 151, triangles: 44592, web_scale: 0.25}
+    includes: ["low-wide-heart-roof", "central-heart-notch", "curve-aligned-glazing", "heart-ecg-emblem", "ultrasound-room", "paired-accessible-ramps"]
+  - id: "heart-health-education-pavilion-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/07-cardiology-island-v01-cinematic.png"
+    status: "integrated-v1"
+  - id: "cardiology-landscape-detached-v01"
+    source: "source/extract_cardiology_landscape.py"
+    export: "export/cardiology-landscape-detached-v01.glb"
+    web_export: "../../../../../webgl-prototype/assets/cardiology-landscape-detached-v01.glb"
+    preview: "export/cardiology-detached-assembly-v01-preview.png"
+    status: "integrated"
+    metrics: {meshes: 273, triangles: 88128, file_size_mb: 1.6}
+    includes: ["detached-island-terrain", "heart-health-garden", "paired-accessible-ramps", "dock", "embedded-shore-rocks", "timber-perimeter-fence"]
+  - id: "garden-and-wayfinding-props-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/source/build_macro_blender.py"
+    status: "integrated-v1"
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.cardiology"
+  web_version: "2.10.17"
+
+review:
+  notes:
+    - "地形、心臟評估中心、衛教亭、植栽與設施必須維持獨立網格。"
+    - "入口、雙側坡道、中央廣場、碼頭與聯島橋必須保持可通行。"
+    - "心臟超音波設備以安心、非威脅性的臨床空間呈現。"
+    - "v03 壓低並拉寬雙瓣心形屋頂，加入中央凹口；窗格改為沿橢圓立面排列，保留超音波診間與雙側坡道。"

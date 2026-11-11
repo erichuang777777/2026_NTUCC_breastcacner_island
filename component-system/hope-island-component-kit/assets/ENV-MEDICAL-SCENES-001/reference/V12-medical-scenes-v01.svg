@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3840" height="2160" viewBox="0 0 3840 2160">
+<defs><linearGradient id="b" x2="1" y2="1"><stop stop-color="#f7f2ea"/><stop offset="1" stop-color="#e9e0d6"/></linearGradient><style>text{font-family:'Noto Sans TC Thin','Noto Sans TC',sans-serif;fill:#3d545a}.h1{font-size:68px;font-weight:700}.h2{font-size:38px;font-weight:700}.h3{font-size:28px;font-weight:700}.body{font-size:24px}.small{font-size:19px}.muted{fill:#819093}.white{fill:white}</style></defs>
+<rect width="3840" height="2160" fill="url(#b)"/><circle cx="180" cy="160" r="62" fill="#8daab4"/><path d="M130 166c30-36 70-36 100 0" stroke="#fff" stroke-width="10" fill="none"/><text x="280" y="145" class="h1">V12｜醫療場景元件套件</text><text x="282" y="200" class="body muted">用六個可重複組裝的照護場景，呈現乳癌治療團隊每天使用的設備</text>
+<rect x="170" y="295" width="3070" height="1570" rx="52" fill="#fff" opacity=".88"/><image x="195" y="330" width="3020" height="1500" preserveAspectRatio="xMidYMid meet" xlink:href="v12-medical-scenes.png"/>
+<g transform="translate(3290 295)"><rect width="510" height="1570" rx="48" fill="#536b70"/><text x="40" y="78" class="h2 white">場景與重點設備</text>
+<text x="42" y="153" class="h3 white">01 手術房</text><text x="42" y="195" class="small white">手術燈｜手術床｜麻醉機</text><text x="42" y="230" class="small white">生理監視器｜器械台</text>
+<text x="42" y="312" class="h3 white">02 乳房影像檢查</text><text x="42" y="354" class="small white">乳房攝影機｜超音波機</text><text x="42" y="389" class="small white">檢查椅｜隱私屏風</text>
+<text x="42" y="471" class="h3 white">03 放射腫瘤治療</text><text x="42" y="513" class="small white">醫用直線加速器 LINAC</text><text x="42" y="548" class="small white">治療床｜操作控制台</text>
+<text x="42" y="630" class="h3 white">04 化療給藥區</text><text x="42" y="672" class="small white">輸液幫浦｜點滴架｜管路</text><text x="42" y="707" class="small white">治療躺椅｜呼叫鈴</text>
+<text x="42" y="789" class="h3 white">05 復健治療室</text><text x="42" y="831" class="small white">頸／腰椎牽引｜懸吊系統</text><text x="42" y="866" class="small white">治療床｜平行桿</text>
+<text x="42" y="948" class="h3 white">06 病理工作室</text><text x="42" y="990" class="small white">顯微鏡｜玻片｜標本櫃</text>
+<path d="M40 1045h430" stroke="#fff" opacity=".25"/><text x="42" y="1110" class="h3 white">建模共通規則</text><text x="42" y="1160" class="small white">每個場景拆成：六角底座、</text><text x="42" y="1198" class="small white">牆面／設備／互動物件。</text><text x="42" y="1248" class="small white">機器維持清楚外形，細節用</text><text x="42" y="1286" class="small white">低多邊形與共用材質簡化。</text>
+<rect x="40" y="1360" width="430" height="155" rx="28" fill="#fff" opacity=".12"/><text x="68" y="1415" class="small white">院方資料校準</text><text x="68" y="1460" class="small white">放療主機依院方資料採 LINAC</text><text x="68" y="1498" class="small white">造型，不使用迴旋加速器。</text></g>
+<text x="170" y="1980" class="small muted">概念圖依公開院方空間與設備資料整理；不是院內實景照片或設備品牌型錄。正式模型再依場地照片確認比例與位置。</text></svg>

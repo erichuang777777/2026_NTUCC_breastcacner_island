@@ -1,0 +1,37 @@
+component:
+  id: "BLD-HOPE-LIGHTHOUSE-001"
+  name_zh: "聚光燈塔"
+  category: "building"
+  version: "0.6.0"
+  status: "detached-cinematic-v2"
+  purpose: "群島中央導覽錨點與希望星願完成效果的視覺中心"
+  source_visual: "reference/lighthouse-island-authoritative-v01.png"
+
+visual:
+  identifying_features: ["高挑漸縮暖米白塔身", "完整立體灰粉玫瑰絲帶", "環形燈室與粉色塔頂", "多層岩台與中央長階梯", "環狀步道與雙側木碼頭", "暖光小屋、花園、長椅與欄杆"]
+  day_state: "霧面低彩度地標"
+  night_state: "燈室發光、低成本旋轉光束"
+  max_material_slots: 4
+
+interaction:
+  interaction_id: "place.hope_lighthouse"
+  receives_events: ["wish_created", "wish_completed"]
+  stores_wish_data: false
+
+performance:
+  triangle_budget_lod0: 8000
+  lod_levels: ["LOD0", "LOD1", "LOD2"]
+
+review:
+  visual_reviewer: null
+  approved_at: null
+
+implementation:
+  source: "../../../../webgl-prototype/app.js"
+  implemented_states: ["day", "night", "rotating_beam", "wish_completed"]
+  verified_at: "2026-11-05"
+  detached_asset: "export/hope-lighthouse-island-v02.glb"
+  origin: [0, 0, 0]
+  world_anchor: [14, 0, 17]
+  added_v02: ["30 組多色岩岸石塊", "34 塊環形石徑", "54 組花叢", "3 棵多層櫻花樹", "小屋屋脊、煙囪與窗框", "4 組暖光庭園燈"]
+  limitations: ["已完成海報構圖所需的第一輪景觀密度與輪廓細化；下一版需進行岩壁材質貼圖、屋瓦法線與電影鏡頭景深校色。"]

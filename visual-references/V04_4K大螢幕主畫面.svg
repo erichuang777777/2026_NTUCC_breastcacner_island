@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3840" height="2160" viewBox="0 0 3840 2160">
+  <defs>
+    <linearGradient id="topFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f4e57" stop-opacity=".50"/>
+      <stop offset="1" stop-color="#2f4e57" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bottomFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2e4b52" stop-opacity="0"/>
+      <stop offset="1" stop-color="#263f46" stop-opacity=".70"/>
+    </linearGradient>
+    <pattern id="qrPattern" width="52" height="52" patternUnits="userSpaceOnUse">
+      <rect width="52" height="52" fill="#f8f5ef"/>
+      <rect x="0" y="0" width="21" height="21" rx="2" fill="#3d555b"/>
+      <rect x="31" y="5" width="10" height="10" rx="1" fill="#3d555b"/>
+      <rect x="16" y="31" width="16" height="16" rx="1" fill="#3d555b"/>
+      <rect x="39" y="36" width="9" height="9" rx="1" fill="#3d555b"/>
+    </pattern>
+    <style>
+      text { font-family: 'Noto Sans TC Thin', sans-serif; }
+      .white { fill: #fff; }
+      .ink { fill: #40565b; }
+      .muted { fill: #6c7e80; }
+      .panel { fill: #fbf8f2; fill-opacity: .94; stroke: #fff; stroke-opacity: .90; stroke-width: 3; }
+      .glass { fill: #38545b; fill-opacity: .86; stroke: #fff; stroke-opacity: .20; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <image x="0" y="0" width="3840" height="2160" preserveAspectRatio="xMidYMid slice" xlink:href="/workspace/scratch/e2be3293c17e/generated_images/exec-ffb4af88-20fb-41c5-a05c-af5101aaae8f.png"/>
+  <rect x="0" y="0" width="3840" height="470" fill="url(#topFade)"/>
+  <rect x="0" y="1500" width="3840" height="660" fill="url(#bottomFade)"/>
+
+  <!-- Event identity -->
+  <g transform="translate(90 78)">
+    <rect class="panel" width="1430" height="258" rx="52"/>
+    <circle cx="105" cy="128" r="72" fill="#b98f91"/>
+    <path d="M79 92 C123 58 149 107 119 130 C93 151 82 175 104 202 C58 176 46 121 79 92Z" fill="#fff" opacity=".94"/>
+    <text x="210" y="104" font-size="42" font-weight="600" fill="#b27f83">臺大癌醫・10月乳癌衛教紀念活動</text>
+    <text x="210" y="179" font-size="74" font-weight="700" class="ink">乳癌希望之島</text>
+    <text x="210" y="229" font-size="34" class="muted">多專科團隊，陪你走過每一段</text>
+  </g>
+
+  <!-- Live status -->
+  <g transform="translate(2390 78)">
+    <rect class="glass" width="1360" height="204" rx="46"/>
+    <g transform="translate(64 44)">
+      <circle cx="55" cy="58" r="46" fill="#9aa58f"/><text x="55" y="73" text-anchor="middle" font-size="42" class="white">●</text>
+      <text x="124" y="51" font-size="30" fill="#dce6e3">目前島民</text><text x="124" y="105" font-size="58" font-weight="700" class="white">128</text>
+    </g>
+    <line x1="430" y1="40" x2="430" y2="164" stroke="#fff" opacity=".22" stroke-width="3"/>
+    <g transform="translate(484 44)">
+      <circle cx="55" cy="58" r="46" fill="#8296a1"/><path d="M30 64 L48 81 L82 38" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="124" y="51" font-size="30" fill="#dce6e3">正在探索</text><text x="124" y="105" font-size="58" font-weight="700" class="white">46</text>
+    </g>
+    <line x1="868" y1="40" x2="868" y2="164" stroke="#fff" opacity=".22" stroke-width="3"/>
+    <g transform="translate(924 44)">
+      <circle cx="55" cy="58" r="46" fill="#b98f91"/><path d="M55 27 L64 48 L87 50 L69 65 L75 88 L55 76 L35 88 L41 65 L23 50 L46 48Z" fill="#fff"/>
+      <text x="124" y="51" font-size="30" fill="#dce6e3">完成衛教</text><text x="124" y="105" font-size="58" font-weight="700" class="white">83</text>
+    </g>
+  </g>
+
+  <!-- Active tour marker -->
+  <g transform="translate(1580 365)">
+    <rect class="panel" width="650" height="126" rx="36"/>
+    <circle cx="68" cy="63" r="34" fill="#7899a3"/>
+    <circle cx="68" cy="63" r="14" fill="#fff"/>
+    <text x="122" y="54" font-size="28" class="muted">導覽進行中</text>
+    <text x="122" y="94" font-size="38" font-weight="700" class="ink">多專科團隊中心</text>
+  </g>
+
+  <!-- QR participation card -->
+  <g transform="translate(3100 350)">
+    <rect class="panel" width="650" height="1020" rx="52"/>
+    <text x="325" y="86" text-anchor="middle" font-size="46" font-weight="700" class="ink">掃描加入希望之島</text>
+    <text x="325" y="132" text-anchor="middle" font-size="26" class="muted">用手機建立你的島民</text>
+
+    <rect x="116" y="180" width="418" height="418" rx="34" fill="#fff" stroke="#d9d4c9" stroke-width="3"/>
+    <rect x="145" y="209" width="360" height="360" fill="url(#qrPattern)"/>
+    <g fill="none" stroke="#3d555b" stroke-width="18">
+      <rect x="165" y="229" width="94" height="94" rx="6"/><rect x="188" y="252" width="48" height="48" rx="4"/>
+      <rect x="391" y="229" width="94" height="94" rx="6"/><rect x="414" y="252" width="48" height="48" rx="4"/>
+      <rect x="165" y="455" width="94" height="94" rx="6"/><rect x="188" y="478" width="48" height="48" rx="4"/>
+    </g>
+    <text x="325" y="632" text-anchor="middle" font-size="21" fill="#8c8c87">正式網址部署後置換 QR</text>
+
+    <g transform="translate(76 690)">
+      <circle cx="34" cy="34" r="34" fill="#8296a1"/><text x="34" y="46" text-anchor="middle" font-size="34" class="white">1</text>
+      <text x="90" y="45" font-size="32" class="ink">建立島民角色</text>
+      <circle cx="34" cy="134" r="34" fill="#b98f91"/><text x="34" y="146" text-anchor="middle" font-size="34" class="white">2</text>
+      <text x="90" y="145" font-size="32" class="ink">選擇想了解的團隊</text>
+      <circle cx="34" cy="234" r="34" fill="#9aa58f"/><text x="34" y="246" text-anchor="middle" font-size="34" class="white">3</text>
+      <text x="90" y="245" font-size="32" class="ink">在手機探索、大螢幕相遇</text>
+    </g>
+  </g>
+
+  <!-- Daily education topic -->
+  <g transform="translate(90 1640)">
+    <rect class="panel" width="1180" height="390" rx="50"/>
+    <rect x="42" y="42" width="254" height="56" rx="28" fill="#b98f91"/>
+    <text x="169" y="81" text-anchor="middle" font-size="28" font-weight="600" class="white">今日衛教主題</text>
+    <text x="52" y="178" font-size="50" font-weight="700" class="ink">不是每個人都走同一條路</text>
+    <text x="52" y="246" font-size="31" class="muted">治療會依分期、腫瘤特性與個人需求，</text>
+    <text x="52" y="294" font-size="31" class="muted">由多專科團隊共同討論與病人一起決定。</text>
+    <rect x="52" y="326" width="520" height="4" rx="2" fill="#b98f91"/>
+    <text x="596" y="340" font-size="24" fill="#8a999a">靠近中央圓亭即可開始體驗</text>
+  </g>
+
+  <!-- Department activity -->
+  <g transform="translate(1320 1710)">
+    <rect class="glass" width="1290" height="320" rx="50"/>
+    <text x="50" y="72" font-size="34" font-weight="600" class="white">目前熱門小屋</text>
+    <text x="1180" y="70" text-anchor="end" font-size="22" fill="#d8e3e1">示意數據</text>
+    <g transform="translate(50 108)">
+      <rect width="360" height="142" rx="32" fill="#f7f3ec" opacity=".94"/><circle cx="72" cy="71" r="42" fill="#7899a3"/><text x="72" y="83" text-anchor="middle" font-size="28" class="white">鏡</text><text x="136" y="61" font-size="28" class="muted">病理科</text><text x="136" y="108" font-size="44" font-weight="700" class="ink">26 人</text>
+      <g transform="translate(410 0)"><rect width="360" height="142" rx="32" fill="#f7f3ec" opacity=".94"/><circle cx="72" cy="71" r="42" fill="#b98f91"/><text x="72" y="83" text-anchor="middle" font-size="28" class="white">滴</text><text x="136" y="61" font-size="28" class="muted">腫瘤內科</text><text x="136" y="108" font-size="44" font-weight="700" class="ink">18 人</text></g>
+      <g transform="translate(820 0)"><rect width="360" height="142" rx="32" fill="#f7f3ec" opacity=".94"/><circle cx="72" cy="71" r="42" fill="#9aa58f"/><text x="72" y="83" text-anchor="middle" font-size="28" class="white">復</text><text x="136" y="61" font-size="28" class="muted">復健科</text><text x="136" y="108" font-size="44" font-weight="700" class="ink">14 人</text></g>
+    </g>
+  </g>
+
+  <!-- Anonymous live feed -->
+  <g transform="translate(2670 1630)">
+    <rect class="panel" width="1080" height="400" rx="50"/>
+    <text x="52" y="76" font-size="34" font-weight="600" class="ink">島嶼動態</text>
+    <line x1="52" y1="104" x2="1028" y2="104" stroke="#d8d3c9" stroke-width="3"/>
+    <circle cx="82" cy="164" r="22" fill="#9aa58f"/><text x="128" y="176" font-size="30" class="ink">有一位新島民加入希望之島</text><text x="982" y="176" text-anchor="end" font-size="24" class="muted">剛剛</text>
+    <circle cx="82" cy="244" r="22" fill="#8296a1"/><text x="128" y="256" font-size="30" class="ink">多專科中心導覽即將開始</text><text x="982" y="256" text-anchor="end" font-size="24" class="muted">2 分鐘</text>
+    <circle cx="82" cy="324" r="22" fill="#b98f91"/><text x="128" y="336" font-size="30" class="ink">今日已有 83 人完成一項衛教</text><text x="982" y="336" text-anchor="end" font-size="24" class="muted">今日</text>
+  </g>
+</svg>

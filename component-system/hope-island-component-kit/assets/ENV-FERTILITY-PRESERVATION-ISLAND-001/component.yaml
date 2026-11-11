@@ -1,0 +1,68 @@
+component:
+  id: "ENV-FERTILITY-PRESERVATION-ISLAND-001"
+  name_zh: "生育保存島"
+  category: "environment"
+  purpose: "依電影級全島概念圖拆解生育保存中心、島體、諮詢亭、溫室與希望花園，再組裝至同一個連續世界。"
+
+version: "0.4.0"
+status: "detached-cinematic-landscape-v01"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/10-fertility-preservation-island-v01-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/fertility-terrain-input-v01.png"
+    export: "export/fertility-terrain-hunyuan-textured-v01.glb"
+    web_export: "export/fertility-terrain-web-lod-v01.glb"
+    status: "integrated-v1"
+  - id: "fertility-preservation-center-v01"
+    source: "reference/modeling/fertility-center-input-v01.png"
+    export: "export/fertility-center-hunyuan-textured-v01.glb"
+    web_export: "export/fertility-center-web-lod-v01.glb"
+    status: "integrated-v1"
+  - id: "fertility-preservation-center-blender-v02"
+    source: "source/build_fertility_center_v02.py"
+    export: "export/fertility-center-blender-v02.glb"
+    preview: "export/fertility-center-blender-v02-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/fertility-center-blender-v02.glb"
+    status: "integrated-candidate"
+    metrics:
+      meshes: 193
+      triangles: 65638
+      file_size_mb: 4.1
+  - id: "fertility-preservation-center-blender-v03"
+    source: "source/build_fertility_center_v03.py"
+    export: "export/fertility-center-blender-v03.glb"
+    preview: "export/fertility-center-blender-v03-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/fertility-center-blender-v03.glb"
+    status: "integrated-candidate"
+    design: "poster-rose-shell-lab-v03"
+    metrics:
+      meshes: 193
+      triangles: 47256
+      file_size_mb: 3.0
+  - id: "fertility-landscape-detached-v01"
+    source: "source/extract_fertility_landscape.py"
+    export: "export/fertility-landscape-detached-v01.glb"
+    web_export: "../../../../../webgl-prototype/assets/fertility-landscape-detached-v01.glb"
+    preview: "export/fertility-detached-assembly-v01-preview.png"
+    status: "integrated"
+    metrics: {meshes: 267, triangles: 114299, file_size_mb: 2.2}
+    includes: ["detached-island-terrain", "private-counselling-pavilion", "glass-greenhouse", "hope-seed-sculpture", "flower-garden", "dock", "embedded-shore-rocks", "four-bridge-aligned-fence-openings"]
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.fertility"
+  web_version: "2.10.20"
+
+review:
+  integrated_preview: "../ENV-TAIWAN-ARCHIPELAGO-001/export/macro-preview-v12.png"
+  notes:
+    - "中心、地形、諮詢亭、溫室、中央希望雕塑與植栽維持獨立網格。"
+    - "入口坡道、碼頭與聯島橋保持角色可通行。"
+    - "v03 將堆疊花瓣改為五片橫向玫瑰銅屋頂，並以沿橢圓排列的玻璃立面重現諮詢區、胚胎實驗室與冷凍保存區。"
+    - "web_version: 2.9.1"

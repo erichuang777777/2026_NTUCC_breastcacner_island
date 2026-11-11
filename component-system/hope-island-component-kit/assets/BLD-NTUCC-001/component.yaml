@@ -1,0 +1,69 @@
+component:
+  id: "BLD-NTUCC-001"
+  name_zh: "台大癌醫中心地標建築"
+  category: "building"
+  version: "0.6.0"
+  status: "building-and-campus-detached"
+  purpose: "希望之島中心地標與返回全景的導覽錨點"
+  source_visual: "reference/building-turnaround-v01.png"
+
+geometry:
+  footprint: "以院方確認的主要塔樓和兩翼建築關係為準"
+  origin: "入口前緣中心地面"
+  forward_axis_blender: "+Y"
+  up_axis_blender: "+Z"
+  triangle_budget: 30000
+  lod_levels: ["LOD0", "LOD1", "LOD2"]
+
+visual:
+  identifying_features: ["中央弧形深色玻璃塔", "暖米色低樓翼", "入口長雨棚"]
+  simplification: "舊版 Hunyuan 保留量體但有熔化邊緣；v03 改以可編修幾何重建幕牆、逐層窗帶、入口與屋頂設備。"
+  max_material_slots: 8
+  palette_hex: ["#C8B9A8", "#8296A1", "#55656B", "#9AA58F"]
+
+files:
+  concept_turnaround: "reference/building-turnaround-v01.png"
+  source_blend: "source/model.blend"
+  delivery_glb: "export/bld-ntucc-001.glb"
+  preview: "export/preview.png"
+  real_photo_reference_aerial_1: "../../../../../visual-references/ntucc-ref-1.jpg"
+  real_photo_reference_aerial_2: "../../../../../visual-references/ntucc-ref-2.jpg"
+  modeling_reference: "reference/modeling/ntucc-hunyuan-input-v01.png"
+  rejected_soft_geometry_preview: "export/ntucc-hunyuan-textured-lod0-v02-preview.png"
+  blender_generator_candidate: "source/build_ntucc_v03.py"
+  blender_glb_candidate: "export/ntucc-blender-v04.glb"
+  blender_preview_candidate: "export/ntucc-blender-v04-preview.png"
+
+candidate_metrics:
+  mesh_nodes: 297
+  triangles: 14124
+  material_slots: 8
+  glb_bytes: 1150000
+  budget_status: "v04 已低於 30000 三角形 LOD0 預算；保留可辨識弧形幕牆與入口結構。"
+
+implementation:
+  building_model_legacy: "export/ntucc-hunyuan-textured-lod0-v02.glb"
+  website_model: "../../../../../webgl-prototype/assets/ntucc-blender-v05.glb"
+  website_campus_model: "../../../../../webgl-prototype/assets/ntucc-campus-landscape-v01.glb"
+  website_version: "2.4.3"
+  campus_landscape_node: "ENV-NTUCC-CAMPUS-LANDSCAPE-001"
+  integrated_world: "../ENV-TAIWAN-ARCHIPELAGO-001/export/env-taiwan-archipelago-001-macro.glb"
+  verified_at: "2026-11-05"
+  detached_campus:
+    origin: [0, 0, 0]
+    world_anchor: [-15, 0, -10]
+    identifying_features: ["同心紋到院廣場", "橢圓迴車道", "療癒花園", "雙側候車棚", "暖光行人矮燈"]
+  building_v05:
+    details: ["臺大癌醫中心中英立體標誌", "六扇入口玻璃門", "雨棚骨架", "入口鋪面分割線", "屋頂冰水主機列", "綠色機電管線"]
+
+review:
+  visual_reviewer: null
+  hospital_facility_review: "院方確認主要建築量體與可使用照片範圍"
+  approved_at: null
+  notes:
+    - "v03 為清晰結構候選，包含九段弧形幕牆、水平樓板帶、兩側臨床翼樓、圓形玻璃門廳、弧形到院雨棚與屋頂空調設備。"
+    - "尚未取代網站正式臺大癌醫模型；必須先完成比例、島體配置、碰撞與瀏覽器實景驗收。"
+    - "v04 將倒角分段最佳化後由 55452 降至 14124 三角形，GLB 由 3.7 MB 降至約 1.1 MB。"
+    - "網站 v2.4.1 已隱藏舊 ntucc-hi 模型並在同一世界座標載入 v04；仍待瀏覽器實景驗證。"
+    - "v2.4.1 實景驗證發現全域發光使外牆泛白；v2.4.2 改為只有 warm-interior 材質參與夜間發光。"
+    - "v2.4.3 將臺大癌醫聚焦倍率由 0.70 調整為 1.18，使新版建築在同一世界中可清楚檢視。"

@@ -1,0 +1,27 @@
+component:
+  id: "CHR-ROLE-MATRIX-001"
+  name_zh: "角色服裝矩陣概念圖"
+  category: "character-family"
+  version: "0.1.0"
+  status: "concept"
+  purpose: "定義男女外觀呈現與四種角色服裝的共用比例與造型方向"
+  source_visual: "reference/role-matrix-v01.png"
+
+variants:
+  gender_presentations: ["female", "male"]
+  roles:
+    patient: "日常服；不使用病人服"
+    physician: "白袍加低彩度內搭"
+    nurse: "現代護理制服"
+    surgeon: "刷手服、手術帽、口罩與手套"
+  shared_body: "CHR-VISITOR-001 base proportions and rig"
+
+visual:
+  style: "original cozy life-simulation, low-poly, matte"
+  target_height_heads: 1.8
+  max_material_slots: 3
+  palette_hex: ["#E8E1D7", "#C8B9A8", "#9AA58F", "#8296A1", "#B98F91", "#55656B"]
+
+review:
+  status_note: "概念矩陣；進入製作前需按每個服裝 variant 補獨立多角度圖。"
+  medical_reviewer: "服裝與手術帽口罩由院內臨床團隊確認"

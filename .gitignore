@@ -1,0 +1,28 @@
+# 系統檔
+.DS_Store
+
+# 執行期資料（SQLite、上傳附件）
+webgl-prototype/data/
+
+# 舊版封存
+archive/
+
+# 大型 3D 模型與 Blender 原始檔（約 3 GB；版本以檔名 vNN 與 scene/assets.json 登記）
+*.glb
+*.blend
+*.blend1
+
+# 截圖與渲染圖；保留權威參考圖與網頁執行需要的貼圖
+*.png
+*.jpg
+*.jpeg
+*.webp
+!visual-references/**
+!webgl-prototype/assets/*.png
+!webgl-prototype/assets/*.jpg
+!webgl-prototype/dist/assets/*.png
+!webgl-prototype/dist/assets/*.jpg
+
+# 記錄檔與 Python 快取
+*.log
+__pycache__/

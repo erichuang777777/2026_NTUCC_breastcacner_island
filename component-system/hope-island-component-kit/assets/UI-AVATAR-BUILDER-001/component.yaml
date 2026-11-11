@@ -1,0 +1,24 @@
+component:
+  id: "UI-AVATAR-BUILDER-001"
+  name_zh: "島民角色建立面板"
+  category: "ui"
+  version: "0.1.0"
+  status: "prototype"
+  purpose: "選擇角色外觀、服裝與本機頭像預覽"
+
+fields:
+  gender_presentation: ["female", "male"]
+  outfit_variant: ["patient", "doctor", "nurse", "surgeon"]
+  portrait_upload: ["image/jpeg", "image/png", "image/webp"]
+  max_file_bytes: 8388608
+
+privacy:
+  processing: "browser-memory-only"
+  server_upload: false
+  persistence: false
+  explicit_clear: true
+  clear_on_page_close: true
+
+review:
+  visual_reviewer: null
+  privacy_reviewer: "院方個資與資安審查須於正式部署前完成"

@@ -1,0 +1,70 @@
+component:
+  id: "ENV-RADIATION-ONCOLOGY-ISLAND-001"
+  name_zh: "放射腫瘤島"
+  category: "environment"
+  purpose: "依電影參考圖拆解島體、放射治療中心、衛教設施與景觀元件，再組裝至同一個連續全島場景。"
+
+version: "0.4.0"
+status: "detached-cinematic-landscape-v01"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/06-radiation-oncology-island-v01.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/radiation-oncology-terrain-input-v01.png"
+    export: "export/radiation-oncology-terrain-hunyuan-textured-v01.glb"
+    web_export: "export/radiation-oncology-terrain-hunyuan-textured-lod0-v01.glb"
+    status: "integrated-v1"
+  - id: "radiation-treatment-center-v01"
+    source: "reference/modeling/radiation-oncology-center-input-v01.png"
+    export: "export/radiation-oncology-center-hunyuan-textured-v01.glb"
+    web_export: "export/radiation-oncology-center-hunyuan-textured-lod0-v01.glb"
+    status: "integrated-v1"
+  - id: "radiation-treatment-center-blender-v02"
+    source: "source/build_radiation_center_v02.py"
+    export: "export/radiation-oncology-center-blender-v02.glb"
+    preview: "export/radiation-oncology-center-blender-v02-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/radiation-oncology-center-blender-v02.glb"
+    status: "integrated-candidate"
+    metrics:
+      meshes: 139
+      triangles: 52552
+      file_size_mb: 3.3
+  - id: "radiation-treatment-center-blender-v03"
+    source: "source/build_radiation_center_v03.py"
+    export: "export/radiation-oncology-center-blender-v03.glb"
+    preview: "export/radiation-oncology-center-blender-v03-preview.png"
+    web_export: "../../../../../webgl-prototype/assets/radiation-oncology-center-blender-v03.glb"
+    status: "integrated-candidate"
+    metrics:
+      meshes: 139
+      triangles: 43928
+    includes: ["continuous-low-barrel-vault", "standing-seam-ribs", "curve-aligned-glazing", "radiotherapy-gantry", "patient-table", "target-emblem", "accessible-ramp"]
+  - id: "education-target-shelter-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/06-radiation-oncology-island-v01.png"
+    status: "integrated-v1"
+  - id: "garden-and-wayfinding-props-v01"
+    source: "../ENV-TAIWAN-ARCHIPELAGO-001/source/build_macro_blender.py"
+    status: "integrated-v1"
+  - id: "detached-landscape-v01"
+    source: "source/extract_radiation_oncology_landscape.py"
+    export: "export/radiation-oncology-landscape-detached-v01.glb"
+    status: "detached-modeled-and-integrated"
+    metrics: {meshes: 268, triangles: 95769, web_scale: 1.0}
+    includes: ["rock-cliff", "circular-circulation-base", "dock", "target-education-pavilion", "precision-target-garden", "shade-trees", "flower-beds", "garden-lamps", "timber-fence", "embedded-shore-rocks"]
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.radiation-oncology"
+  web_version: "2.10.16"
+
+review:
+  notes:
+    - "地形、治療中心、衛教標靶亭、植栽與設施必須維持獨立網格。"
+    - "入口、中央廣場、碼頭與兩側聯島橋必須保持可通行。"
+    - "治療設備僅作為非威脅性的醫療環境展示，不與建築外殼融合。"
+    - "v03 以單一連續拱頂取代 v02 橢球拼接屋頂，窗格沿橢圓立面排列，保留可見的放療機、病床、標靶識別與無障礙坡道。"

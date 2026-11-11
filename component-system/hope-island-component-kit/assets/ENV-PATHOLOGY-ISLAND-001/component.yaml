@@ -1,0 +1,85 @@
+component:
+  id: "ENV-PATHOLOGY-ISLAND-001"
+  name_zh: "病理診斷島"
+  category: "environment"
+  version: "0.5.0-candidate.1"
+  status: "component-rebuild"
+  purpose: "病理診斷垂直切片與照護群島拼接樣板"
+  source_visual: "../../../../visual-references/V08-09_小屋模組與多角度確認板_v3.png"
+
+geometry:
+  island_top_diameter_m: 24.0
+  island_top_y_m: 1.05
+  water_y_m: -2.22
+  walkable_radius_m: 10.25
+  origin: "島面中心投影至世界原點"
+  forward_axis_blender: "+Y"
+  up_axis_blender: "+Z"
+  lod_levels: ["LOD0", "LOD1", "LOD2"]
+
+anchors:
+  visitor_spawn: [3.0, 1.13, 8.2]
+  pathology_cottage: [2.4, 1.27, -3.4]
+  pathology_interaction: [4.58, 1.31, -0.05]
+
+connections:
+  - id: "north-care-path"
+    direction: "north"
+    center: [0.0, 1.12, 11.7]
+    clear_width_m: 2.4
+    status: "blockout"
+    note: "島內接頭與入口門架；跨島橋梁待全島配置確認後製作。"
+
+interaction:
+  walkable_boundary: "島面圓形半徑 10.25 m，加北側寬 2.4 m、延伸至 z=12.45 m 的接口走道"
+  collider_source: "webgl-prototype/app.js worldColliders"
+  interaction_id: "place.pathology"
+
+files:
+  source_blend: "source/model.blend"
+  source_generator: "source/build_blender.py"
+  delivery_glb: "export/env-pathology-island-001.glb"
+  whole_island_reference: "reference/modeling/pathology-island-hunyuan-input-v01.png"
+  building_single_view_reference: "reference/modeling/pathology-center-hunyuan-input-v02.png"
+  building_orthographic_reference: "reference/modeling/pathology-center-orthographic-v03.png"
+  rejected_single_view_shape: "export/pathology-center-hunyuan-shape-v02.glb"
+  building_generator_candidate: "source/build_pathology_center_v03.py"
+  building_glb_candidate: "export/pathology-center-blender-v06.glb"
+  building_preview_candidate: "export/pathology-center-blender-v06-preview.png"
+  building_generator_current: "source/build_pathology_center_v06.py"
+  landscape_generator_current: "source/build_pathology_landscape_v01.py"
+  landscape_glb_candidate: "export/pathology-landscape-blender-v01.glb"
+  landscape_preview_candidate: "export/pathology-landscape-blender-v01-preview.png"
+  island_assembly_generator: "source/assemble_pathology_island_v01.py"
+  island_assembly_candidate: "export/pathology-island-assembled-v01.glb"
+  island_assembly_preview: "export/pathology-island-assembled-v01-preview.png"
+  website_glb: "../../../../../webgl-prototype/assets/pathology-center-blender-v06.glb"
+  website_dist_glb: "../../../../../webgl-prototype/dist/assets/pathology-center-blender-v06.glb"
+  website_landscape_glb: "../../../../../webgl-prototype/assets/pathology-landscape-blender-v01.glb"
+  website_dist_landscape_glb: "../../../../../webgl-prototype/dist/assets/pathology-landscape-blender-v01.glb"
+
+metrics:
+  material_slots: 5
+  mesh_nodes: 7
+  triangles: 492
+  textures: 0
+  glb_bytes: 38572
+
+review:
+  content_owner: "活動企劃／網站團隊"
+  visual_reviewer: null
+  approved_at: null
+  notes:
+    - "舊 delivery_glb 仍是低模島嶼；尚未被候選建築取代。"
+    - "v02 單視圖 Hunyuan 幾何把屋頂誤判為大型凹槽，已拒絕整合。"
+    - "v03 改用四視圖藍圖與 Blender 分件重建，屋頂、中央入口、左右翼、窗框和石材基座皆可獨立編修。"
+    - "v03 目前為結構候選，左右翼曲率、PBR 貼圖和電影海報鏡位仍待下一輪驗收；不得視為正式交付。"
+    - "v04 增加石材與金屬程序式微表面、三層屋頂立縫、弧形窗列與夜間室內光，仍須經島體整合與網頁實機驗收。"
+    - "v04 屋頂立縫在平頂上呈欄杆狀，已拒絕整合；v05 將三層翼頂改為封閉斜面截錐並讓立縫貼合坡面。"
+    - "網站 v2.6.1 已移除含白色展示底板與坡道的組裝島，改為只載入獨立病理中心建築；島體、道路與橋梁沿用同一個全島連續世界。"
+    - "v06 依單島海報重整量體：左右翼改為低矮大圓角、單層鼠尾草綠屋頂、弧形玻璃幕牆，中央入口改為與牆體相連的圓角冠部；已拒絕第一張懸浮筒頂試算。"
+    - "網站 v2.6.3 加入獨立病理島庭園元件 v01：櫻花與常綠樹、五組花圃、展示亭、長椅、庭園燈及入口步道；不與建築或島體烘焙成單一模型。"
+    - "網站 v2.6.4 補回獨立病理島草地與岩岸地形，修正實機放大時建築與庭園看似浮在海面上的問題。"
+    - "網站 v2.6.5 移除病理中心所有材質的白色 emissiveMap 覆寫，改為極低暖色補光，保留石材、玻璃與鼠尾草綠屋頂的原始色彩。"
+    - "瀏覽器稽核：新資產 loaded=true、legacyVisible=false、singleWorld=true；12/12 直接切換落點可行走且 blocker=null。"
+    - "執行期截圖：webgl-prototype/runtime-pathology-v05-focus-settled.png。"

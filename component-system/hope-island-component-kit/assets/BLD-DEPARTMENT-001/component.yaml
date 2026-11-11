@@ -1,0 +1,43 @@
+component:
+  id: "BLD-DEPARTMENT-001"
+  name_zh: "照護科室小屋母型"
+  category: "building-family"
+  version: "0.1.0"
+  status: "concept"
+  purpose: "在各六角照護島重複使用的科室建築母型"
+  source_visual: "reference/department-pavilions-v01.png"
+
+shared_geometry:
+  stories: 1
+  footprint: "hex-zone local units: 1.0 x 0.72"
+  origin: "入口門檻中心地面"
+  forward_axis_blender: "+Y"
+  up_axis_blender: "+Z"
+  triangle_budget: 8000
+  common_modules: ["base", "door", "window", "roof", "sign_panel", "entry_ramp"]
+
+variants:
+  - id: "BLD-MAMMO-001"
+    name_zh: "乳房攝影室"
+    sign_icon: "image-plate"
+  - id: "BLD-ULTRASOUND-001"
+    name_zh: "乳房超音波室"
+    sign_icon: "ultrasound-waves"
+  - id: "BLD-PATHOLOGY-001"
+    name_zh: "病理檢查站"
+    sign_icon: "microscope"
+  - id: "BLD-CHEMO-001"
+    name_zh: "化學治療室"
+    sign_icon: "infusion-bag"
+  - id: "BLD-OR-001"
+    name_zh: "手術室"
+    sign_icon: "surgical-light"
+  - id: "BLD-RADIOTHERAPY-001"
+    name_zh: "放射治療室"
+    sign_icon: "radiation-arcs"
+
+visual:
+  style: "original cozy life-simulation, low-poly, matte"
+  max_material_slots: 3
+  palette_hex: ["#E8E1D7", "#C8B9A8", "#9AA58F", "#8296A1", "#B98F91"]
+  signage_policy: "3D 只放圖示底板；實際科室名稱用網頁文字覆蓋，方便維護與無障礙"

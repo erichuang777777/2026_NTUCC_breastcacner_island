@@ -1,0 +1,96 @@
+{
+  "version": "v05",
+  "authoring": "Blender; editable geometry and shared weighted skeleton",
+  "roles": [
+    {
+      "role": "visitor",
+      "polygons": 28288,
+      "bytes": 2250564,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ]
+    },
+    {
+      "role": "scarf",
+      "polygons": 27424,
+      "bytes": 2186572,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ]
+    },
+    {
+      "role": "doctor",
+      "polygons": 26432,
+      "bytes": 2113932,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ]
+    },
+    {
+      "role": "nurse",
+      "polygons": 25872,
+      "bytes": 2063616,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ]
+    },
+    {
+      "role": "surgeon",
+      "polygons": 25872,
+      "bytes": 2063612,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ]
+    },
+    {
+      "role": "scrub",
+      "polygons": 25872,
+      "bytes": 2063612,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ]
+    }
+  ]
+}

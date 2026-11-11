@@ -1,0 +1,59 @@
+component:
+  id: "ENV-SURGICAL-ONCOLOGY-ISLAND-001"
+  name_zh: "腫瘤外科島"
+  category: "environment"
+  version: "0.4.1"
+  status: "detached-cinematic-landscape-v01"
+  purpose: "依電影參考圖拆解島體、外科中心與庭園元件，再組裝至連續全島場景。"
+
+source_visual:
+  authoritative: "../ENV-TAIWAN-ARCHIPELAGO-001/reference/islands/04-surgical-oncology-island-v02-cinematic.png"
+  camera: "elevated-front-three-quarter"
+
+components:
+  - id: "terrain-circulation-v01"
+    source: "reference/modeling/surgical-oncology-terrain-input-v01.png"
+    export: "export/surgical-oncology-terrain-hunyuan-shape-v01.glb"
+    web_export: "export/surgical-oncology-terrain-hunyuan-textured-lod0-v01.glb"
+    status: "integrated-v1"
+  - id: "surgical-center-v01"
+    source: "reference/modeling/surgical-oncology-center-input-v01.png"
+    export: "export/surgical-oncology-center-hunyuan-textured-lod0-v01.glb"
+    status: "integrated-v1"
+  - id: "surgical-center-v02"
+    source: "source/build_surgical_center_v02.py"
+    export: "export/surgical-oncology-center-blender-v02.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 163, triangles: 29392, web_scale: 0.25}
+    includes: ["elliptical-surgical-center", "stepped-copper-roofs", "central-barrel-roof", "glass-bays", "operating-table", "surgical-lamp", "accessible-ramps", "shield-scalpel-emblem", "warm-interior-lighting"]
+  - id: "surgical-center-v03"
+    source: "source/build_surgical_center_v03.py"
+    export: "export/surgical-oncology-center-blender-v03.glb"
+    status: "modeled-and-integrated-candidate"
+    metrics: {meshes: 161, triangles: 32368, web_scale: 0.25}
+    includes: ["elliptical-surgical-center", "curve-aligned-glass-bays", "low-central-barrel-roof", "standing-seam-ribs", "operating-table", "surgical-lamp", "accessible-ramps", "shield-scalpel-emblem"]
+  - id: "garden-props-v01"
+    source: "source/build_macro_blender.py"
+    status: "integrated-v1"
+  - id: "accessible-entry-v01"
+    source: "source/build_macro_blender.py"
+    status: "integrated-v1"
+  - id: "detached-landscape-v01"
+    source: "source/extract_surgical_oncology_landscape.py"
+    export: "export/surgical-oncology-landscape-detached-v01.glb"
+    status: "detached-modeled-and-integrated"
+    metrics: {meshes: 316, triangles: 115386, web_scale: 1.0}
+    includes: ["rock-cliff", "circulation-base", "accessible-entry-ramps", "preoperative-education-pavilion", "central-flower-roundel", "cherry-trees", "garden-lamps", "timber-fence", "embedded-shore-rocks"]
+
+assembly:
+  target_scene: "ENV-TAIWAN-ARCHIPELAGO-001"
+  view_mode: "single-continuous-world"
+  separate_detail_scene: false
+  interaction_id: "island.surgical_oncology"
+  web_version: "2.10.14"
+
+review:
+  notes:
+    - "島體、外科中心與庭園物件必須保持獨立網格。"
+    - "無障礙坡道與入口動線必須保持可通行。"
+    - "v03 修正 v02 懸空直線窗格，改為沿橢圓立面排列；縮短並降低中央拱頂，移除過多屋頂層級，貼近電影海報輪廓。"

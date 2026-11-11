@@ -1,0 +1,10 @@
+FROM local-inference/comfyui:gb10-20261012
+
+USER root
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libharfbuzz0b libopengl0 \
+    && rm -rf /var/lib/apt/lists/*
+
+USER ubuntu
+ENV PYTHONPATH=/deps:/src
+WORKDIR /work

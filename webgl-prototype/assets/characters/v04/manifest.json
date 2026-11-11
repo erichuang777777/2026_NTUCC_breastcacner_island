@@ -1,0 +1,72 @@
+{
+  "version": "v04",
+  "authoring": "Blender; editable geometry and shared weighted skeleton",
+  "roles": [
+    {
+      "role": "visitor",
+      "polygons": 24768,
+      "bytes": 1786360,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read"
+      ]
+    },
+    {
+      "role": "scarf",
+      "polygons": 23904,
+      "bytes": 1730300,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read"
+      ]
+    },
+    {
+      "role": "doctor",
+      "polygons": 22912,
+      "bytes": 1672380,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read"
+      ]
+    },
+    {
+      "role": "nurse",
+      "polygons": 22352,
+      "bytes": 1621768,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read"
+      ]
+    },
+    {
+      "role": "surgeon",
+      "polygons": 22352,
+      "bytes": 1627180,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read"
+      ]
+    },
+    {
+      "role": "scrub",
+      "polygons": 22352,
+      "bytes": 1627180,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+component:
+  id: "ENV-WISH-SKY-001"
+  name_zh: "希望星空"
+  category: "environment"
+  version: "0.3.0"
+  status: "local_prototype"
+  purpose: "呈現匿名願望星星、日夜狀態與願望完成流星效果"
+  source_visual: "../../../../visual-references/hope-island-taiwan-silhouette-day-night-wishes.png"
+
+states:
+  day: "隱藏大部分星星，保留環境天空與遠景"
+  night: "顯示匿名星群、燈塔光束與完成流星"
+
+events:
+  wish_created: "依 wish_id 建立或點亮一顆穩定星星"
+  wish_completed: "對應星星播放一次流星軌跡後轉為完成狀態"
+
+privacy:
+  display_wish_text: false
+  display_identity: false
+  stable_key: "random wish_id"
+
+accessibility:
+  reduced_motion: "星星短暫增亮後淡出，不播放位移軌跡"
+
+performance:
+  star_rendering: "instanced points or sprites"
+  visible_star_budget: 300
+  active_meteor_budget: 3
+
+review:
+  visual_reviewer: null
+  privacy_reviewer: "院方個資與資安"
+  approved_at: null
+
+implementation:
+  source: "../../../../webgl-prototype/app.js"
+  local_storage_keys: ["hopeIslandWishes", "hopeIslandWorld"]
+  verified_flows: ["wish_created", "reload_restore", "wish_completed", "night_restore", "private_text_hidden_when_closed", "reduced_motion", "mobile_layout"]
+  verified_at: "2026-11-04"
+  limitations: ["目前只使用 localStorage；尚未完成院內願望 API、資料庫、公用入口 QR、專屬完成 QR 與大螢幕同步。"]
