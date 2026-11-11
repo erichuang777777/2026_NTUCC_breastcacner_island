@@ -1,0 +1,82 @@
+{
+  "blender": "5.2.3 LTS",
+  "axisProbeError": 0.0,
+  "shots": [
+    {
+      "id": "S01-day-overview",
+      "projection": {
+        "hospital": {
+          "blenderPixel": [
+            1083.8239288330078,
+            616.7324101924896
+          ],
+          "errorPixels": 0.00029712809621678206
+        },
+        "lighthouse": {
+          "blenderPixel": [
+            768.0512809753418,
+            467.08256006240845
+          ],
+          "errorPixels": 0.0003503853666197667
+        }
+      }
+    },
+    {
+      "id": "S02-hospital-entrance",
+      "projection": {
+        "hospital": {
+          "blenderPixel": [
+            960.0002288818359,
+            699.1024160385132
+          ],
+          "errorPixels": 0.0002996587400966112
+        },
+        "lighthouse": {
+          "blenderPixel": [
+            491.4269828796387,
+            447.4381685256958
+          ],
+          "errorPixels": 0.0003275271379079335
+        }
+      }
+    },
+    {
+      "id": "S03-night-wish",
+      "projection": {
+        "hospital": {
+          "blenderPixel": [
+            2804.0636444091797,
+            1514.6568417549133
+          ],
+          "errorPixels": 9.419840354130012e-05
+        },
+        "lighthouse": {
+          "blenderPixel": [
+            959.999942779541,
+            896.9260865449905
+          ],
+          "errorPixels": 0.00011172942974306901
+        }
+      }
+    },
+    {
+      "id": "S04-meteor-to-lighthouse",
+      "projection": {
+        "hospital": {
+          "blenderPixel": [
+            1058.0962371826172,
+            590.0567150115967
+          ],
+          "errorPixels": 0.0003053154038785137
+        },
+        "lighthouse": {
+          "blenderPixel": [
+            950.1465225219727,
+            426.99683904647827
+          ],
+          "errorPixels": 0.0002816404404434774
+        }
+      }
+    }
+  ]
+}

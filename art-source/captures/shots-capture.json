@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "status": "captured from live camera; canvas-only 1920×1080; animation frozen; characters omitted",
+  "conventions": {
+    "coordinateSystem": "three.js / glTF, +Y up, scene units",
+    "blenderConversion": "blender (x, y, z) = web (x, -z, y)",
+    "fov": "vertical field of view in degrees",
+    "aspect": "width / height"
+  },
+  "shots": [
+    {
+      "id": "S01-day-overview",
+      "title": "白天全景",
+      "acceptance": true,
+      "timeOfDay": "day",
+      "aspect": 1.7777777777777777,
+      "fov": 38,
+      "camera": {
+        "position": [
+          19.2,
+          20.6,
+          25
+        ],
+        "target": [
+          0.20000000000000004,
+          1.6000000000000003,
+          -2
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "near": 0.1,
+        "far": 350
+      },
+      "webSource": "taiwan-study.js setView('campus'): target (0.2, 1.6, -2), offset (19, 19, 27)",
+      "mustShow": [
+        "taiwan-silhouette",
+        "ntucc",
+        "hope-lighthouse"
+      ],
+      "characters": [],
+      "landmarkPixels": {
+        "hospital": {
+          "world": [
+            3.75,
+            0.7,
+            -2
+          ],
+          "pixel": [
+            1083.8240077250905,
+            616.7321237293247
+          ],
+          "ndcZ": 0.9951308493071981
+        },
+        "lighthouse": {
+          "world": [
+            -7.372804955530459,
+            0.7,
+            -3.5304852256406276
+          ],
+          "pixel": [
+            768.0512817200055,
+            467.08220967783313
+          ],
+          "ndcZ": 0.9959622973743697
+        }
+      }
+    },
+    {
+      "id": "S02-hospital-entrance",
+      "title": "醫院入口",
+      "acceptance": true,
+      "timeOfDay": "day",
+      "aspect": 1.7777777777777777,
+      "fov": 38,
+      "camera": {
+        "position": [
+          13.750000000000002,
+          10.867021286045572,
+          11.000000000000002
+        ],
+        "target": [
+          3.7500000000000004,
+          2.86702128604557,
+          -2
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "near": 0.1,
+        "far": 350
+      },
+      "webSource": "taiwan-study.js setView('hospital'): target hospitalPoint at 0.45 * hospitalHeight + 0.7, offset (10, 8, 13)",
+      "mustShow": [
+        "ntucc",
+        "ntucc-entrance-canopy"
+      ],
+      "characters": [],
+      "landmarkPixels": {
+        "hospital": {
+          "world": [
+            3.75,
+            0.7,
+            -2
+          ],
+          "pixel": [
+            960.0000000000002,
+            699.1022226258306
+          ],
+          "ndcZ": 0.9901510276222707
+        },
+        "lighthouse": {
+          "world": [
+            -7.372804955530459,
+            0.7,
+            -3.5304852256406276
+          ],
+          "pixel": [
+            491.4266899539411,
+            447.4380220041555
+          ],
+          "ndcZ": 0.9929890376242907
+        }
+      }
+    },
+    {
+      "id": "S03-night-wish",
+      "title": "夜間許願",
+      "acceptance": true,
+      "timeOfDay": "night",
+      "aspect": 1.7777777777777777,
+      "fov": 38,
+      "camera": {
+        "position": [
+          -2.3728049555304596,
+          7.999999999999998,
+          7.4695147743593715
+        ],
+        "target": [
+          -7.37280495553046,
+          4,
+          -3.530485225640628
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "near": 0.1,
+        "far": 350
+      },
+      "webSource": "taiwan-study.js setView('tower'): target (towerX, 4.0, towerZ), offset (5, 4, 11)",
+      "mustShow": [
+        "hope-lighthouse",
+        "wish-sky"
+      ],
+      "characters": [],
+      "landmarkPixels": {
+        "hospital": {
+          "world": [
+            3.75,
+            0.7,
+            -2
+          ],
+          "pixel": [
+            2804.063738580398,
+            1514.656844017849
+          ],
+          "ndcZ": 0.9757901210724638
+        },
+        "lighthouse": {
+          "world": [
+            -7.372804955530459,
+            0.7,
+            -3.5304852256406276
+          ],
+          "pixel": [
+            960,
+            896.9259905799732
+          ],
+          "ndcZ": 0.9860378479908961
+        }
+      }
+    },
+    {
+      "id": "S04-meteor-to-lighthouse",
+      "title": "流星抵達燈塔",
+      "acceptance": true,
+      "timeOfDay": "night",
+      "aspect": 1.7777777777777777,
+      "fov": 38,
+      "camera": {
+        "position": [
+          40.200924508559,
+          42.50316727541586,
+          23.458311938278527
+        ],
+        "target": [
+          -0.4000000000000001,
+          1,
+          0
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "near": 0.1,
+        "far": 350
+      },
+      "webSource": "custom: island overviewOffset × 1.08, labels hidden",
+      "mustShow": [
+        "taiwan-silhouette",
+        "hope-lighthouse",
+        "meteor"
+      ],
+      "characters": [],
+      "landmarkPixels": {
+        "hospital": {
+          "world": [
+            3.75,
+            0.7,
+            -2
+          ],
+          "pixel": [
+            1058.095989156962,
+            590.0565369644954
+          ],
+          "ndcZ": 0.9972853468811038
+        },
+        "lighthouse": {
+          "world": [
+            -7.372804955530459,
+            0.7,
+            -3.5304852256406276
+          ],
+          "pixel": [
+            950.1463124435506,
+            426.99665146077973
+          ],
+          "ndcZ": 0.9976579479564859
+        }
+      }
+    }
+  ],
+  "capturedAt": "2026-11-11T15:37:29.899Z"
+}
