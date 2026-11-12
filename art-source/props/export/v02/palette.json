@@ -1,0 +1,27 @@
+{
+  "color_space": "sRGB hex; converted to linear BSDF",
+  "material_prefix": "hope-prop-",
+  "roughness": 0.72,
+  "metallic": 0,
+  "colors": {
+    "cream": "#E9D8B9",
+    "wood": "#C69365",
+    "wood-light": "#DBAE7C",
+    "iron": "#505655",
+    "blue": "#668FA8",
+    "leaf": "#789559",
+    "leaf-light": "#A0B66B",
+    "leaf-dark": "#52744F",
+    "soil": "#938365",
+    "pink": "#DF98A6",
+    "white": "#FFF4DF",
+    "yellow": "#F2CE79",
+    "paving-pink": "#D9A79B",
+    "rock": "#A4A69E",
+    "rock-light": "#BEBCAF",
+    "moss": "#A4B875",
+    "water": "#76C6D8",
+    "foam": "#F6FFF5",
+    "lamp-glow": "#FFE5AB"
+  }
+}

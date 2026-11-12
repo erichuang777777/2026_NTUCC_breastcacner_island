@@ -1,0 +1,394 @@
+{
+  "version": "v01",
+  "blender": "5.2.3 LTS",
+  "units": "scene units (~meters)",
+  "dimension_axes": [
+    "X width",
+    "Y height",
+    "Z depth"
+  ],
+  "origin": "bottom bounds center",
+  "front": "+Z",
+  "authoring_to_blender": "(x,y,z) -> (x,-z,y)",
+  "blender_to_gltf": "(x,y,z) -> (x,z,-y)",
+  "path_module": 1.2,
+  "path_top": 0.06,
+  "lamp_emission_material": "hope-prop-lamp-glow",
+  "foam_alpha": 0.68,
+  "assets": [
+    {
+      "id": "bench",
+      "triangles": 1404,
+      "dimensions": [
+        0.7,
+        0.63,
+        0.27
+      ],
+      "materials": [
+        "hope-prop-wood-light",
+        "hope-prop-wood",
+        "hope-prop-iron"
+      ],
+      "file_size_bytes": 78504,
+      "file": "bench.glb",
+      "dimension_sources": [
+        "webgl-prototype/hope-landscapes.js:22; seat .70/.07/.27, back top .63"
+      ],
+      "sha256": "d406bdc640733f4af4fcb46685ff9a25ea542517c733be9a20c93b9cdacdd468"
+    },
+    {
+      "id": "lamp",
+      "triangles": 1260,
+      "dimensions": [
+        0.15731,
+        0.75,
+        0.15731
+      ],
+      "materials": [
+        "hope-prop-cream",
+        "hope-prop-iron",
+        "hope-prop-lamp-glow",
+        "hope-prop-blue"
+      ],
+      "file_size_bytes": 70712,
+      "file": "lamp.glb",
+      "dimension_sources": [
+        "webgl-prototype/taiwan-study.js:69; ground .70, pole top 1.30, shade top 1.45"
+      ],
+      "sha256": "a92aab388682a8383ec201b8bbea06eae408170b047ca06a4f9975d3becc48cf"
+    },
+    {
+      "id": "flowerbed-round",
+      "triangles": 3880,
+      "dimensions": [
+        0.74,
+        0.5207,
+        0.74
+      ],
+      "materials": [
+        "hope-prop-cream",
+        "hope-prop-soil",
+        "hope-prop-leaf",
+        "hope-prop-leaf-dark",
+        "hope-prop-pink",
+        "hope-prop-yellow",
+        "hope-prop-white",
+        "hope-prop-leaf-light"
+      ],
+      "file_size_bytes": 136548,
+      "file": "flowerbed-round.glb",
+      "dimension_sources": [
+        "webgl-prototype/hope-landmark-gardens.js:11-17; diameter .74, wall .11, flower top .525"
+      ],
+      "sha256": "4280e1a4f2f0fb9b502b4aaf5071fb3ba754352b000250d2b7a53c6cfc60693f"
+    },
+    {
+      "id": "flowerbed-long",
+      "triangles": 3576,
+      "dimensions": [
+        1.48,
+        0.5207,
+        0.74
+      ],
+      "materials": [
+        "hope-prop-cream",
+        "hope-prop-soil",
+        "hope-prop-leaf",
+        "hope-prop-leaf-dark",
+        "hope-prop-pink",
+        "hope-prop-yellow",
+        "hope-prop-white",
+        "hope-prop-leaf-light"
+      ],
+      "file_size_bytes": 121064,
+      "file": "flowerbed-long.glb",
+      "dimension_sources": [
+        "Derived module: twice the round bed diameter; no same-shape existing asset"
+      ],
+      "sha256": "de71a76eb26bfc021178a40cc9f50c8df8c7959388678e19e95a544e33ae2693"
+    },
+    {
+      "id": "shrub-cluster",
+      "triangles": 1032,
+      "dimensions": [
+        0.79,
+        0.4,
+        0.568267
+      ],
+      "materials": [
+        "hope-prop-leaf",
+        "hope-prop-leaf-light",
+        "hope-prop-leaf-dark",
+        "hope-prop-pink",
+        "hope-prop-yellow"
+      ],
+      "file_size_bytes": 21044,
+      "file": "shrub-cluster.glb",
+      "dimension_sources": [
+        "Derived from webgl-prototype/hope-environment.js:63; ground cluster radius .20; new three-size shrub silhouette"
+      ],
+      "sha256": "4128708e97734f5631f4eeaab330ad12fafb15f84ad659d07b3f40667b12f668"
+    },
+    {
+      "id": "tree-round",
+      "triangles": 1788,
+      "dimensions": [
+        1.0332,
+        1.2751,
+        0.755586
+      ],
+      "materials": [
+        "hope-prop-wood",
+        "hope-prop-leaf-light",
+        "hope-prop-leaf",
+        "hope-prop-leaf-dark"
+      ],
+      "file_size_bytes": 41660,
+      "file": "tree-round.glb",
+      "dimension_sources": [
+        "webgl-prototype/hope-environment.js:70-75; round crown .45/.34/.36, scale .70/.82/.94; use .82"
+      ],
+      "sha256": "aba0fbb3ec1cf60b5b68746059b025b63410dc43140b6b9a642d3efce3982e6d"
+    },
+    {
+      "id": "path-straight",
+      "triangles": 972,
+      "dimensions": [
+        1.2,
+        0.06,
+        1.2
+      ],
+      "materials": [
+        "hope-prop-cream",
+        "hope-prop-paving-pink"
+      ],
+      "file_size_bytes": 54376,
+      "file": "path-straight.glb",
+      "dimension_sources": [
+        "New module 1.20; webgl-prototype/taiwan-study.js:58 has no path mesh; :63 reserves .72 from route center"
+      ],
+      "sha256": "32d105909fc5364fb641cf2cace57d1d4221b08a544ba3f736c2fd93b1a01c0d",
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            -0.6
+          ],
+          "outward": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "position": [
+            0,
+            0,
+            0.6
+          ],
+          "outward": [
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-curve",
+      "triangles": 1188,
+      "dimensions": [
+        2.4,
+        0.06,
+        2.4
+      ],
+      "materials": [
+        "hope-prop-cream",
+        "hope-prop-paving-pink"
+      ],
+      "file_size_bytes": 65168,
+      "file": "path-curve.glb",
+      "dimension_sources": [
+        "New 2x2 module, same 1.20 width; inner radius 1.20, outer radius 2.40"
+      ],
+      "sha256": "958a12a0a731d37854dbfdf92a84c85e5ca945e176578b296079115630752e05",
+      "ports": [
+        {
+          "position": [
+            0.6,
+            0,
+            -1.2
+          ],
+          "outward": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "position": [
+            -1.2,
+            0,
+            0.6
+          ],
+          "outward": [
+            -1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-plaza",
+      "triangles": 972,
+      "dimensions": [
+        1.2,
+        0.06,
+        1.2
+      ],
+      "materials": [
+        "hope-prop-cream",
+        "hope-prop-paving-pink"
+      ],
+      "file_size_bytes": 54372,
+      "file": "path-plaza.glb",
+      "dimension_sources": [
+        "New 1.20 square module; same paving pitch and height"
+      ],
+      "sha256": "4a3b112c6c7db8b9186f3c22b809e20949da376fdbc73b207da26d34dc698a4c",
+      "ports": [
+        {
+          "position": [
+            0,
+            0,
+            -0.6
+          ],
+          "outward": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "position": [
+            0,
+            0,
+            0.6
+          ],
+          "outward": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "position": [
+            -0.6,
+            0,
+            0
+          ],
+          "outward": [
+            -1,
+            0,
+            0
+          ]
+        },
+        {
+          "position": [
+            0.6,
+            0,
+            0
+          ],
+          "outward": [
+            1,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rock-shore-a",
+      "triangles": 2160,
+      "dimensions": [
+        1.071505,
+        0.53288,
+        0.921952
+      ],
+      "materials": [
+        "hope-prop-rock",
+        "hope-prop-moss",
+        "hope-prop-white",
+        "hope-prop-yellow",
+        "hope-prop-rock-light"
+      ],
+      "file_size_bytes": 91644,
+      "file": "rock-shore-a.glb",
+      "dimension_sources": [
+        "webgl-prototype/hope-environment.js:60; radii .22/.29/.36, y scale .70; layered reinterpretation"
+      ],
+      "sha256": "51e60b04789d3a2004c81cf2c033b2da7959c4af1ed110fff54a54b61f08670f"
+    },
+    {
+      "id": "rock-shore-b",
+      "triangles": 2160,
+      "dimensions": [
+        1.111412,
+        0.49288,
+        0.836556
+      ],
+      "materials": [
+        "hope-prop-rock",
+        "hope-prop-moss",
+        "hope-prop-white",
+        "hope-prop-yellow",
+        "hope-prop-rock-light"
+      ],
+      "file_size_bytes": 91676,
+      "file": "rock-shore-b.glb",
+      "dimension_sources": [
+        "Same source as rock-shore-a; new alternate arrangement"
+      ],
+      "sha256": "1f3aebac77077047cfc83ea49ab605f1cca80a6978bef787fb6227008395ebae"
+    },
+    {
+      "id": "foam-ring",
+      "triangles": 320,
+      "dimensions": [
+        1.455257,
+        0.0,
+        1.169624
+      ],
+      "materials": [
+        "hope-prop-foam"
+      ],
+      "file_size_bytes": 10688,
+      "file": "foam-ring.glb",
+      "dimension_sources": [
+        "New local ring sized to shore rocks; webgl-prototype/hope-environment.js:12 uses island-wide lines, not a prop"
+      ],
+      "sha256": "f07eb94e62a9907aa274840ed1da6a68d972bb4827126ff775515ad3a22b52c0"
+    },
+    {
+      "id": "signpost",
+      "triangles": 844,
+      "dimensions": [
+        0.514049,
+        0.7325,
+        0.19731
+      ],
+      "materials": [
+        "hope-prop-cream",
+        "hope-prop-blue"
+      ],
+      "file_size_bytes": 47136,
+      "file": "signpost.glb",
+      "dimension_sources": [
+        "New upright sign; webgl-prototype/hope-landmark-gardens.js:30-33 plaque is 1.50 wide, top 1.4325, ground .70; use .7325 height"
+      ],
+      "sha256": "56cc662b338f018a9a69917130696b435f894b5dc6be1f9b00e1c22de9987159"
+    }
+  ]
+}

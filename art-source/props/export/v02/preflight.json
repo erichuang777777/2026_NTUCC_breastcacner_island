@@ -1,0 +1,149 @@
+{
+  "status": "static-only; Blender execution required",
+  "triangle_method": "raw polygon tessellation plus analytic 2-segment bevel estimate; not measured",
+  "assets": [
+    {
+      "id": "bench",
+      "raw_triangles": 156,
+      "estimated_baked_triangles": 1404,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        0.7,
+        0.63,
+        0.27
+      ]
+    },
+    {
+      "id": "lamp",
+      "raw_triangles": 178,
+      "estimated_baked_triangles": 1494,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        0.164,
+        0.75,
+        0.164
+      ]
+    },
+    {
+      "id": "flowerbed-round",
+      "raw_triangles": 2680,
+      "estimated_baked_triangles": 3832,
+      "budget_max": 4000,
+      "raw_dimensions": [
+        0.739937,
+        0.489544,
+        0.739937
+      ]
+    },
+    {
+      "id": "flowerbed-long",
+      "raw_triangles": 2524,
+      "estimated_baked_triangles": 3964,
+      "budget_max": 4000,
+      "raw_dimensions": [
+        1.478,
+        0.489544,
+        0.74
+      ]
+    },
+    {
+      "id": "shrub-cluster",
+      "raw_triangles": 1432,
+      "estimated_baked_triangles": 1432,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        0.743009,
+        0.387304,
+        0.560183
+      ]
+    },
+    {
+      "id": "tree-round",
+      "raw_triangles": 2856,
+      "estimated_baked_triangles": 3112,
+      "budget_max": 4000,
+      "raw_dimensions": [
+        0.955,
+        1.2868,
+        0.72
+      ]
+    },
+    {
+      "id": "path-straight",
+      "raw_triangles": 108,
+      "estimated_baked_triangles": 972,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        1.2,
+        0.06,
+        1.2
+      ]
+    },
+    {
+      "id": "path-curve",
+      "raw_triangles": 180,
+      "estimated_baked_triangles": 1188,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        2.4,
+        0.06,
+        2.4
+      ]
+    },
+    {
+      "id": "path-plaza",
+      "raw_triangles": 108,
+      "estimated_baked_triangles": 972,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        1.2,
+        0.06,
+        1.2
+      ]
+    },
+    {
+      "id": "rock-shore-a",
+      "raw_triangles": 2054,
+      "estimated_baked_triangles": 2054,
+      "budget_max": 2500,
+      "raw_dimensions": [
+        1.342465,
+        0.59,
+        1.076738
+      ]
+    },
+    {
+      "id": "rock-shore-b",
+      "raw_triangles": 2054,
+      "estimated_baked_triangles": 2054,
+      "budget_max": 2500,
+      "raw_dimensions": [
+        1.342465,
+        0.57,
+        1.076738
+      ]
+    },
+    {
+      "id": "foam-ring",
+      "raw_triangles": 1404,
+      "estimated_baked_triangles": 1404,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        1.461023,
+        0.057625,
+        1.17277
+      ]
+    },
+    {
+      "id": "signpost",
+      "raw_triangles": 100,
+      "estimated_baked_triangles": 844,
+      "budget_max": 1500,
+      "raw_dimensions": [
+        0.515,
+        0.7325,
+        0.2
+      ]
+    }
+  ]
+}

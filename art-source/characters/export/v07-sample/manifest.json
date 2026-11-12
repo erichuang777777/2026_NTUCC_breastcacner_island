@@ -1,0 +1,594 @@
+{
+  "version": "v07-sample",
+  "authoring": "v06-derived data API geometry; unchanged v05/v06 rig and action curves",
+  "bone_position_changes": [],
+  "arm_geometry": "10 degree lateral offset; forward bend below elbow",
+  "triangle_limit": 38000,
+  "roles": [
+    {
+      "role": "patient-scarf",
+      "runtime_replacement": "visitor.glb",
+      "default_part": "scarf",
+      "triangles": 36136,
+      "triangles_by_part": {
+        "cast_bob": 1800,
+        "cast_body": 24736,
+        "cast_cap": 696,
+        "cast_mask": 864,
+        "cast_ponytail": 1184,
+        "cast_scarf": 2664,
+        "cast_short": 4192
+      },
+      "visible_triangles": 27400,
+      "baseline_total_triangles": 54008,
+      "baseline_sha256": "eb2144c4b60a84a86c2f8eafe3bfbf93366af80f04edfbf97c8f2398ea2c21c9",
+      "bytes": 1134456,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ],
+      "rest_bounds_y": [
+        0.0,
+        1.5700000524520874
+      ],
+      "bones": [
+        {
+          "name": "root",
+          "parent": null,
+          "head_blender": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            0.11999999731779099
+          ]
+        },
+        {
+          "name": "hips",
+          "parent": "root",
+          "head_blender": [
+            0.0,
+            0.0,
+            0.550000011920929
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            0.699999988079071
+          ]
+        },
+        {
+          "name": "spine",
+          "parent": "hips",
+          "head_blender": [
+            0.0,
+            0.0,
+            0.699999988079071
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "head",
+          "parent": "spine",
+          "head_blender": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            1.4700000286102295
+          ]
+        },
+        {
+          "name": "eye.L",
+          "parent": "head",
+          "head_blender": [
+            -0.0860000029206276,
+            -0.18400000035762787,
+            1.2669999599456787
+          ],
+          "tail_blender": [
+            -0.0860000029206276,
+            -0.18400000035762787,
+            1.3200000524520874
+          ]
+        },
+        {
+          "name": "eye.R",
+          "parent": "head",
+          "head_blender": [
+            0.0860000029206276,
+            -0.18400000035762787,
+            1.2669999599456787
+          ],
+          "tail_blender": [
+            0.0860000029206276,
+            -0.18400000035762787,
+            1.3200000524520874
+          ]
+        },
+        {
+          "name": "upper_arm.L",
+          "parent": "spine",
+          "head_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.9599999785423279
+          ],
+          "tail_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ]
+        },
+        {
+          "name": "forearm.L",
+          "parent": "upper_arm.L",
+          "head_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ],
+          "tail_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ]
+        },
+        {
+          "name": "hand.L",
+          "parent": "forearm.L",
+          "head_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ],
+          "tail_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.44999998807907104
+          ]
+        },
+        {
+          "name": "upper_arm.R",
+          "parent": "spine",
+          "head_blender": [
+            0.21299999952316284,
+            0.0,
+            0.9599999785423279
+          ],
+          "tail_blender": [
+            0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ]
+        },
+        {
+          "name": "forearm.R",
+          "parent": "upper_arm.R",
+          "head_blender": [
+            0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ],
+          "tail_blender": [
+            0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ]
+        },
+        {
+          "name": "hand.R",
+          "parent": "forearm.R",
+          "head_blender": [
+            0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ],
+          "tail_blender": [
+            0.21299999952316284,
+            0.0,
+            0.44999998807907104
+          ]
+        },
+        {
+          "name": "thigh.L",
+          "parent": "hips",
+          "head_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.550000011920929
+          ],
+          "tail_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ]
+        },
+        {
+          "name": "shin.L",
+          "parent": "thigh.L",
+          "head_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ],
+          "tail_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ]
+        },
+        {
+          "name": "foot.L",
+          "parent": "shin.L",
+          "head_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ],
+          "tail_blender": [
+            -0.09200000017881393,
+            -0.11999999731779099,
+            0.09000000357627869
+          ]
+        },
+        {
+          "name": "thigh.R",
+          "parent": "hips",
+          "head_blender": [
+            0.09200000017881393,
+            0.0,
+            0.550000011920929
+          ],
+          "tail_blender": [
+            0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ]
+        },
+        {
+          "name": "shin.R",
+          "parent": "thigh.R",
+          "head_blender": [
+            0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ],
+          "tail_blender": [
+            0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ]
+        },
+        {
+          "name": "foot.R",
+          "parent": "shin.R",
+          "head_blender": [
+            0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ],
+          "tail_blender": [
+            0.09200000017881393,
+            -0.11999999731779099,
+            0.09000000357627869
+          ]
+        }
+      ]
+    },
+    {
+      "role": "nurse",
+      "runtime_replacement": "nurse.glb",
+      "default_part": "bob",
+      "triangles": 34648,
+      "triangles_by_part": {
+        "cast_bob": 1800,
+        "cast_body": 23248,
+        "cast_cap": 696,
+        "cast_mask": 864,
+        "cast_ponytail": 1184,
+        "cast_scarf": 2664,
+        "cast_short": 4192
+      },
+      "visible_triangles": 25048,
+      "baseline_total_triangles": 49328,
+      "baseline_sha256": "c8aa0d5c5e71ab2a6dc3a59efe7e28f2bfabd57aff1c0528a690e1e7277f92ec",
+      "bytes": 1091744,
+      "actions": [
+        "idle",
+        "walk",
+        "wave",
+        "read",
+        "talk",
+        "nod",
+        "stretch",
+        "wish"
+      ],
+      "rest_bounds_y": [
+        0.0,
+        1.5700000524520874
+      ],
+      "bones": [
+        {
+          "name": "root",
+          "parent": null,
+          "head_blender": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            0.11999999731779099
+          ]
+        },
+        {
+          "name": "hips",
+          "parent": "root",
+          "head_blender": [
+            0.0,
+            0.0,
+            0.550000011920929
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            0.699999988079071
+          ]
+        },
+        {
+          "name": "spine",
+          "parent": "hips",
+          "head_blender": [
+            0.0,
+            0.0,
+            0.699999988079071
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            1.0
+          ]
+        },
+        {
+          "name": "head",
+          "parent": "spine",
+          "head_blender": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tail_blender": [
+            0.0,
+            0.0,
+            1.4700000286102295
+          ]
+        },
+        {
+          "name": "eye.L",
+          "parent": "head",
+          "head_blender": [
+            -0.0860000029206276,
+            -0.18400000035762787,
+            1.2669999599456787
+          ],
+          "tail_blender": [
+            -0.0860000029206276,
+            -0.18400000035762787,
+            1.3200000524520874
+          ]
+        },
+        {
+          "name": "eye.R",
+          "parent": "head",
+          "head_blender": [
+            0.0860000029206276,
+            -0.18400000035762787,
+            1.2669999599456787
+          ],
+          "tail_blender": [
+            0.0860000029206276,
+            -0.18400000035762787,
+            1.3200000524520874
+          ]
+        },
+        {
+          "name": "upper_arm.L",
+          "parent": "spine",
+          "head_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.9599999785423279
+          ],
+          "tail_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ]
+        },
+        {
+          "name": "forearm.L",
+          "parent": "upper_arm.L",
+          "head_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ],
+          "tail_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ]
+        },
+        {
+          "name": "hand.L",
+          "parent": "forearm.L",
+          "head_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ],
+          "tail_blender": [
+            -0.21299999952316284,
+            0.0,
+            0.44999998807907104
+          ]
+        },
+        {
+          "name": "upper_arm.R",
+          "parent": "spine",
+          "head_blender": [
+            0.21299999952316284,
+            0.0,
+            0.9599999785423279
+          ],
+          "tail_blender": [
+            0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ]
+        },
+        {
+          "name": "forearm.R",
+          "parent": "upper_arm.R",
+          "head_blender": [
+            0.21299999952316284,
+            0.0,
+            0.7450000047683716
+          ],
+          "tail_blender": [
+            0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ]
+        },
+        {
+          "name": "hand.R",
+          "parent": "forearm.R",
+          "head_blender": [
+            0.21299999952316284,
+            0.0,
+            0.5299999713897705
+          ],
+          "tail_blender": [
+            0.21299999952316284,
+            0.0,
+            0.44999998807907104
+          ]
+        },
+        {
+          "name": "thigh.L",
+          "parent": "hips",
+          "head_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.550000011920929
+          ],
+          "tail_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ]
+        },
+        {
+          "name": "shin.L",
+          "parent": "thigh.L",
+          "head_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ],
+          "tail_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ]
+        },
+        {
+          "name": "foot.L",
+          "parent": "shin.L",
+          "head_blender": [
+            -0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ],
+          "tail_blender": [
+            -0.09200000017881393,
+            -0.11999999731779099,
+            0.09000000357627869
+          ]
+        },
+        {
+          "name": "thigh.R",
+          "parent": "hips",
+          "head_blender": [
+            0.09200000017881393,
+            0.0,
+            0.550000011920929
+          ],
+          "tail_blender": [
+            0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ]
+        },
+        {
+          "name": "shin.R",
+          "parent": "thigh.R",
+          "head_blender": [
+            0.09200000017881393,
+            0.0,
+            0.3199999928474426
+          ],
+          "tail_blender": [
+            0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ]
+        },
+        {
+          "name": "foot.R",
+          "parent": "shin.R",
+          "head_blender": [
+            0.09200000017881393,
+            0.0,
+            0.09000000357627869
+          ],
+          "tail_blender": [
+            0.09200000017881393,
+            -0.11999999731779099,
+            0.09000000357627869
+          ]
+        }
+      ]
+    }
+  ],
+  "runtime_notes": [
+    "patient-scarf.glb replaces visitor.glb; nurse.glb replaces nurse.glb",
+    "cast_body/scarf/short/bob/ponytail/cap/mask retained; default active headwear is selected by the web app",
+    "Existing appearance overrides still recolor shirt/pants/hair/headscarf; current visitor pants override is blue",
+    "No Blender execution or visual/action collision approval in author sandbox"
+  ],
+  "pending_validation": [
+    "Warm studio front and three-quarter review",
+    "All eight animations and hand/torso intersections",
+    "WebGL swap, blink and recolor checks"
+  ]
+}
