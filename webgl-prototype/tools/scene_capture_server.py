@@ -65,7 +65,7 @@ class Handler(SimpleHTTPRequestHandler):
         if not self.path.startswith('/__capture/') or relative not in (PROPS_ALLOWED if getattr(self.server, 'props', False) else LOOKDEV_ALLOWED if getattr(self.server, 'lookdev', False) else BASE_ALLOWED) or not 0 < size <= 2**31:
             self.send_error(400)
             return
-        target = ART / relative
+        target = ART / (relative.replace('captures/web-props/', 'lookdev/props-round3/') if getattr(self.server, 'round3', False) else relative)
         target.parent.mkdir(parents=True, exist_ok=True)
         remaining = size
         temporary = target.with_suffix(target.suffix + '.partial')
@@ -90,7 +90,10 @@ if __name__ == '__main__':
     parser.add_argument('--port', type=int, default=8767)
     parser.add_argument('--lookdev', action='store_true', help='Preview lighting and postprocessing; save only four PNGs')
     parser.add_argument('--props', action='store_true', help='Add v02 prop scatter; requires --lookdev')
+    parser.add_argument('--round3', action='store_true', help='Save props captures only under art-source/lookdev/props-round3')
     args = parser.parse_args()
+    if args.round3 and not args.props:
+        parser.error('--round3 requires --props')
     if args.props and not args.lookdev:
         parser.error('--props requires --lookdev')
     if not args.lookdev:
@@ -104,4 +107,5 @@ if __name__ == '__main__':
     server = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
     server.lookdev = args.lookdev
     server.props = args.props
+    server.round3 = args.round3
     server.serve_forever()
