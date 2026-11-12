@@ -1,10 +1,11 @@
 // Appended in module scope by scene_capture_server.py; never loaded by the normal site.
-window.__captureFreeze = true;
+window.__captureFreeze = !window.__captureLookdev;
 const captureButton = document.createElement('button');
-captureButton.textContent = '匯出 GLB 與四個鏡位';
+captureButton.textContent = window.__captureLookdev ? '擷取 lookdev 四個鏡位' : '匯出 GLB 與四個鏡位';
 captureButton.style.cssText = 'position:fixed;z-index:9999;top:8px;left:8px';
 document.body.append(captureButton);
 captureButton.onclick = async () => {
+ if (window.__captureLookdev) return captureLookdevShots();
  captureButton.disabled = true;
  const upload = async (path, body) => {
   const response = await fetch('/__capture/' + path, {method:'POST', body});
@@ -76,3 +77,44 @@ captureButton.onclick = async () => {
   captureButton.textContent='完成：GLB、JSON、四張 PNG 已儲存';
  }catch(error){captureButton.textContent='失敗：'+error.message;console.error(error);}
 };
+
+
+// lookdev 分支不命名場景物件、不匯出 GLB／JSON，擷取後恢復互動。
+async function captureLookdevShots() {
+ captureButton.disabled=true;
+ if (!tower || !hospital) { captureButton.textContent='地標尚未載入，請稍後再試'; captureButton.disabled=false; return; }
+ const saved={night,view,position:camera.position.clone(),target:controls.target.clone(),
+  aspect:camera.aspect,ratio:renderer.getPixelRatio(),size:renderer.getSize(new THREE.Vector2()),
+  damping:controls.enableDamping,labels:islandLabels.map(o=>o.visible)};
+ window.__captureFreeze=true;
+ // 讓已排程的動畫回呼停止；避免恢復時出現兩條動畫鏈。
+ await new Promise(resolve=>requestAnimationFrame(resolve));
+ try {
+  const response=await fetch('/scene/shots.json');
+  if(!response.ok) throw new Error('無法載入鏡位');
+  const config=await response.json();
+  controls.enableDamping=false;
+  renderer.setPixelRatio(1);renderer.setSize(1920,1080,false);
+  camera.aspect=1920/1080;camera.updateProjectionMatrix();
+  for(let i=0;i<config.shots.length;i++) {
+   const shot=config.shots[i];setNight(shot.timeOfDay==='night');
+   setView(['campus','hospital','tower','island'][i]);
+   if(i===3){islandLabels.forEach(o=>o.visible=false);camera.position.copy(controls.target).add(overviewOffset().multiplyScalar(1.08));controls.update();}
+   camera.updateMatrixWorld(true);renderer.render(scene,camera);
+   const png=await new Promise(resolve=>renderer.domElement.toBlob(resolve,'image/png'));
+   if(!png)throw new Error('Canvas PNG encoding failed');
+   const upload=await fetch(`/__capture/captures/web-lookdev/${shot.id}.png`,{method:'POST',body:png});
+   if(!upload.ok)throw new Error(`Upload ${shot.id}: ${upload.status}`);
+  }
+  captureButton.textContent='完成：lookdev 四張 PNG 已儲存';
+ } catch(error) { captureButton.textContent='失敗：'+error.message;console.error(error); }
+ finally {
+  setNight(saved.night);setView(saved.view);
+  camera.position.copy(saved.position);controls.target.copy(saved.target);controls.update();
+  controls.enableDamping=saved.damping;islandLabels.forEach((o,i)=>o.visible=saved.labels[i]);
+  renderer.setPixelRatio(saved.ratio);renderer.setSize(saved.size.x,saved.size.y,false);
+  camera.aspect=saved.aspect;camera.updateProjectionMatrix();
+  last=performance.now();window.__captureFreeze=false;requestAnimationFrame(animate);
+  captureButton.disabled=false;
+ }
+}

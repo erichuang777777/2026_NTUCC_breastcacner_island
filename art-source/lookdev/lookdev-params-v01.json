@@ -1,0 +1,118 @@
+{
+  "quality": "high",
+  "toneMapping": "AgX",
+  "shadow": {
+    "type": "PCFShadowMap",
+    "mapSize": 2048,
+    "radius": 3,
+    "normalBias": 0.02,
+    "bias": -0.0001
+  },
+  "qualityPresets": {
+    "high": {
+      "aoResolutionScale": 1,
+      "aoSamples": 16,
+      "dof": true
+    },
+    "medium": {
+      "aoResolutionScale": 0.5,
+      "aoSamples": 8,
+      "dof": false
+    }
+  },
+  "day": {
+    "exposure": 1.4,
+    "background": "#c5e4e8",
+    "fogNear": 130,
+    "fogFar": 280,
+    "hemisphere": {
+      "sky": "#dceeff",
+      "ground": "#8f9971",
+      "intensity": 1.3
+    },
+    "sun": {
+      "color": "#ffe0ad",
+      "intensity": 3.6
+    },
+    "fill": {
+      "color": "#d4e7ff",
+      "intensity": 0.45
+    },
+    "emissive": {
+      "lampIntensity": 1.8,
+      "hospitalWindowScale": 0.18,
+      "lanternIntensity": 0
+    },
+    "ao": {
+      "radius": 0.3,
+      "thickness": 0.4,
+      "distanceExponent": 2,
+      "distanceFallOff": 1,
+      "scale": 1,
+      "screenSpaceRadius": false,
+      "blendIntensity": 0.4
+    },
+    "bloom": {
+      "threshold": 1.6,
+      "strength": 0.22,
+      "radius": 0.35
+    },
+    "dof": {
+      "aperture": 8e-05,
+      "maxblur": 0.0015
+    },
+    "grading": {
+      "saturation": 1.3,
+      "contrast": 1.1,
+      "temperature": 0.015
+    },
+    "seaColor": "#42b8d0"
+  },
+  "night": {
+    "exposure": 1.1,
+    "background": "#172e49",
+    "fogNear": 130,
+    "fogFar": 280,
+    "hemisphere": {
+      "sky": "#9fbeeb",
+      "ground": "#535f68",
+      "intensity": 0.5
+    },
+    "sun": {
+      "color": "#b9d3ff",
+      "intensity": 0.3
+    },
+    "fill": {
+      "color": "#91b6ed",
+      "intensity": 0.24
+    },
+    "emissive": {
+      "lampIntensity": 4,
+      "hospitalWindowScale": 1.2,
+      "lanternIntensity": 10
+    },
+    "ao": {
+      "radius": 0.65,
+      "thickness": 0.8,
+      "distanceExponent": 2,
+      "distanceFallOff": 1,
+      "scale": 1,
+      "screenSpaceRadius": false,
+      "blendIntensity": 0.5
+    },
+    "bloom": {
+      "threshold": 0.85,
+      "strength": 0.336,
+      "radius": 0.45
+    },
+    "dof": {
+      "aperture": 6e-05,
+      "maxblur": 0.0012
+    },
+    "grading": {
+      "saturation": 1,
+      "contrast": 1,
+      "temperature": 0
+    }
+  }
+}
