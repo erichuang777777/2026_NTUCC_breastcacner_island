@@ -124,3 +124,42 @@ API 依據：[r160 GTAOPass 原始碼](https://github.com/mrdoob/three.js/blob/r
 仍需協調者實測：CDN 模組載入、GPU framebuffer／shader 相容性、四張 PNG 寫入、日夜切換、擷取後動畫恢復、AO 邊緣與透明物件瑕疵、陰影痤瘡、燈光是否過曝、地標辨識、實機 fps。GTAO 為螢幕空間效果，畫面外物件不能提供遮蔽；低解析度 AO 可能有輪廓暈邊。
 
 請回傳四張 high 圖、四張 medium 圖或其差異、瀏覽器主控台錯誤與展示設備／解析度／DPR／fps。這一版不宣稱已達概念圖外觀，也不宣稱已達 30 fps。
+
+## v02 道具散佈第 2 輪（2026-11-12）
+
+入口仍為 `--lookdev --props`，只修改 `webgl-prototype/tools/` 與本目錄，不建立 commit。正式頁面、GLB 與既有擷取結果均未改寫。
+
+```sh
+node webgl-prototype/tools/test_props_scatter.mjs
+python3 -B webgl-prototype/tools/test_lookdev.py
+node webgl-prototype/tools/test_lookdev_render.mjs
+python3 -B webgl-prototype/tools/scene_capture_server.py --port 8769 --lookdev --props
+```
+
+開啟 `http://127.0.0.1:8769/webgl-prototype/taiwan-study.html?quality=high`，按「擷取 props 四個鏡位」。協調者執行後會更新 `art-source/captures/web-props/` 四張 PNG 與 `stats.json`。medium 改用 `?quality=medium`；兩者覆寫相同輸出，請先另存需要保留的版本。
+
+### 修正內容
+
+- 預算只計道具的 InstancedMesh 物件數（≤80）與實例數 × 單件幾何三角形（≤1,500,000）。配置時拒絕超額新增，不再依整幀計數刪減任何類別。high／medium 不再因 pass 數不同改變散佈數量。
+- 同一 GLB 依材質物件分組，先烘焙子網格世界矩陣，再以 `mergeGeometries` 合併。保留不同材質、透明度及路燈發光，故每類為 2–8 個網格，沒有強制將不同材質壓成 1–3 個。所有 13 類合計最多 61 個，低於 80。
+- `props_obstacles_hook.js` 在靜態合批移除原始網格前保存建築及大型物件的實際世界包圍盒。散佈不使用整區、地面或原本的 collider 清單；其他大型物件選取條件為島內直接子群組、高度至少 .55、水平尺寸 .7–6、底部高度至少 .5。
+- 主動線只保留原本兩條縱向走廊及新增連接步道，每側 .4，總寬 .8；不再避開全部橫向尋路線。物件外緣額外留 .08，新道具彼此留 .04。
+- 以 .8 網格搜尋連通的陸地路徑，連接醫院入口 → 中央廣場 → 燈塔；每格鋪縮為 .8 的廣場磚，轉角也連續。中央及每座科別建築前規劃 3×2 鋪面，受岸線／物件限制時記錄實際片數。端點取包圍盒正面外側最近可用格；`paths` 記錄期望端點及實際格點，無法連通時提供原因。
+- 每類先配置下限，再補至目標：灌木 200、圓花圃 50、長花圃 25、樹 80、路燈 40、長椅 30、牌子 8。候選網格 .65、抖動 .45，固定種子 20261112；優先把花圃、路燈、長椅與牌子放在步道／廣場附近。海岸每 2.55 單位採樣，兩款岩石交替，最多共 60 組並配浪花。
+
+### stats.json
+
+- `assets`：`requested` 為接受配置數，`instances` 為實際實例數；含三角形、網格數、目標範圍與 `belowMinimumReason`。
+- `candidateGridPoints`：全島候選點數。`diagnostics`：逐類嘗試次數、接受數及排除計數，區分岸線、具名建築、大型物件、主動線、已放道具、幾何／網格預算。每次嘗試只計第一個排除原因；同座標在補量階段可能再次嘗試。
+- `totalGeometryTriangles`、`totalInstancedMeshes`：唯一用於預算的統計。
+- `obstacles`、`paths`、`plazas`：實際避讓框、步道連通性與各門前鋪面數。
+- `shots[].baseline/withProps/added`：保留 renderer.info 前後差異，含陰影、深度、AO 與後製，只供參考。這不是 GPU 計時。
+- `placements`、`params`、`seed`、`quality`：重現條件。`reductions` 保留相容欄位，現在不進行整類刪減，配置拒絕原因見 diagnostics。
+
+### 驗證與限制
+
+通過 Python 注入／語法／輸出白名單契約測試、high／medium render 替身測試，以及使用真實 GLB 索引資料與島形的散佈測試。包含合批前包圍盒選取、同材質合併、固定種子、步道鄰格連續性、日夜同步、整幀統計失敗復原及幾何預算；測試刻意令整幀 draw call 差值超過 80，確認道具不被刪除。
+
+只含醫院、燈塔包圍盒的替身場景為：灌木 161、樹 62、圓花圃 50、長花圃 22、路燈 40、長椅 30、牌子 8、岸石 58、浪花 58、鋪面 24；共 57 個 InstancedMesh、1,034,668 三角形，所有目標類別達下限。這不是完整場景的實測數量。
+
+本輪未執行 WebGL 或寫入擷取目錄；既有 stats.json 仍是第 1 輪，請重新擷取。完整場景的最終數量、各科門前鋪面、地面貼合、陰影、Bloom 與視覺密度仍須以新版 PNG／stats 確認。包圍盒避讓是保守近似，海岸岩石刻意跨接岸壁；不修改角色碰撞或尋路系統。

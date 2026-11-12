@@ -30,6 +30,24 @@ class LookdevContract(unittest.TestCase):
         self.assertFalse(server.BASE_ALLOWED & server.LOOKDEV_ALLOWED)
         self.assertTrue(all(p.startswith('captures/web-lookdev/') and p.endswith('.png') for p in server.LOOKDEV_ALLOWED))
 
+    def test_props_contract(self):
+        source = (server.ROOT / 'webgl-prototype/taiwan-study.js').read_text()
+        combined = server.injected_source(source, True, True)
+        self.assertLess(combined.index('const LOOKDEV_PARAMS'), combined.index('const PROPS_SCATTER_PARAMS'))
+        self.assertLess(combined.index('const PROPS_SCATTER_PARAMS'), combined.index('const captureButton'))
+        self.assertNotIn('const PROPS_SCATTER_PARAMS', server.injected_source(source, True))
+        self.assertLess(combined.index('window.__propsObstacles=[]'), combined.index('const batches=new Map()'))
+        self.assertNotIn('props.reduce(', combined)
+        self.assertIn('props.assertBudget()', combined)
+        self.assertEqual(server.PROPS_ALLOWED, {f'captures/web-props/{s}.png' for s in server.SHOT_IDS} | {'captures/web-props/stats.json'})
+        self.assertFalse(server.PROPS_ALLOWED & (server.BASE_ALLOWED | server.LOOKDEV_ALLOWED))
+        with self.assertRaises(ValueError):
+            server.injected_source(source, False, True)
+        subprocess.run(['node', '--input-type=module', '--check'], input=combined, text=True, check=True)
+        invalid = subprocess.run([sys.executable, '-B', str(TOOLS / 'scene_capture_server.py'), '--props'], capture_output=True, text=True)
+        self.assertEqual(invalid.returncode, 2)
+        self.assertIn('--props requires --lookdev', invalid.stderr)
+
     def test_params_match(self):
         hook = (TOOLS / 'lookdev_hook.js').read_text()
         inline = json.loads(hook.split('const LOOKDEV_PARAMS = ', 1)[1].split(';', 1)[0])

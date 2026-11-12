@@ -12,15 +12,25 @@ SHOT_IDS = [s['id'] for s in json.loads((ROOT / 'scene/shots.json').read_text())
 BASE_ALLOWED = {'exports/taiwan-study-scene-v01.glb', 'captures/shots-capture.json',
            'captures/export-manifest.json'} | {f'captures/web/{s}.png' for s in SHOT_IDS}
 
+PROPS_ALLOWED = {f'captures/web-props/{s}.png' for s in SHOT_IDS} | {'captures/web-props/stats.json'}
+
 LOOKDEV_ALLOWED = {f'captures/web-lookdev/{s}.png' for s in SHOT_IDS}
 
 
-def injected_source(source, lookdev=False):
+def injected_source(source, lookdev=False, props=False):
+    if props and not lookdev:
+        raise ValueError("--props requires --lookdev")
     source = source.replace('function animate(now){',
         'function animate(now){if(window.__captureFreeze)return;')
     if lookdev:
         source += '\nwindow.__captureLookdev = true;\n'
         source += (ROOT / 'webgl-prototype/tools/lookdev_hook.js').read_text()
+    if props:
+        marker = 'const batches=new Map(),originals=[];'
+        if source.count(marker) != 1:
+            raise ValueError('props obstacle injection requires the static batching marker')
+        source = source.replace(marker, (ROOT / 'webgl-prototype/tools/props_obstacles_hook.js').read_text() + '\n' + marker)
+        source += '\n' + (ROOT / 'webgl-prototype/tools/props_scatter_hook.js').read_text()
     return source + '\n' + (ROOT / 'webgl-prototype/tools/scene_capture_hook.js').read_text()
 
 
@@ -32,7 +42,7 @@ class Handler(SimpleHTTPRequestHandler):
         path = urlsplit(self.path).path
         if path == '/webgl-prototype/taiwan-study.js':
             source = (ROOT / path.lstrip('/')).read_text()
-            source = injected_source(source, getattr(self.server, 'lookdev', False))
+            source = injected_source(source, getattr(self.server, 'lookdev', False), getattr(self.server, 'props', False))
             data = source.encode()
             self.send_response(200)
             self.send_header('Content-Type', 'text/javascript; charset=utf-8')
@@ -52,7 +62,7 @@ class Handler(SimpleHTTPRequestHandler):
             return
         relative = urlsplit(self.path).path.removeprefix('/__capture/')
         size = int(self.headers.get('Content-Length', '0'))
-        if not self.path.startswith('/__capture/') or relative not in (LOOKDEV_ALLOWED if getattr(self.server, 'lookdev', False) else BASE_ALLOWED) or not 0 < size <= 2**31:
+        if not self.path.startswith('/__capture/') or relative not in (PROPS_ALLOWED if getattr(self.server, 'props', False) else LOOKDEV_ALLOWED if getattr(self.server, 'lookdev', False) else BASE_ALLOWED) or not 0 < size <= 2**31:
             self.send_error(400)
             return
         target = ART / relative
@@ -79,7 +89,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', type=int, default=8767)
     parser.add_argument('--lookdev', action='store_true', help='Preview lighting and postprocessing; save only four PNGs')
+    parser.add_argument('--props', action='store_true', help='Add v02 prop scatter; requires --lookdev')
     args = parser.parse_args()
+    if args.props and not args.lookdev:
+        parser.error('--props requires --lookdev')
     if not args.lookdev:
         ART.joinpath('captures').mkdir(parents=True, exist_ok=True)
         sources = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -90,4 +103,5 @@ if __name__ == '__main__':
     print(f'Open http://127.0.0.1:{args.port}/webgl-prototype/taiwan-study.html', flush=True)
     server = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
     server.lookdev = args.lookdev
+    server.props = args.props
     server.serve_forever()

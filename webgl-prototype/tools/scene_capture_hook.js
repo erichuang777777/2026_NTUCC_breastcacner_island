@@ -1,7 +1,7 @@
 // Appended in module scope by scene_capture_server.py; never loaded by the normal site.
 window.__captureFreeze = !window.__captureLookdev;
 const captureButton = document.createElement('button');
-captureButton.textContent = window.__captureLookdev ? '擷取 lookdev 四個鏡位' : '匯出 GLB 與四個鏡位';
+captureButton.textContent = window.__captureProps ? '擷取 props 四個鏡位' : window.__captureLookdev ? '擷取 lookdev 四個鏡位' : '匯出 GLB 與四個鏡位';
 captureButton.style.cssText = 'position:fixed;z-index:9999;top:8px;left:8px';
 document.body.append(captureButton);
 captureButton.onclick = async () => {
@@ -96,17 +96,28 @@ async function captureLookdevShots() {
   controls.enableDamping=false;
   renderer.setPixelRatio(1);renderer.setSize(1920,1080,false);
   camera.aspect=1920/1080;camera.updateProjectionMatrix();
+  const props=window.__captureProps?window.__propsScatter:null, shotStats=[];
+  // 整幀統計僅供參考，不因陰影／後製 pass 自動刪減道具。
+  if(props)props.assertBudget();
   for(let i=0;i<config.shots.length;i++) {
    const shot=config.shots[i];setNight(shot.timeOfDay==='night');
    setView(['campus','hospital','tower','island'][i]);
    if(i===3){islandLabels.forEach(o=>o.visible=false);camera.position.copy(controls.target).add(overviewOffset().multiplyScalar(1.08));controls.update();}
    camera.updateMatrixWorld(true);renderer.render(scene,camera);
+   if(props)shotStats.push({id:shot.id,timeOfDay:shot.timeOfDay,...props.measurePair()});
    const png=await new Promise(resolve=>renderer.domElement.toBlob(resolve,'image/png'));
    if(!png)throw new Error('Canvas PNG encoding failed');
-   const upload=await fetch(`/__capture/captures/web-lookdev/${shot.id}.png`,{method:'POST',body:png});
+   const upload=await fetch(`/__capture/captures/${props?'web-props':'web-lookdev'}/${shot.id}.png`,{method:'POST',body:png});
    if(!upload.ok)throw new Error(`Upload ${shot.id}: ${upload.status}`);
   }
-  captureButton.textContent='完成：lookdev 四張 PNG 已儲存';
+  if(props) {
+   const report=props.report(shotStats);
+   const uploaded=await fetch('/__capture/captures/web-props/stats.json',{method:'POST',
+    body:new Blob([JSON.stringify(report,null,2)],{type:'application/json'})});
+   if(!uploaded.ok)throw new Error(`Upload stats: ${uploaded.status}`);
+   console.table(report.assets);console.table(shotStats.map(s=>({id:s.id,...s.added})));
+  }
+  captureButton.textContent=props?'完成：props 四張 PNG 與 stats.json 已儲存':'完成：lookdev 四張 PNG 已儲存';
  } catch(error) { captureButton.textContent='失敗：'+error.message;console.error(error); }
  finally {
   setNight(saved.night);setView(saved.view);
