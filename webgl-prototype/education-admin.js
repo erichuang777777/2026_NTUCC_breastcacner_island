@@ -44,7 +44,7 @@ async function events(){
    const download=node('button','下載 QR Code');download.onclick=()=>{const blob=new Blob([svg],{type:'image/svg+xml'}),href=URL.createObjectURL(blob),link=node('a');link.href=href;link.download='hope-island-'+e.date+'-'+e.id.slice(0,8)+'.svg';link.click();setTimeout(()=>URL.revokeObjectURL(href),1000);};
    section.append(qr,node('p','掃描 → 設定角色 → 加入希望島 → 三題闖關','hint'),a,enlarge,download);
   }else section.append(node('p','請先設定手機可連線的入口網址。','hint'));
-  const toggle=node('button',e.status==='open'?'結束活動':'重新開放');toggle.onclick=()=>run(async()=>{await api('admin/events/'+e.id,'PATCH',{status:e.status==='open'?'closed':'open'});await events();message('活動狀態已更新。');});section.append(toggle);$('event-list').append(section);
+  const toggle=node('button',e.status==='open'?'結束活動':'重新開放');toggle.onclick=()=>run(async()=>{await api('admin/events/'+e.id,'PATCH',{status:e.status==='open'?'closed':'open'});await events();message('活動狀態已更新。');});section.append(toggle,quizStatistics(e));$('event-list').append(section);
  }
  if(!items.length)$('event-list').append(node('p','建立活動後，這裡會顯示專屬入口 QR Code。'));
 }
@@ -59,3 +59,14 @@ $('hide-key').onclick=hideKey;$('copy-key').onclick=()=>run(async()=>{if(navigat
 $('api-example').textContent='POST '+location.origin+'/api/agent/articles\nAuthorization: Bearer YOUR_API_KEY\nContent-Type: application/json\n\n'+JSON.stringify({title:'文章標題',category:educationStations[0].name,body:'衛教內文',references:'來源名稱或網址'},null,2);
 $('event-form').onsubmit=e=>{e.preventDefault();run(async()=>{const event=await api('admin/events','POST',{title:$('event-title').value,date:$('event-date').value});message(`「${event.title}」入口 QR Code 已建立，掃描後即可設定角色。`);$('event-title').value='';await events();});};$('refresh-events').onclick=()=>run(events);
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});run(auth);
+function quizStatistics(event){
+ const details=node('details',undefined,'quiz-stats'),summary=node('summary','答題統計'),content=node('div'),refresh=node('button','更新答題統計');refresh.type='button';details.append(summary,content,refresh);let loading=false;
+ const percent=n=>n===null?'尚無紀錄':n+'%';
+ async function load(){if(loading)return;loading=true;refresh.disabled=true;content.textContent='正在取得答題統計…';try{
+ const data=await api('admin/events/'+event.id+'/stats');content.replaceChildren();const overview=node('div',undefined,'quiz-stat-summary');
+ for(const [label,value] of [['作答正確率',percent(data.accuracy)],['首次作答正確率',percent(data.firstAccuracy)],['通關人數',data.completed+' / '+data.joined]]){const p=node('p',label);p.append(node('strong',value));overview.append(p);}content.append(overview,node('p',`正確率：${data.correct} 次答對 ÷ ${data.attempts} 次有效作答（含重試）。首次作答：${data.firstCorrect} 次答對 ÷ ${data.firstCount} 筆首次紀錄。同一筆網路重送只計一次。`,'hint'));
+ if(data.untrackedAttempts)content.append(node('p',`有 ${data.untrackedAttempts} 次舊版作答未記錄題目明細，不納入正確率；舊參加者的首次作答若無法確認，也不推算。`,'hint'));
+ for(const item of data.questions){const section=node('section',undefined,'quiz-stat-question');section.append(node('h4',`第 ${item.index+1} 題｜${item.prompt}`),node('p',`${item.people} 人作答 · ${item.attempts} 次作答 · 正確率 ${percent(item.accuracy)} · 首次 ${percent(item.firstAccuracy)}`));if(item.accuracy!==null){const bar=node('progress');bar.max=100;bar.value=item.accuracy;bar.setAttribute('aria-label',`第 ${item.index+1} 題正確率 ${item.accuracy}%`);section.append(bar);}const options=node('ul',undefined,'quiz-stat-options');for(const option of item.choices){const li=node('li');li.append(node('strong',`${option.label} · ${option.count} 次${option.correct?' · 正解':''}`),document.createTextNode(option.text));options.append(li);}section.append(options);content.append(section);}
+ }catch(error){content.textContent=error.message;}finally{loading=false;refresh.disabled=false;}}
+ details.addEventListener('toggle',()=>{if(details.open)load();});refresh.onclick=load;return details;
+}

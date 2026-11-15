@@ -2,12 +2,15 @@
 
 十座拼合成臺灣輪廓的互動島嶼，包含醫院、希望燈塔、角色、衛教站點、活動闖關與願望星空。
 
+正式網站：[開啟希望之島](https://ntucc-hope-island-2026.netlify.app/) · [衛教與活動管理](https://ntucc-hope-island-2026.netlify.app/education-admin.html)。已連接 GitHub main 自動部署；新站獨立使用，舊資料留在本機。
+
 ## 完整雲端架構
 
 - 前端：原生 JavaScript／Three.js；大螢幕投影、角色設定、手機搖桿／POV、衛教管理各有獨立頁面。
 - Netlify Functions：維持 `/api/*` 路徑，處理文章與修訂、Agent POST、附件權限、活動／QR 加入、角色、闖關、操控與共用願望。
 - Netlify Database（Postgres）：保存內容、活動、角色、控制序號與願望；以交易、鎖與版本條件避免跨裝置互相覆寫。
 - Netlify Blobs：保存附件；分段上傳支援 12 MB，草稿附件只限管理者讀取。
+- 闖關：三題四選一，答對／答錯動畫；管理頁可看各題正確率、首次作答正確率與選項分布。
 - 角色移動：伺服器驗證方向、速度及碰撞，前端保留預測／修正；SSE 短連線輪替，失敗時以 polling 補送。
 
 `skills/portrait-to-3d` 為製作人物模型的 Codex skill，不是病患端即時捏臉編輯器。網站上的角色設定仍使用已建立的角色與外觀選項。

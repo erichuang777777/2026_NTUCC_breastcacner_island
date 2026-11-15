@@ -8,7 +8,7 @@ import seed from '../webgl-prototype/education-seed.json' with {type:'json'};
 import map from '../webgl-prototype/server-assets/walkable-v22.json' with {type:'json'};
 import {createApp} from '../server/app.mjs';
 import {IslandWorld} from '../server/world.mjs';
-const dir=path.resolve(process.env.HOPE_DEV_DATA||'.netlify/hope-dev');await mkdir(dir,{recursive:true});const database=new PGlite(dir+'/postgres');await database.exec(await readFile('netlify/database/migrations/202611150001_initial.sql','utf8'));
+const dir=path.resolve(process.env.HOPE_DEV_DATA||'.netlify/hope-dev');await mkdir(dir,{recursive:true});const database=new PGlite(dir+'/postgres');for(const file of ['202611150001_initial.sql','202611150002_quiz_analytics.sql'])await database.exec(await readFile('netlify/database/migrations/'+file,'utf8'));
 let queue=Promise.resolve();const serialize=fn=>{const result=queue.then(fn);queue=result.catch(()=>{});return result;};
 const query=(s,a=[])=>database.query(s,a).then(r=>({...r,rowCount:r.affectedRows??r.rows.length}));
 const db={query:(s,a)=>serialize(()=>query(s,a)),transaction:fn=>serialize(()=>database.transaction(tx=>fn(async(s,a=[])=>{const r=await tx.query(s,a);return {...r,rowCount:r.affectedRows??r.rows.length};})))};
