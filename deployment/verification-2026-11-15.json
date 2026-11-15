@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-15",
+  "productionURL": "https://ntucc-hope-island-2026.netlify.app",
+  "commit": "73c31dae66ddc30e11eba135c8e7a3f13df18561",
+  "localTests": 27,
+  "cloudChecks": {
+    "login": true,
+    "attachment12MB": true,
+    "agentPost": true,
+    "sharedControl": true,
+    "quiz": true,
+    "sse": true,
+    "sharedWishes": true
+  },
+  "quizChecks": [
+    "four-options",
+    "answer-idempotency",
+    "per-question-accuracy",
+    "first-answer-accuracy",
+    "admin-only"
+  ],
+  "questionOne": {
+    "attempts": 3,
+    "people": 2,
+    "accuracy": 66.7,
+    "firstAccuracy": 50
+  },
+  "mobileWidth": 390,
+  "mobileOverflow": false,
+  "reducedMotion": "animation disabled; correct icon remains visible",
+  "legacyData": "kept locally by user request"
+}
