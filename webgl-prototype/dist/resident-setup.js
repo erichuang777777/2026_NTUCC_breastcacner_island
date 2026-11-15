@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import {characterStyles} from './hope-characters.js?v=21';
-import {loadAvatarLibrary,createAvatar} from './hope-avatar.js?v=22';
+import {characterStyles} from './hope-characters.js?v=22';
+import {loadAvatarLibrary,createAvatar} from './hope-avatar.js?v=23';
 
 const $=id=>document.getElementById(id),form=$('profile-form'),role=$('role'),style=$('style'),message=$('message'),list=$('profile-list');
 const canvas=$('avatar-preview'),renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1;

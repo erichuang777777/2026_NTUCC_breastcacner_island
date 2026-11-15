@@ -1,0 +1,77 @@
+{
+  "version": "director-v16",
+  "assetSHA256": "44c4887ca34259aa0a98465860130813f91fa9845c099c11c04dc11c4843248c",
+  "referenceSHA256": "7866ff37953ae0a2cab9269d6a7ed99bc48e8f90d99e1d376e45b36bbc3ac9d0",
+  "build": "component-system/hope-island-component-kit/assets/CHR-VISITOR-001/source/build_director_wu_v16.py",
+  "sourcePortrait": "director-v15",
+  "sourceBody": "director-v02",
+  "parameters": {
+    "neckCut": 0.975,
+    "neckBlendTop": 1.105,
+    "neckRadius": [
+      0.075,
+      0.074
+    ]
+  },
+  "technical": {
+    "status": "technical-pass",
+    "assetSHA256": "44c4887ca34259aa0a98465860130813f91fa9845c099c11c04dc11c4843248c",
+    "bytes": 30072988,
+    "meshes": [
+      {
+        "name": "Fitted-eye-geometry.001",
+        "triangles": 2040
+      },
+      {
+        "name": "MakeHuman-head-neck-quads.001",
+        "triangles": 34398
+      },
+      {
+        "name": "Sphere",
+        "triangles": 21760
+      },
+      {
+        "name": "detail_corneal_highlight",
+        "triangles": 864
+      },
+      {
+        "name": "scalp-with-root-collar",
+        "triangles": 13440
+      },
+      {
+        "name": "surface-following-short-groom",
+        "triangles": 134872
+      }
+    ],
+    "triangles": 207374,
+    "embeddedImages": 7,
+    "visualReview": "not-run",
+    "limits": [
+      "不檢查相似度、UV 重疊、自交或動畫品質",
+      "影像僅驗證標頭，完整解碼由瀏覽器驗證"
+    ]
+  },
+  "screenshots": [
+    "before.png",
+    "front-wave.png",
+    "side-left.png",
+    "side-right.png"
+  ],
+  "visualFindings": [
+    "主島已從 v02 改為 v15 真實五官與灰髮，整合版本 v16。",
+    "移除舊頭部與頸部，修整下頸避免研究胸像肩部露出白袍。",
+    "檢查雙側斜視與揮手畫面，頭部隨骨架且領口未見裂縫。"
+  ],
+  "limitations": [
+    "沿用 v15 側後方推估形狀與貼圖，沒有新增側面照片。",
+    "全身仍採原有可愛比例；近距離身體精細度低於頭部。",
+    "未製作表情與眼瞼動畫。"
+  ],
+  "integratedInIsland": true,
+  "visualReview": "integration-candidate",
+  "userApproval": false,
+  "observedDesktopFPS": [
+    30,
+    32
+  ]
+}

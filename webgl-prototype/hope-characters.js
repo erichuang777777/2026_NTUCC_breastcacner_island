@@ -10,7 +10,7 @@ export const characterStyles=[
 ];
 
 export const filmCharacterStyles=[
- {id:'visitor',name:'女主角・灰頭巾',description:'依微電影化療期造型：灰頭巾、深灰連帽外套。以島上可愛 3D 比例呈現。',shirt:'#35363a',pants:'#454955',hair:'#797a80',style:'scarf'},
+ {id:'visitor',name:'永晴・灰頭巾',description:'依微電影化療期造型：灰頭巾、深灰連帽外套。以島上可愛 3D 比例呈現。',shirt:'#35363a',pants:'#454955',hair:'#797a80',style:'scarf'},
  {id:'scarf',name:'阿澤・日常陪伴',description:'依阿澤參考造型：黑色短髮、深藍連帽外套、灰色內搭。',shirt:'#31394f',pants:'#5e6370',hair:'#262522',style:'short'},
  {id:'doctor',name:'林醫師・白袍眼鏡',description:'依林醫師參考造型：黑框眼鏡、白袍、淺藍襯衫與深色領帶。',shirt:'#f0f0ee',pants:'#4a505d',hair:'#282929',style:'short'},
  {id:'nurse',name:'陳護理師・深藍制服',description:'依陳護理師參考造型：束起的黑髮、深藍制服、識別證與護理錶。',shirt:'#303e6a',pants:'#303e6a',hair:'#292522',style:'ponytail'},

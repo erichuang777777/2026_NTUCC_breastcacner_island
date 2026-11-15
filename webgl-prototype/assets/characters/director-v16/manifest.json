@@ -1,0 +1,15 @@
+{
+  "version": "director-v16",
+  "portrait": "director-v15",
+  "bodyAndActions": "director-v02",
+  "integratedInIsland": true,
+  "faceAndHairUnchanged": true,
+  "oldFaceRemoved": true,
+  "neckTransition": [
+    0.975,
+    1.105
+  ],
+  "sideBackEstimated": true,
+  "bytes": 30072988,
+  "assetSHA256": "44c4887ca34259aa0a98465860130813f91fa9845c099c11c04dc11c4843248c"
+}

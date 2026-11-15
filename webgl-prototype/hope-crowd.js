@@ -2,6 +2,8 @@ import {movePredicted} from './hope-movement-prediction.js?v=24';
 import {buildWalkGrid} from './hope-navigation.js?v=19';
 import {pieces,insidePolygon,routeClearance} from './taiwan-layout.js?v=15';
 
+// Stable identities for simulated residents; participant nicknames take precedence.
+const residentNames=['美玲','志明','雅雯','佳蓉','建宏','淑芬','明哲','宜庭','秀蘭','家豪','惠如','俊傑'];
 const SEPARATION=.56,SLOT_SPACING=1.12;
 export function createCrowd({scene,allowed,spawn,makeCharacter,getPlayer,stations=[],onStationEvent=()=>{},terrain=pieces,circulation=routeClearance}){
  const grid=buildWalkGrid({pieces:terrain,allowed,spawn}),actors=[];
@@ -152,5 +154,5 @@ export function createCrowd({scene,allowed,spawn,makeCharacter,getPlayer,station
  function greet(){const p=getPlayer();for(const a of actors)if(a.activityStarted&&Math.hypot(a.x-p.x,a.z-p.z)<3){a.heading=Math.atan2(p.x-a.x,p.z-a.z);a.avatar.wave?.();}}
  const audit=()=>({count:actors.length,moving,arrivals,distance:Math.round(distance*10)/10,invalid:actors.filter(a=>!allowed(a.x,a.z,.7)).length,reachableIslands:destinations.filter(a=>a.length).length,sharedRig:true,conversations,guests:actors.filter(a=>a.guestKind==='participant').length,controlled:actors.filter(a=>a.remote).length,filmCast:actors.filter(a=>a.guestKind==='film').length,reading:actors.filter(a=>a.activityStarted).length,longestStall:+Math.max(0,...actors.map(a=>a.stall)).toFixed(2),stationSlots:stationSlots.map(s=>s.length),reserved:actors.filter(a=>a.goal!==null).length,reroutes,yields,overlaps:actors.reduce((n,a,i)=>n+actors.slice(i+1).filter(b=>Math.hypot(a.x-b.x,a.z-b.z)<SEPARATION-.001).length,0)});
  setCount(8);
- return {update,setCount,setGuests,greet,audit,grid,samples:()=>actors.map(a=>({id:a.id,name:a.guestName||null,kind:a.guestKind||'resident',controlled:!!a.remote,target:a.remote?{...a.remote}:null,x:a.x,z:a.z,heading:a.heading,travelled:a.travelled,completed:a.completed,stall:a.stall,station:a.station,goal:a.goal===null?null:grid.point(a.goal),state:a.activityStarted?'reading':a.purpose,avatar:a.avatar.audit()}))};
+ return {update,setCount,setGuests,greet,audit,grid,samples:()=>actors.map(a=>({id:a.id,name:a.guestName||residentNames[a.id],kind:a.guestKind||'resident',controlled:!!a.remote,target:a.remote?{...a.remote}:null,x:a.x,z:a.z,heading:a.heading,travelled:a.travelled,completed:a.completed,stall:a.stall,station:a.station,goal:a.goal===null?null:grid.point(a.goal),state:a.activityStarted?'reading':a.purpose,avatar:a.avatar.audit()}))};
 }

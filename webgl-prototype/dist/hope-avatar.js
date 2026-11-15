@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {clone} from 'three/addons/utils/SkeletonUtils.js';
-import {characterStyles,filmCharacterStyles} from './hope-characters.js?v=21';
+import {characterStyles,filmCharacterStyles} from './hope-characters.js?v=22';
 
 const directorSpec={id:'director_wu',name:'院長',style:'short'};
 const templates=new Map(),loads=new Map(),loader=new GLTFLoader();
 export function loadAvatarLibrary({includeFilm=false}={}){
- const groups=[{styles:characterStyles,version:'v05',kind:'resident'},...(includeFilm?[{styles:filmCharacterStyles,version:'v06',kind:'film'},{styles:[directorSpec],version:'director-v02',kind:'director'}]:[])];
+ const groups=[{styles:characterStyles,version:'v05',kind:'resident'},...(includeFilm?[{styles:filmCharacterStyles,version:'v06',kind:'film'},{styles:[directorSpec],version:'director-v16',kind:'director'}]:[])];
  return Promise.all(groups.flatMap(({styles,version,kind})=>styles.map(spec=>{
   const key=kind+':'+spec.id;
   if(!loads.has(key))loads.set(key,loader.loadAsync(`assets/characters/${version}/${spec.id}.glb`).then(gltf=>templates.set(key,gltf)).catch(error=>{loads.delete(key);throw error;}));
@@ -70,5 +70,5 @@ export function createAvatar(index=0,appearance={},options={}){
  function wave(){gesture=2.5;gestureType='wave';}
  function dispose(){mixer.stopAllAction();mixer.uncacheRoot(model);ownMaterials.forEach(m=>m.dispose());paperMaterial.dispose();coverMaterial.dispose();cover.geometry.dispose();paper.geometry.dispose();person.removeFromParent();}
  update(0);
- return {person,model,update,wave,dispose,audit:()=>({asset:options.director?'blender-director-v02':options.film?'blender-film-v06':'blender-cast-v05',kind:options.director?'director':options.film?'film':'resident',role:spec.id,style,visibleParts,appearance:{...appearance},action:current,speed:+lastSpeed.toFixed(3),bones:Object.keys(bones).length,footMarkers:soles.length,blinkBones:eyes.length,groundCorrection:model.position.y,animations:Object.keys(actions)})};
+ return {person,model,update,wave,dispose,audit:()=>({asset:options.director?'blender-director-v16':options.film?'blender-film-v06':'blender-cast-v05',kind:options.director?'director':options.film?'film':'resident',role:spec.id,style,visibleParts,appearance:{...appearance},action:current,speed:+lastSpeed.toFixed(3),bones:Object.keys(bones).length,footMarkers:soles.length,blinkBones:eyes.length,groundCorrection:model.position.y,animations:Object.keys(actions)})};
 }
