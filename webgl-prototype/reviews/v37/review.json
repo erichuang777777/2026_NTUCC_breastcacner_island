@@ -73,5 +73,23 @@
   "observedDesktopFPS": [
     30,
     32
-  ]
+  ],
+  "productionVerification": {
+    "url": "https://ntucc-hope-island-2026.netlify.app/taiwan-study.html",
+    "deploy": "6af95cf53f27637b14bd927d",
+    "commit": "558484bbedcfa14b0d6cbd9365766948c601387a",
+    "asset": "blender-director-v16",
+    "names": [
+      "永晴",
+      "阿澤",
+      "林醫師",
+      "陳護理師",
+      "王醫師",
+      "淑芬",
+      "明哲",
+      "宜庭"
+    ],
+    "screenshotLocal": "production.png",
+    "firstAssetDownloadMs": 49831.5
+  }
 }
