@@ -26,3 +26,25 @@ archive/
 # 記錄檔與 Python 快取
 *.log
 __pycache__/
+
+# 本機工具、套件、雲端憑證與部署產物
+.tools/
+.claude/
+node_modules/
+.netlify/
+public/
+.env
+.env.*
+!.env.example
+*.sqlite*
+*.db
+*.pem
+*.key
+skills/validation/
+
+# 網站實際使用資產：由 deployment/assets.json 與 build-site.mjs 管理
+!webgl-prototype/assets/characters/**/*.glb
+!webgl-prototype/assets/character-study/reference.jpg
+!webgl-prototype/assets/film-character-reference/*.webp
+!webgl-prototype/assets/poster-lighthouse-tower-v01.glb
+!webgl-prototype/assets/ntucc-blender-v07.glb

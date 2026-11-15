@@ -1,15 +1,17 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {clone} from 'three/addons/utils/SkeletonUtils.js';
-import {characterStyles} from './hope-characters.js?v=16';
+import {characterStyles,filmCharacterStyles} from './hope-characters.js?v=21';
 
-const templates=new Map(),loader=new GLTFLoader();
-let pending;
-export function loadAvatarLibrary(){
- return pending??=Promise.all(characterStyles.map(async spec=>{
-  const gltf=await loader.loadAsync(`assets/characters/v05/${spec.id}.glb`);
-  templates.set(spec.id,gltf);
- }));
+const directorSpec={id:'director_wu',name:'院長',style:'short'};
+const templates=new Map(),loads=new Map(),loader=new GLTFLoader();
+export function loadAvatarLibrary({includeFilm=false}={}){
+ const groups=[{styles:characterStyles,version:'v05',kind:'resident'},...(includeFilm?[{styles:filmCharacterStyles,version:'v06',kind:'film'},{styles:[directorSpec],version:'director-v02',kind:'director'}]:[])];
+ return Promise.all(groups.flatMap(({styles,version,kind})=>styles.map(spec=>{
+  const key=kind+':'+spec.id;
+  if(!loads.has(key))loads.set(key,loader.loadAsync(`assets/characters/${version}/${spec.id}.glb`).then(gltf=>templates.set(key,gltf)).catch(error=>{loads.delete(key);throw error;}));
+  return loads.get(key);
+ })));
 }
 const shadowCanvas=document.createElement('canvas');shadowCanvas.width=64;shadowCanvas.height=64;
 const ctx=shadowCanvas.getContext('2d'),gradient=ctx.createRadialGradient(32,32,3,32,32,31);gradient.addColorStop(0,'rgba(25,45,37,.28)');gradient.addColorStop(.5,'rgba(25,45,37,.13)');gradient.addColorStop(1,'rgba(25,45,37,0)');ctx.fillStyle=gradient;ctx.fillRect(0,0,64,64);
@@ -18,21 +20,21 @@ const shadowMaterial=new THREE.MeshBasicMaterial({map:shadowTexture,transparent:
 const solePosition=new THREE.Vector3(),actorPosition=new THREE.Vector3();
 
 export function createAvatar(index=0,appearance={},options={}){
- const spec=characterStyles[index]||characterStyles[0],template=templates.get(spec.id);
+ const styles=options.director?[directorSpec]:options.film?filmCharacterStyles:characterStyles,spec=styles[index]||styles[0],template=templates.get((options.director?'director:':options.film?'film:':'resident:')+spec.id);
  if(!template)throw new Error('角色模型尚未載入：'+spec.id);
  const person=new THREE.Group();person.name='hope-avatar-'+spec.id;
  const model=clone(template.scene);person.add(model);person.userData.sharedAvatar=true;
  const style=appearance.style||spec.style,headStyle=style==='mask'?'cap':style==='doctor'?'short':style;
- const ownMaterials=new Map(),bones={};
+ const ownMaterials=new Map(),bones={},visibleParts=[];
  model.traverse(o=>{
   if(o.isBone)bones[o.name]=o;
   // glTF material groups may be exported as child meshes under the named object.
-  if(o.name.startsWith('cast_')){const part=o.name.replace(/^cast_/, '').replace(/_\d+$/,'');o.visible=part==='body'||part===headStyle||(part==='mask'&&style==='mask');}
+  if(o.name.startsWith('cast_')){const part=o.name.replace(/^cast_/, '').replace(/_\d+$/,'');o.visible=part==='body'||part===headStyle||(part==='mask'&&style==='mask');if(o.visible)visibleParts.push(part);}
   if(!o.isMesh)return;o.castShadow=options.castShadow!==false;o.receiveShadow=false;o.frustumCulled=false;
   const recolor=m=>{
    if(ownMaterials.has(m.uuid))return ownMaterials.get(m.uuid);
    const copy=m.clone(),key=copy.name.replace(/\.\d+$/,'');
-   const color=appearance[key]||(key==='headscarf'?appearance.shirt:null);
+   const color=appearance[key]||(key==='headscarf'?(options.film?appearance.hair:appearance.shirt):null);
    if(color)copy.color.set(color);ownMaterials.set(m.uuid,copy);return copy;
   };
   o.material=Array.isArray(o.material)?o.material.map(recolor):recolor(o.material);
@@ -68,5 +70,5 @@ export function createAvatar(index=0,appearance={},options={}){
  function wave(){gesture=2.5;gestureType='wave';}
  function dispose(){mixer.stopAllAction();mixer.uncacheRoot(model);ownMaterials.forEach(m=>m.dispose());paperMaterial.dispose();coverMaterial.dispose();cover.geometry.dispose();paper.geometry.dispose();person.removeFromParent();}
  update(0);
- return {person,model,update,wave,dispose,audit:()=>({asset:'blender-cast-v05',role:spec.id,style,action:current,speed:+lastSpeed.toFixed(3),bones:Object.keys(bones).length,footMarkers:soles.length,blinkBones:eyes.length,groundCorrection:model.position.y,animations:Object.keys(actions)})};
+ return {person,model,update,wave,dispose,audit:()=>({asset:options.director?'blender-director-v02':options.film?'blender-film-v06':'blender-cast-v05',kind:options.director?'director':options.film?'film':'resident',role:spec.id,style,visibleParts,appearance:{...appearance},action:current,speed:+lastSpeed.toFixed(3),bones:Object.keys(bones).length,footMarkers:soles.length,blinkBones:eyes.length,groundCorrection:model.position.y,animations:Object.keys(actions)})};
 }

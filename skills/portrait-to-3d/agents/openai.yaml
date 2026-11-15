@@ -1,0 +1,4 @@
+interface:
+  display_name: "Portrait to 3D｜肖像捏臉"
+  short_description: "從肖像照片建立可旋轉的立體人物，修整五官、頭髮與皮膚並逐版截圖驗收"
+  default_prompt: "請使用 $portrait-to-3d，依我提供的肖像照片與現有模型修整 3D 人物，逐版比對正面與側面後提供網頁預覽。"

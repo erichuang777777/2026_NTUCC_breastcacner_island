@@ -89,11 +89,14 @@ CONTENT = None
 
 class Handler(BaseHTTPRequestHandler):
     server_version = 'HopeIsland/1.0'
+    protocol_version = 'HTTP/1.1'
+    disable_nagle_algorithm = True
 
     def log_message(self, fmt, *args):
         print('%s - %s' % (self.address_string(), fmt % args))
 
     def send_json(self, status, payload):
+        if status>=400:self.close_connection=True
         data = json.dumps(payload, ensure_ascii=False).encode('utf-8')
         self.send_response(status)
         self.send_header('Content-Type', 'application/json; charset=utf-8')

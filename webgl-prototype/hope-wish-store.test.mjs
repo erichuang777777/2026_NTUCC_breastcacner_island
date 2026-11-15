@@ -17,3 +17,6 @@ assert(failing.add('暫存願望',0,'temp'));assert.equal(failing.persistent,fal
 values.set(WISH_KEY,JSON.stringify([{id:'interrupted',text:'完成中重新載入',island:1,status:'completed'}]));
 assert.equal(createWishStore(storage).wishes[0].status,'archived','Reload must not replay completed meteors.');
 console.log('PASS: legacy import, wish lifecycle, persistence, duplicate completion and storage failure.');
+
+const strict=createWishStore({getItem:()=>null,setItem:()=>{throw Error('quota');}});
+assert.equal(strict.add('不得顯示成功',0,'strict',{requirePersistence:true}),null);assert.equal(strict.wishes.length,0);

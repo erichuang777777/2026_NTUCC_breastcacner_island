@@ -16,16 +16,23 @@ export const themes=[
 
 export function buildLandscapes({island,material,mesh,box,ball,cylinder,colliders,createCharacter,towerX,towerZ}){
  const ivory=material('architecture-ivory','#f0e6d3'),timber=material('architecture-timber','#a17c5a'),glass=material('architecture-glass','#a9c8cb',.28),brass=material('architecture-brass','#c5aa70',.4),green=material('garden-leaf','#7f9c75'),stone=material('garden-stone','#c8bfab');
- const anchors=[],npcModels=[];
+ const anchors=[],npcModels=[],nightMaterials=[];let nightAmount=0,windowCount=0;
+ const litGlass=glass.clone();litGlass.emissive.set('#ffd39a');litGlass.emissiveIntensity=0;nightMaterials.push({material:litGlass,strength:1.7});
+ const facade=ivory.clone();facade.emissive.set('#c89962');facade.emissiveIntensity=0;nightMaterials.push({material:facade,strength:.16});
+ const entryLamp=new THREE.MeshStandardMaterial({color:'#fff0ce',emissive:'#ffd08b',emissiveIntensity:0});nightMaterials.push({material:entryLamp,strength:2.1});
+ const greenhouseGlass=glass.clone();greenhouseGlass.emissive.set('#ffd39a');greenhouseGlass.emissiveIntensity=0;nightMaterials.push({material:greenhouseGlass,strength:.35});
+ const poolCanvas=document.createElement('canvas');poolCanvas.width=poolCanvas.height=64;const poolContext=poolCanvas.getContext('2d'),gradient=poolContext.createRadialGradient(32,32,0,32,32,32);gradient.addColorStop(0,'#ffffff');gradient.addColorStop(.3,'#ffffff80');gradient.addColorStop(1,'#ffffff00');poolContext.fillStyle=gradient;poolContext.fillRect(0,0,64,64);
+ const poolMaterial=new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(poolCanvas),color:'#ffd89a',transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
  function tube(parent,points,r,mat){return mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p=>new THREE.Vector3(...p))),24,r,6,false),mat,parent);}
  function arch(parent,mat,x=0,y=.6,z=0,r=.45){const o=mesh(new THREE.TorusGeometry(r,.045,8,32,Math.PI),mat,parent,x,y,z);return o;}
  function bench(parent,x,z){box(parent,timber,x,.30,z,.70,.07,.27);box(parent,timber,x,.48,z-.11,.70,.30,.045);for(const dx of [-.26,.26])box(parent,brass,x+dx,.14,z,.045,.27,.22);}
  function specialtyBuilding(parent,theme,index){
   parent.name='specialty-building-'+index;
-  const accent=material('theme-'+theme.name,theme.color),dark=material('architecture-ink','#52676b');
-  const volume=(x,y,z,w,h,d,mat=ivory)=>box(parent,mat,x,y,z,w,h,d,.055);
+  const accent=material('theme-'+theme.name,theme.color).clone(),dark=material('architecture-ink','#52676b');
+  accent.emissive.set(theme.color);accent.emissiveIntensity=0;nightMaterials.push({material:accent,strength:.24});
+  const volume=(x,y,z,w,h,d,mat=facade)=>box(parent,mat,x,y,z,w,h,d,.055);
   const ring=(x,y,z,r,thickness,mat=accent)=>mesh(new THREE.TorusGeometry(r,thickness,10,48),mat,parent,x,y,z);
-  const window=(x,y,z,w=.25,h=.40)=>{volume(x,y,z,w+.045,h+.045,.045,timber);volume(x,y,z+.027,w,h,.018,glass);volume(x,y,z+.04,.018,h,.02,ivory);};
+  const window=(x,y,z,w=.25,h=.40)=>{windowCount++;volume(x,y,z,w+.045,h+.045,.045,timber);volume(x,y,z+.027,w,h,.018,litGlass);volume(x,y,z+.04,.018,h,.02,facade);};
   const dome=(x,y,z,r,sy,mat)=>{const d=mesh(new THREE.SphereGeometry(r,28,16,0,Math.PI*2,0,Math.PI/2),mat,parent,x,y,z);d.scale.y=sy;return d;};
   const roof=(x,y,z,w,d)=>{const shape=new THREE.Shape();shape.moveTo(-w/2,0);shape.lineTo(0,w*.42);shape.lineTo(w/2,0);shape.closePath();mesh(new THREE.ExtrudeGeometry(shape,{depth:d,bevelEnabled:true,bevelSize:.02,bevelThickness:.02,bevelSegments:1,steps:1}),accent,parent,x,y,z-d/2);};
   // Shared entrance details, but each department has its own massing and roof silhouette.
@@ -36,11 +43,11 @@ export function buildLandscapes({island,material,mesh,box,ball,cylinder,collider
    const scope=new THREE.Group();scope.position.set(.33,1.80,-.03);scope.scale.setScalar(.95);parent.add(scope);feature(scope,'microscope',accent);
    for(const x of [-.61,-.34,-.07])window(x,.82,.55,.17,.53);
    for(const y of [.62,1.18])window(.42,y,.43,.35,.32);
-   for(let k=0;k<3;k++)volume(-.35,1.46+k*.07,0,.62,.035,.38,k%2?glass:ivory);
+   for(let k=0;k<3;k++)volume(-.35,1.46+k*.07,0,.62,.035,.38,k%2?litGlass:facade);
   }else if(index===1){
-   cylinder(parent,ivory,0,.65,0,.73,.73,1.20,48);cylinder(parent,accent,0,1.29,0,.82,.82,.12,48);
+   cylinder(parent,facade,0,.65,0,.73,.73,1.20,48);cylinder(parent,accent,0,1.29,0,.82,.82,.12,48);
    ring(0,1.97,0,.72,.16);ring(0,1.97,-.12,.81,.035,brass);ring(0,1.97,.13,.46,.035,brass);
-   for(let k=0;k<8;k++){const a=k*Math.PI/4;const fin=volume(Math.sin(a)*.65,1.97+Math.cos(a)*.65,0,.06,.16,.30,ivory);fin.rotation.z=-a;}
+   for(let k=0;k<8;k++){const a=k*Math.PI/4;const fin=volume(Math.sin(a)*.65,1.97+Math.cos(a)*.65,0,.06,.16,.30,facade);fin.rotation.z=-a;}
    for(const x of [-.48,.48])window(x,.76,.56,.19,.56);
    volume(0,1.02,.71,.57,.09,.28,accent);
   }else if(index===2){
@@ -57,27 +64,27 @@ export function buildLandscapes({island,material,mesh,box,ball,cylinder,collider
    volume(-.35,1.64,-.12,.68,.69,.73);volume(-.35,2.01,-.12,.78,.09,.83,accent);
    for(const x of [-.5,.5])window(x,.73,.57,.27,.48);
    ring(-.35,1.69,.27,.23,.035,brass);volume(-.35,1.69,.29,.28,.065,.025,accent);volume(-.35,1.69,.29,.065,.28,.025,accent);
-   for(let k=0;k<4;k++)volume(.12+k*.16,1.34,-.20,.045,.10,.72,ivory);
+   for(let k=0;k<4;k++)volume(.12+k*.16,1.34,-.20,.045,.10,.72,facade);
    arch(parent,accent,0,.48,.65,.48);for(const x of [-.48,.48])volume(x,.29,.65,.08,.57,.09,accent);
   }else if(index===4){
-   for(const x of [-.42,.42]){cylinder(parent,ivory,x,.67,0,.42,.42,1.22,36);dome(x,1.3,0,.47,.65,accent);window(x,.80,.43,.26,.45);}
+   for(const x of [-.42,.42]){cylinder(parent,facade,x,.67,0,.42,.42,1.22,36);dome(x,1.3,0,.47,.65,accent);window(x,.80,.43,.26,.45);}
    volume(0,.57,-.25,.35,1.0,.64);const ribbon=new THREE.Group();ribbon.position.set(0,1.55,0);parent.add(ribbon);feature(ribbon,'ribbon',accent);
    tube(parent,[[-.85,1.05,.44],[-.43,1.34,.61],[0,1.14,.69],[.43,1.34,.61],[.85,1.05,.44]],.055,brass);
   }else if(index===5){
-   cylinder(parent,ivory,0,.62,0,.74,.74,1.13,48);dome(0,1.19,0,.83,.78,accent);
+   cylinder(parent,facade,0,.62,0,.74,.74,1.13,48);dome(0,1.19,0,.83,.78,accent);
    for(let k=0;k<6;k++){const a=k*Math.PI/3;const arc=ring(0,1.82,0,.57,.025,brass);arc.rotation.set(.8,a,.3);}
    ball(parent,brass,0,1.83,0,.14);for(const x of [-.50,.50])window(x,.74,.56,.20,.45);
-   for(let k=0;k<7;k++){const a=k*Math.PI/6;ball(parent,ivory,Math.cos(a)*.67,1.2+Math.sin(a)*.56,.25,.045);}
+   for(let k=0;k<7;k++){const a=k*Math.PI/6;ball(parent,facade,Math.cos(a)*.67,1.2+Math.sin(a)*.56,.25,.045);}
   }else if(index===6){
    volume(0,.67,0,1.35,1.22,1.05);roof(0,1.3,0,1.53,1.18);
    const heart=new THREE.Group();heart.position.set(0,1.79,0);heart.scale.setScalar(.9);parent.add(heart);feature(heart,'heart',accent);
    volume(0,1.08,.56,1.12,.24,.05,dark);
-   tube(parent,[[-.48,1.08,.60],[-.28,1.08,.60],[-.19,1.15,.60],[-.1,.99,.60],[0,1.20,.60],[.12,1.07,.60],[.48,1.07,.60]],.018,ivory);
+   tube(parent,[[-.48,1.08,.60],[-.28,1.08,.60],[-.19,1.15,.60],[-.1,.99,.60],[0,1.20,.60],[.12,1.07,.60],[.48,1.07,.60]],.018,facade);
    for(const x of [-.46,.46])window(x,.65,.55,.22,.36);
   }else if(index===7){
    volume(-.27,.65,0,.88,1.18,1.04);roof(-.27,1.26,0,1.02,1.18);
    volume(.5,.45,.05,.54,.78,.90);roof(.5,.86,.05,.67,1.02);
-   cylinder(parent,ivory,-.27,1.80,0,.20,.23,.26,32);const clock=ring(-.27,1.79,.23,.14,.025,timber);volume(-.27,1.83,.25,.015,.09,.02,dark);volume(-.23,1.79,.25,.09,.015,.02,dark);
+   cylinder(parent,facade,-.27,1.80,0,.20,.23,.26,32);const clock=ring(-.27,1.79,.23,.14,.025,timber);volume(-.27,1.83,.25,.015,.09,.02,dark);volume(-.23,1.79,.25,.09,.015,.02,dark);
    window(-.49,.76,.55,.23,.37);window(.51,.53,.53,.25,.33);
    for(const x of [-.65,.1])volume(x,.42,.72,.05,.8,.05,timber);volume(-.27,.87,.69,.93,.10,.35,accent);
    volume(.5,1.27,-.22,.16,.48,.19,timber);
@@ -87,14 +94,16 @@ export function buildLandscapes({island,material,mesh,box,ball,cylinder,collider
    for(let k=0;k<3;k++)volume(-.48+k*.16,.10+k*.08,.68,.16,.16+k*.16,.23,stone);
    for(const x of [-.72,.72])tube(parent,[[x,.25,.72],[x,.72,.72],[x,.72,.25]],.028,accent);
   }else{
-   cylinder(parent,ivory,0,.34,0,.78,.78,.58,48);dome(0,.63,0,.82,1.42,glass);
-   for(let k=0;k<8;k++){const a=k*Math.PI/4,pts=[];for(let j=0;j<=16;j++){const t=j*Math.PI/32;pts.push([Math.cos(a)*.83*Math.cos(t),.63+1.18*Math.sin(t),Math.sin(a)*.83*Math.cos(t)]);}tube(parent,pts,.025,ivory);}
+   cylinder(parent,facade,0,.34,0,.78,.78,.58,48);dome(0,.63,0,.82,1.42,greenhouseGlass);
+   for(let k=0;k<8;k++){const a=k*Math.PI/4,pts=[];for(let j=0;j<=16;j++){const t=j*Math.PI/32;pts.push([Math.cos(a)*.83*Math.cos(t),.63+1.18*Math.sin(t),Math.sin(a)*.83*Math.cos(t)]);}tube(parent,pts,.025,facade);}
    for(let k=0;k<8;k++){const a=k*Math.PI/4;const petal=ball(parent,accent,Math.cos(a)*.55,1.61,Math.sin(a)*.55,.23,.035,.12);petal.rotation.y=-a;}
    const seed=new THREE.Group();seed.position.set(0,1.82,0);seed.scale.setScalar(.8);parent.add(seed);feature(seed,'sprout',green);
    for(const x of [-.49,.49])ball(parent,green,x,.52,.35,.17,.24,.17);
   }
+  for(const x of [-.55,.55]){box(parent,timber,x,.83,.85,.08,.24,.08);ball(parent,entryLamp,x,.91,.88,.07,.10,.07);}
+  const pool=mesh(new THREE.CircleGeometry(.62,32),poolMaterial,parent,0,.122,1.02);pool.rotation.x=-Math.PI/2;pool.scale.set(1,.65,1);pool.castShadow=false;pool.receiveShadow=false;
   // A readable department plaque belongs to the facade rather than floating over the island.
-  volume(0,.42,.76,.34,.66,.06,timber);volume(0,.44,.80,.26,.54,.025,glass);ball(parent,brass,.10,.4,.83,.025);
+  volume(0,.42,.76,.34,.66,.06,timber);volume(0,.44,.80,.26,.54,.025,litGlass);ball(parent,brass,.10,.4,.83,.025);
   volume(0,.93,.76,1.24,.26,.10,accent);
   const canvas=document.createElement('canvas');canvas.width=512;canvas.height=112;
   const ctx=canvas.getContext('2d');ctx.fillStyle='#fff9e8';ctx.font='600 58px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(theme.name,256,56);
@@ -157,5 +166,6 @@ export function buildLandscapes({island,material,mesh,box,ball,cylinder,collider
  // Follow the actual coastline with surf and intermittent rounded boulders.
  const surfPoints=coastline.map(([x,z])=>new THREE.Vector3(x,-.52,z));const surf=mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(surfPoints,true),600,.025,4,true),material('surf','#d7ece3'),island);surf.castShadow=false;
  for(let i=0;i<coastline.length-1;i+=4){const [x,z]=coastline[i],o=mesh(new THREE.DodecahedronGeometry(.11+(i%3)*.035,1),stone,island,x,-.14,z);o.scale.set(1,.7,.8);o.rotation.set(i*.17,i*.4,0);}
- return {anchors,npcModels};
+ function setNightAmount(value){nightAmount=Math.max(0,Math.min(1,value));nightMaterials.forEach(({material,strength})=>material.emissiveIntensity=strength*nightAmount);poolMaterial.opacity=.22*nightAmount;}
+ return {anchors,npcModels,setNightAmount,audit:()=>({buildings:anchors.length,litBuildings:nightAmount>.1?anchors.length:0,windows:windowCount,entranceLamps:anchors.length*2,nightAmount})};
 }

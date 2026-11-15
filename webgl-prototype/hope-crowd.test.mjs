@@ -50,3 +50,36 @@ test('smoothed routes leave space around curved obstacles rather than grazing th
   }
  }
 });
+
+test('unique film residents stay separate from configurable participant models',()=>{
+ const builds=[];
+ const crowd=createCrowd({scene:{add(){}},allowed:(x,z)=>Math.abs(x)<6.8&&Math.abs(z)<6.8,terrain,circulation:()=>2,spawn:[-5,-5],getPlayer:()=>({x:40,z:40}),stations:[{name:'測試站',point:[0,0],scale:1}],makeCharacter:(role,appearance={},options={})=>{builds.push({role,appearance,options});return {...avatar(),audit:()=>({role,appearance,kind:options.film?'film':'resident'})};}});
+ const cast=['visitor','scarf','doctor','nurse','surgeon'].map((role,i)=>({id:'film-'+role,displayName:'專屬人物 '+i,role,kind:'film',appearance:{}}));
+ const participant={id:'participant',role:'nurse',displayName:'自訂島民',appearance:{style:'bob',shirt:'#a95771',pants:'#303e6a',hair:'#292522',skin:'#edc6a7'}};
+ const profiles=[...cast,participant];crowd.setGuests(profiles);
+ assert.equal(crowd.audit().filmCast,5);assert.equal(crowd.audit().guests,1);
+ assert.equal(new Set(crowd.samples().filter(a=>a.kind==='film').map(a=>a.name)).size,5);
+ assert.deepEqual(crowd.samples().find(a=>a.name==='自訂島民').avatar,{role:3,appearance:participant.appearance,kind:'resident'});
+ const count=builds.length;crowd.setGuests(profiles);assert.equal(builds.length,count,'polling must not duplicate or rebuild unchanged characters');
+ crowd.setCount(6);crowd.setGuests(profiles);assert.equal(crowd.audit().filmCast,5);
+ crowd.setCount(12);crowd.setGuests(profiles);assert.equal(crowd.audit().filmCast,5);assert.equal(crowd.audit().guests,1);
+});
+
+test('phone-controlled actors follow shared positions without rebuilding models or resuming NPC routes',()=>{
+ let builds=0;
+ const crowd=createCrowd({scene:{add(){}},allowed:(x,z)=>Math.abs(x)<6.8&&Math.abs(z)<6.8,terrain,circulation:()=>2,spawn:[-5,-5],getPlayer:()=>({x:40,z:40}),stations:[{name:'測試站',point:[0,0],scale:1}],makeCharacter:()=>{builds++;return avatar();}});
+ const guest={id:'controlled',role:'visitor',displayName:'手機島民',appearance:{},position:{x:-4,z:-4,heading:0,sequence:1}};
+ crowd.setGuests([guest]);const count=builds;crowd.setGuests([{...guest,position:{x:-3.6,z:-4,heading:Math.PI/2,sequence:2}}]);assert.equal(builds,count);
+ for(let i=0;i<30;i++)crowd.update(.05,i*.05,false);
+ const actor=crowd.samples()[0];assert.equal(actor.controlled,true);assert.ok(Math.abs(actor.x+3.6)<.001);assert.ok(Math.abs(actor.z+4)<.001);assert.equal(actor.goal,null);
+ crowd.setGuests([{...guest,position:null}]);crowd.update(.05,2,false);assert.equal(crowd.samples()[0].controlled,false);assert.equal(crowd.audit().controlled,0);
+});
+
+test('remote motion predicts briefly, stops at the limit and applies a stop packet immediately',()=>{
+ const crowd=createCrowd({scene:{add(){}},allowed:(x,z)=>Math.abs(x)<6.8&&Math.abs(z)<6.8,terrain,circulation:()=>2,spawn:[-5,-5],getPlayer:()=>({x:40,z:40}),stations:[{name:'測試站',point:[0,0],scale:1}],makeCharacter:avatar});
+ const guest={id:'phone',role:'visitor',appearance:{},position:{x:-4,z:-4,heading:Math.PI/2,sequence:1,dx:1,dz:0}};
+ crowd.setGuests([guest]);for(let i=0;i<60;i++)crowd.update(.05,i*.05,false);
+ const predicted=crowd.samples()[0];assert.ok(predicted.x>-4&&predicted.x<=-3.76+1e-8);
+ crowd.setGuests([guest]);crowd.update(.05,4,false);assert.ok(Math.abs(crowd.samples()[0].x-predicted.x)<1e-8,'heartbeat must not restart prediction');
+ crowd.setGuests([{...guest,position:{...guest.position,x:-3.9,sequence:2,dx:0}}]);crowd.update(.016,4.016,false);assert.equal(crowd.samples()[0].x,-3.9);
+});

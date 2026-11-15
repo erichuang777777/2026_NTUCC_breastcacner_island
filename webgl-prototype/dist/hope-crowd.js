@@ -1,3 +1,4 @@
+import {movePredicted} from './hope-movement-prediction.js?v=24';
 import {buildWalkGrid} from './hope-navigation.js?v=19';
 import {pieces,insidePolygon,routeClearance} from './taiwan-layout.js?v=15';
 
@@ -84,7 +85,7 @@ export function createCrowd({scene,allowed,spawn,makeCharacter,getPlayer,station
  function draw(dt){
   for(const a of actors){const person=a.avatar.person;person.position.set(a.x,.7,a.z);
    const turn=Math.atan2(Math.sin(a.heading-person.rotation.y),Math.cos(a.heading-person.rotation.y));person.rotation.y+=turn*Math.min(1,dt*9);
-   a.avatar.update(dt,a.frameDistance/Math.max(dt,.001),a.socialTimer>0?a.socialAction:a.activityStarted?'reading':'idle',a.id*.63);
+   a.avatar.update(dt,a.frameDistance/Math.max(dt,.001),a.socialTimer>0?a.socialAction:a.activityStarted?(a.wait<3&&a.id%3===0?'stretch':'reading'):'idle',a.id*.63);
   }
  }
  function update(dt,t,render=true){
@@ -92,6 +93,12 @@ export function createCrowd({scene,allowed,spawn,makeCharacter,getPlayer,station
   dt=Math.min(.1,Math.max(0,dt));moving=0;
   for(const a of actors){
    a.frameDistance=0;a.walking=false;
+   if(a.remote){
+    const before=[a.x,a.z];a.remoteAge=(a.remoteAge||0)+dt;
+    const input={dx:a.remote.dx||0,dz:a.remote.dz||0},target=movePredicted(a.remote,input,Math.min(.12,a.remoteAge),(x,z)=>allowed(x,z,.7),actors.filter(b=>b!==a&&b.remote).map(b=>b.remote));
+    const alpha=input.dx===0&&input.dz===0?1:1-Math.exp(-40*dt);a.x+=(target.x-a.x)*alpha;a.z+=(target.z-a.z)*alpha;a.heading=a.remote.heading;
+    a.frameDistance=gap(before,[a.x,a.z]);a.walking=a.frameDistance>.001;if(a.walking)moving++;a.stall=0;continue;
+   }
    a.socialCooldown=Math.max(0,(a.socialCooldown||0)-dt);
    if(a.socialTimer>0){a.socialTimer-=dt;continue;}
    if(a.activityStarted){
@@ -130,17 +137,20 @@ export function createCrowd({scene,allowed,spawn,makeCharacter,getPlayer,station
  }
  function setGuests(profiles){
   for(let i=0;i<actors.length;i++){
-   const a=actors[i],guest=profiles[i],signature=guest?JSON.stringify(guest):'';
+   const a=actors[i],guest=profiles[i],signature=guest?JSON.stringify({...guest,position:undefined}):'';
+   const wasRemote=!!a.remote,samePerson=a.guestId===guest?.id;if(a.remote?.sequence!==guest?.position?.sequence||!samePerson)a.remoteAge=0;a.remote=guest?.position||null;a.guestId=guest?.id;
+   if(a.remote){a.goal=null;a.path=[];a.activityStarted=false;a.socialTimer=0;if(!wasRemote||!samePerson){a.x=a.remote.x;a.z=a.remote.z;}}
+   else if(wasRemote){a.goal=null;a.retry=0;a.purpose='station';}
    if(a.guestSignature===signature)continue;
    if(!guest&&!a.guestSignature){a.guestSignature='';continue;}
    const role=guest?Math.max(0,['visitor','scarf','doctor','nurse','surgeon','scrub'].indexOf(guest.role)):a.role;
-   a.avatar.dispose();a.avatar=makeCharacter(role,guest?.appearance||{});scene.add(a.avatar.person);a.guestSignature=signature;a.guestName=guest?.displayName||'';
+   a.avatar.dispose();a.avatar=makeCharacter(role,guest?.appearance||{}, {film:guest?.kind==='film'});scene.add(a.avatar.person);a.guestSignature=signature;a.guestName=guest?.displayName||'';a.guestKind=guest?.kind==='film'?'film':guest?'participant':null;
    if(guest?.completed)a.avatar.wave?.();
   }
   draw(0);
  }
  function greet(){const p=getPlayer();for(const a of actors)if(a.activityStarted&&Math.hypot(a.x-p.x,a.z-p.z)<3){a.heading=Math.atan2(p.x-a.x,p.z-a.z);a.avatar.wave?.();}}
- const audit=()=>({count:actors.length,moving,arrivals,distance:Math.round(distance*10)/10,invalid:actors.filter(a=>!allowed(a.x,a.z,.7)).length,reachableIslands:destinations.filter(a=>a.length).length,sharedRig:true,conversations,guests:actors.filter(a=>a.guestName).length,reading:actors.filter(a=>a.activityStarted).length,longestStall:+Math.max(0,...actors.map(a=>a.stall)).toFixed(2),stationSlots:stationSlots.map(s=>s.length),reserved:actors.filter(a=>a.goal!==null).length,reroutes,yields,overlaps:actors.reduce((n,a,i)=>n+actors.slice(i+1).filter(b=>Math.hypot(a.x-b.x,a.z-b.z)<SEPARATION-.001).length,0)});
+ const audit=()=>({count:actors.length,moving,arrivals,distance:Math.round(distance*10)/10,invalid:actors.filter(a=>!allowed(a.x,a.z,.7)).length,reachableIslands:destinations.filter(a=>a.length).length,sharedRig:true,conversations,guests:actors.filter(a=>a.guestKind==='participant').length,controlled:actors.filter(a=>a.remote).length,filmCast:actors.filter(a=>a.guestKind==='film').length,reading:actors.filter(a=>a.activityStarted).length,longestStall:+Math.max(0,...actors.map(a=>a.stall)).toFixed(2),stationSlots:stationSlots.map(s=>s.length),reserved:actors.filter(a=>a.goal!==null).length,reroutes,yields,overlaps:actors.reduce((n,a,i)=>n+actors.slice(i+1).filter(b=>Math.hypot(a.x-b.x,a.z-b.z)<SEPARATION-.001).length,0)});
  setCount(8);
- return {update,setCount,setGuests,greet,audit,grid,samples:()=>actors.map(a=>({id:a.id,name:a.guestName||null,x:a.x,z:a.z,heading:a.heading,travelled:a.travelled,completed:a.completed,stall:a.stall,station:a.station,goal:a.goal===null?null:grid.point(a.goal),state:a.activityStarted?'reading':a.purpose,avatar:a.avatar.audit()}))};
+ return {update,setCount,setGuests,greet,audit,grid,samples:()=>actors.map(a=>({id:a.id,name:a.guestName||null,kind:a.guestKind||'resident',controlled:!!a.remote,target:a.remote?{...a.remote}:null,x:a.x,z:a.z,heading:a.heading,travelled:a.travelled,completed:a.completed,stall:a.stall,station:a.station,goal:a.goal===null?null:grid.point(a.goal),state:a.activityStarted?'reading':a.purpose,avatar:a.avatar.audit()}))};
 }

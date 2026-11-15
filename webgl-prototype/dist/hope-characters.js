@@ -9,6 +9,14 @@ export const characterStyles=[
  {id:'scrub',name:'護理師・刷手服與口罩',description:'約 20–30 歲的手術室護理師情境角色；綠色刷手服、手術帽與口罩。',shirt:'#39756b',pants:'#39756b',hair:'#654738',style:'mask'}
 ];
 
+export const filmCharacterStyles=[
+ {id:'visitor',name:'女主角・灰頭巾',description:'依微電影化療期造型：灰頭巾、深灰連帽外套。以島上可愛 3D 比例呈現。',shirt:'#35363a',pants:'#454955',hair:'#797a80',style:'scarf'},
+ {id:'scarf',name:'阿澤・日常陪伴',description:'依阿澤參考造型：黑色短髮、深藍連帽外套、灰色內搭。',shirt:'#31394f',pants:'#5e6370',hair:'#262522',style:'short'},
+ {id:'doctor',name:'林醫師・白袍眼鏡',description:'依林醫師參考造型：黑框眼鏡、白袍、淺藍襯衫與深色領帶。',shirt:'#f0f0ee',pants:'#4a505d',hair:'#282929',style:'short'},
+ {id:'nurse',name:'陳護理師・深藍制服',description:'依陳護理師參考造型：束起的黑髮、深藍制服、識別證與護理錶。',shirt:'#303e6a',pants:'#303e6a',hair:'#292522',style:'ponytail'},
+ {id:'surgeon',name:'王醫師・白袍眼鏡',description:'依王醫師參考造型：灰黑短髮、金屬框眼鏡、白袍與深藍內搭。',shirt:'#eff0ee',pants:'#3b4050',hair:'#464546',style:'short'},
+];
+
 export function createCharacter(index,{material,ball,box,mesh,cylinder},appearance={}){
  const base=characterStyles[index],spec={...base,...appearance,id:base.id},person=new THREE.Group(),body=new THREE.Group(),head=new THREE.Group(),limbs=[];
  person.name='hope-character-'+spec.id;body.name='body';head.name='head';person.add(body);head.position.y=1.15;body.add(head);

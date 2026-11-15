@@ -1,0 +1,3 @@
+import {readFile,readdir} from 'node:fs/promises';
+import {database} from '../server/database.mjs';
+const db=database();await db.transaction(async q=>{await q('SELECT pg_advisory_xact_lock(20971113)');await q('CREATE TABLE IF NOT EXISTS hope_migrations(name TEXT PRIMARY KEY, applied_at TIMESTAMPTZ NOT NULL DEFAULT now())');for(const file of (await readdir('netlify/database/migrations')).filter(f=>f.endsWith('.sql')).sort()){if((await q('SELECT name FROM hope_migrations WHERE name=$1',[file])).rows.length)continue;await q(await readFile('netlify/database/migrations/'+file,'utf8'));await q('INSERT INTO hope_migrations(name) VALUES($1)',[file]);console.log('Applied',file);}});process.exit(0);
